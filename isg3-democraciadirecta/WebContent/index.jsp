@@ -7,7 +7,8 @@
 <title>Democracia Directa</title>
 </head>
 <body>
-Página de inicio<br>
-Tu navegador es <%= request.getHeader("user-agent") %>
+	<div>
+		<p>Página de prueba</p>
+	</div>
 </body>
 </html>
