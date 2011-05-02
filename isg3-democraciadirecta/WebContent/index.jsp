@@ -8,7 +8,11 @@
 </head>
 <body>
 	<div>
-		<p>Página de prueba</p>
+		<p>
+		Página de inicio
+		<br>
+		<a href="addpropuestaley.jsp">Añadir propuesta de ley</a>
+		</p>
 	</div>
 </body>
 </html>
