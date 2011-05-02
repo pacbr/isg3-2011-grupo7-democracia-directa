@@ -26,4 +26,9 @@ public class PropuestaProcessor implements IPropuestaProcessor{
 		return tagDAO.selectAll();
 	}
 
+	@Override
+	public Tag mostrarTag(String idTag) {
+		return tagDAO.select(idTag);
+	}
+
 }
