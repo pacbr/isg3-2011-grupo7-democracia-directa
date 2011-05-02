@@ -12,7 +12,8 @@ import domain.Tag;
 public class JDBCTagDAO implements ITagDAO{
 
 	@Override
-	public Tag select(Connection con, Integer idTag) {
+	public Tag select(String idTag) {
+		Connection con = ConnectionManager.getInstance().checkOut();
         String sql = "SELECT * FROM tag WHERE (id = ? ) ";
         PreparedStatement stmt = null;
         ResultSet result = null;
@@ -20,12 +21,13 @@ public class JDBCTagDAO implements ITagDAO{
 
         try {
             stmt = con.prepareStatement(sql);
-            stmt.setInt(1, idTag);
+            stmt.setString(1, idTag);
 
             result = stmt.executeQuery();
 
             result.next();
             t = new Tag();
+            t.setId(idTag);
             t.setNombre(result.getString("nombre"));
         } catch (SQLException e) {
             System.out.println("Message: " + e.getMessage());
@@ -59,6 +61,7 @@ public class JDBCTagDAO implements ITagDAO{
             result = stmt.executeQuery();
             while (result.next()) {
             	Tag temp = new Tag();
+            	temp.setId(result.getString("id"));
 	            temp.setNombre(result.getString("nombre"));
 	            lista.add(temp);
             }

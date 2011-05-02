@@ -2,7 +2,7 @@ package domain;
 
 public class Tag {
 	
-	private Integer id;
+	private String id;
 	private String nombre;
 	
 	public String getNombre() {
@@ -11,8 +11,12 @@ public class Tag {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public Integer getId() {
+	public String getId() {
 		return id;
+	}
+	
+	public void setId(String id) {
+		this.id = id;
 	}
 
 }
