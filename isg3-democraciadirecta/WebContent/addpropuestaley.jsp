@@ -8,12 +8,12 @@
 </head>
 <body>
 	<%
+	IPropuestaProcessor pp = new PropuestaProcessor();
 	String tag = request.getParameter("tag");
 	if (tag != null && !tag.equals("0")) {
 	%>
 	<div>
 		<% 
-		IPropuestaProcessor pp = new PropuestaProcessor();
 		Tag t = pp.mostrarTag(tag);
 		out.println(t.getNombre()); 
 		%>	
@@ -27,7 +27,6 @@
 			<select name="tag">
 				<option selected="selected" value="0">Escoge tag</option>
 				<%
-				IPropuestaProcessor pp = new PropuestaProcessor();
 				for (Tag t : pp.mostrarTags()) {
 				%>
 				<option value="<% out.println(t.getId()); %>"><% out.println(t.getNombre()); %></option>
