@@ -3,11 +3,14 @@ package domain;
 import java.util.List;
 
 import data.ITagDAO;
+import data.IUsuarioDAO;
 import data.JDBCTagDAO;
+import data.JDBCUsuarioDAO;
 
 public class PropuestaProcessor implements IPropuestaProcessor{
 
 	private ITagDAO tagDAO = new JDBCTagDAO();
+	private IUsuarioDAO usuarioDAO = new JDBCUsuarioDAO();
 	
 	@Override
 	public boolean cancelPropuesta(String idPropuesta) {
@@ -29,6 +32,11 @@ public class PropuestaProcessor implements IPropuestaProcessor{
 	@Override
 	public Tag mostrarTag(String idTag) {
 		return tagDAO.select(idTag);
+	}
+	
+	@Override
+	public Usuario seleccionaUsuario(String idUsuario) {
+		return usuarioDAO.select(idUsuario);
 	}
 
 }
