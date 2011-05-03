@@ -7,4 +7,5 @@ public interface IPropuestaProcessor {
 	boolean addPropuesta(Propuesta p);
 	List<Tag> mostrarTags();
 	Tag mostrarTag(String idTag);
+	Usuario seleccionaUsuario(String idUsuario);
 }

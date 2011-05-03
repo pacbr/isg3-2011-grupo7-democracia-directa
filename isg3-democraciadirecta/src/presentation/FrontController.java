@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import data.IUsuarioDAO;
+import data.JDBCUsuarioDAO;
 import domain.Usuario;
 
 /**
@@ -18,8 +20,7 @@ import domain.Usuario;
 public class FrontController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	String user = "practica";
-	String passwd = "practica";
+	private IUsuarioDAO usuarioDAO = new JDBCUsuarioDAO();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -66,9 +67,6 @@ public class FrontController extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		String userForm = request.getParameter("user");
 		String passwdForm = request.getParameter("passwd");
-		Usuario u = new Usuario();
-		u.setNick(userForm);
-		u.setPassword(passwdForm);
 		if (session == null) {
 			session = request.getSession();
 			if (userForm == null || passwdForm == null
@@ -77,6 +75,7 @@ public class FrontController extends HttpServlet {
 			} else {
 				if (valido(userForm, passwdForm)) {
 					logado = true;
+					Usuario u = usuarioDAO.select(userForm, passwdForm);
 					session.setAttribute("dd.usuario", u);
 				} else {
 					logado = false;
@@ -88,6 +87,7 @@ public class FrontController extends HttpServlet {
 			} else {
 				if (valido(userForm, passwdForm)) {
 					logado = true;
+					Usuario u = usuarioDAO.select(userForm, passwdForm);
 					session.setAttribute("dd.usuario", u);
 				} else {
 					logado = false;
@@ -98,9 +98,7 @@ public class FrontController extends HttpServlet {
 	}
 
 	public boolean valido(String userForm, String passwdForm) {
-		boolean res = false;
-		res = (userForm.equals(this.user) && passwdForm.equals(this.passwd));
-		return res;
+		return usuarioDAO.valida(userForm, passwdForm);
 
 	}
 }

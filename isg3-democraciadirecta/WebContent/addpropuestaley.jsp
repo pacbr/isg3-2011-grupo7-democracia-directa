@@ -36,15 +36,15 @@
 		%>
 	<div>
 		<% 
-			Tag t = pp.mostrarTag(tag);
-			out.println(t.getNombre()); 
+			Usuario u = pp.seleccionaUsuario(idUsuario);
+			out.println(u.getNombre()); 
 			%>
 	</div>
 	<%
 		} else {
 		%>
 	<div>
-		<form action="addpropuestaley.jsp" method="post">
+		<form action="FrontController?res=addpropuestaley.jsp" method="post">
 			<label for="nombre">Nombre</label> <input type="text" id="nombre"
 				name="nombre"> <br> <label for="tag">Tag</label> <select
 				id="tag" name="tag">
