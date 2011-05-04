@@ -36,8 +36,12 @@
 		%>
 	<div>
 		<% 
-			Usuario u = pp.seleccionaUsuario(idUsuario);
-			out.println(u.getNombre()); 
+			List<Ley> lista = pp.mostrarLeyes(tag); 
+			for (Ley l : lista) {
+			%>
+				<p><% out.println(l.getNombre()); %> -&gt; <% out.println(l.getDescripcion()); %></p> 
+			<%
+			}
 			%>
 	</div>
 	<%

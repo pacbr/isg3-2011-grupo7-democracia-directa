@@ -2,14 +2,17 @@ package domain;
 
 import java.util.List;
 
+import data.ILeyDAO;
 import data.ITagDAO;
 import data.IUsuarioDAO;
+import data.JDBCLeyDAO;
 import data.JDBCTagDAO;
 import data.JDBCUsuarioDAO;
 
 public class PropuestaProcessor implements IPropuestaProcessor{
 
 	private ITagDAO tagDAO = new JDBCTagDAO();
+	private ILeyDAO leyDAO = new JDBCLeyDAO();
 	private IUsuarioDAO usuarioDAO = new JDBCUsuarioDAO();
 	
 	@Override
@@ -37,6 +40,11 @@ public class PropuestaProcessor implements IPropuestaProcessor{
 	@Override
 	public Usuario seleccionaUsuario(String idUsuario) {
 		return usuarioDAO.select(idUsuario);
+	}
+	
+	@Override
+	public List<Ley> mostrarLeyes(String idTag) {
+		return leyDAO.selectByTag(idTag);
 	}
 
 }

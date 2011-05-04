@@ -8,4 +8,5 @@ public interface IPropuestaProcessor {
 	List<Tag> mostrarTags();
 	Tag mostrarTag(String idTag);
 	Usuario seleccionaUsuario(String idUsuario);
+	List<Ley> mostrarLeyes(String idTag);
 }
