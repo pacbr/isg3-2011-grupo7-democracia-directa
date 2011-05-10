@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.List;
+
 public class Usuario {
 	
 	private String id;
@@ -7,6 +9,7 @@ public class Usuario {
 	private String password;
 	private String email;
 	private String nombre;
+	private List<Tag> newsletter;
 	
 	public String getId() {
 		return id;
@@ -47,5 +50,7 @@ public class Usuario {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	
+	
 	
 }
