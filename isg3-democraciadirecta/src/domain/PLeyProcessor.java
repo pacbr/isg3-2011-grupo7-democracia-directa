@@ -22,15 +22,15 @@ public class PLeyProcessor implements IPLeyProcessor{
 			Integer coincidencias = 0;
 			for (Tag t : p.getTags()) {
 				for (Tag t1 : p1.getTags()) {
-					if (t.equals(t1)) {
+					if (t1.equals(t)) {
 						coincidencias++;
 					}
 				}
 			}
-			Double key = (double) (coincidencias/p.getTags().size());
+			Double key = (double)coincidencias/p.getTags().size();
 			//Penalización
 			if (p1.getTags().size() > coincidencias) {
-				key = key - (p1.getTags().size()-coincidencias/100);
+				key = key - ((double)(p1.getTags().size()-coincidencias)/100);
 			}
 			mapa.put(p1, key);
 		}

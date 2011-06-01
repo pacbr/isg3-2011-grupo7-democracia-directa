@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import domain.PLey;
@@ -80,11 +79,10 @@ public class JDBCPLeyDAO implements IPLeyDAO{
         String sql = "SELECT * FROM pleyes";
         PreparedStatement stmt = null;
         ResultSet result = null;
-        List<PLey> lista = new LinkedList<PLey>();
+        List<PLey> lista = new ArrayList<PLey>();
 
         try {
             stmt = con.prepareStatement(sql);
-            stmt.setString(1, "");
             result = stmt.executeQuery();
             while (result.next()) {
 	            String[] campos = result.getString("tags").split(";");
@@ -97,14 +95,16 @@ public class JDBCPLeyDAO implements IPLeyDAO{
 	            }
 	            for (Tag t : tags) {
 	            	for (Tag t1 : tags1) {
-	            		if (t.equals(t1)) {
+	            		if (t1.equals(t)) {
 	            			PLey temp = new PLey();
 	            			temp.setId(result.getString("id"));
 	            			temp.setNombre(result.getString("nombre"));
 	            			temp.setDescripcion(result.getString("descripcion"));
-	            			temp.setUsuario(usuarioDAO.select(result.getString("usuario")));
+	            			temp.setUsuario(usuarioDAO.select(result.getString("idUsuario")));
 	            			temp.setTags(tags1);
-	            			lista.add(temp);
+	            			if (!lista.contains(temp)) {
+	            				lista.add(temp);
+	            			}
 	            			break;
 	            		}
 	            	}

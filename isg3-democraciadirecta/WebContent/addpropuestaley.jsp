@@ -48,11 +48,11 @@
  		p.setTags(tags);
  		p.setDescripcion(descripcion);
  		p.setUsuario(usuario);
-		Map<PLey,Integer> mapa = pp.obtenerCoincidencias(p); 
+		Map<PLey,Double> mapa = pp.obtenerCoincidencias(p);
 		for (PLey l : mapa.keySet()) {
 		%>
 			<p>
-			<% out.println(l.getNombre()); %> -&gt; <% out.println(mapa.get(l)); %>
+			<% out.println(l.getNombre()); %> -&gt; <% out.println(mapa.get(l)*100+"% de coincidencia de Tags."); %>
 			</p> 
 		<%
 		}
