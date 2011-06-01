@@ -14,7 +14,7 @@ public class JDBCTagDAO implements ITagDAO{
 	@Override
 	public Tag select(String idTag) {
 		Connection con = ConnectionManager.getInstance().checkOut();
-        String sql = "SELECT * FROM tag WHERE (id = ? ) ";
+        String sql = "SELECT * FROM tags WHERE (id = ? ) ";
         PreparedStatement stmt = null;
         ResultSet result = null;
         Tag t = null;
@@ -51,7 +51,7 @@ public class JDBCTagDAO implements ITagDAO{
 	@Override
 	public List<Tag> selectAll() {
 		Connection con = ConnectionManager.getInstance().checkOut();
-        String sql = "SELECT * FROM tag";
+        String sql = "SELECT * FROM tags";
         PreparedStatement stmt = null;
         ResultSet result = null;
         List<Tag> lista = new LinkedList<Tag>();
