@@ -1,6 +1,6 @@
 package domain;
 
-public class Ley {
+public class PLey {
 
 	private String id;
 	private String nombre;
