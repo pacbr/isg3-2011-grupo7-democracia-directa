@@ -7,24 +7,25 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-import domain.Ley;
+import domain.PLey;
+import domain.Tag;
 
-public class JDBCLeyDAO implements ILeyDAO{
+public class JDBCPLeyDAO implements IPLeyDAO{
 	
 	@Override
-	public List<Ley> selectByTag(String idTag){
+	public List<PLey> getPLeyesByTags(List<Tag> tags) {
 		Connection con = ConnectionManager.getInstance().checkOut();
-        String sql = "SELECT * FROM leyes WHERE (idtag = ?)";
+        String sql = "SELECT * FROM pleyes WHERE (tag = ?)";
         PreparedStatement stmt = null;
         ResultSet result = null;
-        List<Ley> lista = new LinkedList<Ley>();
+        List<PLey> lista = new LinkedList<PLey>();
 
         try {
             stmt = con.prepareStatement(sql);
-            stmt.setString(1, idTag);
+            stmt.setString(1, "");
             result = stmt.executeQuery();
             while (result.next()) {
-            	Ley temp = new Ley();
+            	PLey temp = new PLey();
             	temp.setId(result.getString("id"));
 	            temp.setNombre(result.getString("nombre"));
 	            temp.setIdTag(result.getString("idTag"));
@@ -48,6 +49,12 @@ public class JDBCLeyDAO implements ILeyDAO{
         }
 
         return lista;
+	}
+
+	@Override
+	public boolean voto(PLey e) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }

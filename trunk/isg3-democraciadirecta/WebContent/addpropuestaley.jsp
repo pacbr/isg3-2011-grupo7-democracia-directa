@@ -27,18 +27,18 @@
 		}
 		%>
 	<%
-		IPropuestaProcessor pp = new PropuestaProcessor();
+		IPLeyProcessor pp = new PLeyProcessor();
 		String nombre = request.getParameter("nombre");
 		String tag = request.getParameter("tag");
 		String descripcion = request.getParameter("descripcion");
 		String idUsuario = request.getParameter("idUsuario");
 		if (validaForm(nombre, tag, descripcion, idUsuario)) {
-		%>
+	%>
 	<div>
-		<% 
-			List<Ley> lista = pp.mostrarLeyes(tag); 
-			for (Ley l : lista) {
-			%>
+		<%
+			List<PLey> lista = pp.mostrarLeyes(tag); 
+			for (PLey l : lista) {
+		%>
 				<p><% out.println(l.getNombre()); %> -&gt; <% out.println(l.getDescripcion()); %></p> 
 			<%
 			}
