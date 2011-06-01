@@ -9,5 +9,6 @@ public interface IPLeyDAO {
 
 	List<PLey> getPLeyesByTags(List<Tag> tags);
 	boolean voto(PLey e);
+	List<PLey> selectAll();
 	
 }
