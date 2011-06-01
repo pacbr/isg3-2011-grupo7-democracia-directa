@@ -1,11 +1,14 @@
 package domain;
 
+import java.util.List;
+
 public class PLey {
 
 	private String id;
 	private String nombre;
-	private String idTag;
+	private List<Tag> tags;
 	private String descripcion;
+	private Usuario usuario;
 	
 	public String getId() {
 		return id;
@@ -23,12 +26,12 @@ public class PLey {
 		this.nombre = nombre;
 	}
 	
-	public String getIdTag() {
-		return idTag;
+	public List<Tag> getTags() {
+		return tags;
 	}
 	
-	public void setIdTag(String idTag) {
-		this.idTag = idTag;
+	public void setTags(List<Tag> tags) {
+		this.tags = tags;
 	}
 	
 	public String getDescripcion() {
@@ -37,6 +40,14 @@ public class PLey {
 	
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	
 }
