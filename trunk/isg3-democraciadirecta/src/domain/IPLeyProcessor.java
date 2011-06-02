@@ -6,6 +6,6 @@ import java.util.Map;
 public interface IPLeyProcessor {
 	List<Tag> obtenerTags();
 	Tag obtenerTagPorId(String idTag);
-	Map<PLey, Double> obtenerCoincidencias(PLey p);
+	Map<PLey, String> obtenerCoincidencias(PLey p);
 	boolean insertaPLey(PLey p);
 }

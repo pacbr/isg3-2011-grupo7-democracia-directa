@@ -50,7 +50,13 @@ public class Usuario {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
-	
+
+	public void setNewsletter(List<Tag> newsletter) {
+		this.newsletter = newsletter;
+	}
+
+	public List<Tag> getNewsletter() {
+		return newsletter;
+	}
 	
 }
