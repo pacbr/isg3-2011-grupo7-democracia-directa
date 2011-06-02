@@ -9,7 +9,7 @@ public class Usuario {
 	private String password;
 	private String email;
 	private String nombre;
-	private List<Tag> newsletter;
+	private List<Tag> userTags;
 	
 	public String getId() {
 		return id;
@@ -51,12 +51,12 @@ public class Usuario {
 		this.nombre = nombre;
 	}
 
-	public void setNewsletter(List<Tag> newsletter) {
-		this.newsletter = newsletter;
+	public void setUserTags(List<Tag> userTags) {
+		this.userTags = userTags;
 	}
 
-	public List<Tag> getNewsletter() {
-		return newsletter;
+	public List<Tag> getUserTags() {
+		return userTags;
 	}
 	
 }
