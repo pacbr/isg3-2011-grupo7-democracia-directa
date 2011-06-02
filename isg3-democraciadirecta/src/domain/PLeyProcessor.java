@@ -1,5 +1,6 @@
 package domain;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,8 +16,8 @@ public class PLeyProcessor implements IPLeyProcessor{
 	private IPLeyDAO pleyDAO = new JDBCPLeyDAO();
 	
 	@Override
-	public Map<PLey, Double> obtenerCoincidencias(PLey p) {
-		Map<PLey, Double> mapa = new HashMap<PLey, Double>();
+	public Map<PLey, String> obtenerCoincidencias(PLey p) {
+		Map<PLey, String> mapa = new HashMap<PLey, String>();
 		List<PLey> lista = pleyDAO.getPLeyesByTags(p.getTags());
 		for (PLey p1 : lista) {
 			Integer coincidencias = 0;
@@ -27,12 +28,17 @@ public class PLeyProcessor implements IPLeyProcessor{
 					}
 				}
 			}
-			Double key = (double)coincidencias/p.getTags().size();
-			//Penalización
-			if (p1.getTags().size() > coincidencias) {
-				key = key - ((double)(p1.getTags().size()-coincidencias)/100);
+			Double key = 0.0;
+			if (p1.getTags().size() <= p.getTags().size()) {
+				key = (double)coincidencias/p.getTags().size();
+			} else if (p1.getTags().size() > p.getTags().size()) {
+				key = (double)coincidencias/p1.getTags().size();
 			}
-			mapa.put(p1, key);
+			key = key*100;
+			DecimalFormat df = new DecimalFormat();
+			df.setMaximumFractionDigits(0);
+			String porcentaje = df.format(key);
+			mapa.put(p1, porcentaje);
 		}
 		return mapa;
 	}
