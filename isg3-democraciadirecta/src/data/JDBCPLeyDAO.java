@@ -42,7 +42,9 @@ public class JDBCPLeyDAO implements IPLeyDAO{
             	temp.setId(result.getString("id"));
 	            temp.setNombre(result.getString("nombre"));
 	            temp.setDescripcion(result.getString("descripcion"));
-	            temp.setUsuario(usuarioDAO.select(result.getString("usuario")));
+	            temp.setUsuario(usuarioDAO.select(result.getString("idUsuario")));
+	            temp.setVotos(result.getInt("Votos"));
+	            temp.setActiva(result.getBoolean("Activa"));
 	            String[] campos = result.getString("tags").split(";");
 	            List<Tag> tags = new ArrayList<Tag>();
 	            for (String s : campos) {
@@ -102,6 +104,8 @@ public class JDBCPLeyDAO implements IPLeyDAO{
 	            			temp.setNombre(result.getString("nombre"));
 	            			temp.setDescripcion(result.getString("descripcion"));
 	            			temp.setUsuario(usuarioDAO.select(result.getString("idUsuario")));
+	        	            temp.setVotos(result.getInt("Votos"));
+	        	            temp.setActiva(result.getBoolean("Activa"));
 	            			temp.setTags(tags1);
 	            			if (!lista.contains(temp)) {
 	            				lista.add(temp);
@@ -143,11 +147,11 @@ public class JDBCPLeyDAO implements IPLeyDAO{
             result = stmt.executeQuery();
             while (result.next()) {
             	String[] campos = result.getString("tags").split(";");
-	            List<Tag> tags1 = new ArrayList<Tag>();
+	            List<Tag> tags = new ArrayList<Tag>();
 	            for (String s : campos) {
 	            	if (s != "") {
 	            		Tag t = tagDAO.select(s);
-	            		tags1.add(t);
+	            		tags.add(t);
 	            	}
 	            }
 	            String idUserActual = result.getString("idUsuario");
@@ -157,7 +161,9 @@ public class JDBCPLeyDAO implements IPLeyDAO{
         			temp.setNombre(result.getString("nombre"));
         			temp.setDescripcion(result.getString("descripcion"));
         			temp.setUsuario(usuarioDAO.select(result.getString("idUsuario")));
-        			temp.setTags(tags1);
+    	            temp.setVotos(result.getInt("Votos"));
+    	            temp.setActiva(result.getBoolean("Activa"));
+        			temp.setTags(tags);
         			if (!lista.contains(temp)) {
         				lista.add(temp);
         			}
@@ -195,11 +201,11 @@ public class JDBCPLeyDAO implements IPLeyDAO{
             result = stmt.executeQuery();
             while (result.next()) {
             	String[] campos = result.getString("tags").split(";");
-	            List<Tag> tags1 = new ArrayList<Tag>();
+	            List<Tag> tags = new ArrayList<Tag>();
 	            for (String s : campos) {
 	            	if (s != "") {
 	            		Tag t = tagDAO.select(s);
-	            		tags1.add(t);
+	            		tags.add(t);
 	            	}
 	            }
 	            String idUserActual = result.getString("idUsuario");
@@ -209,7 +215,9 @@ public class JDBCPLeyDAO implements IPLeyDAO{
         			temp.setNombre(result.getString("nombre"));
         			temp.setDescripcion(result.getString("descripcion"));
         			temp.setUsuario(usuarioDAO.select(result.getString("idUsuario")));
-        			temp.setTags(tags1);
+        			temp.setVotos(result.getInt("Votos"));
+    	            temp.setActiva(result.getBoolean("Activa"));
+        			temp.setTags(tags);
         			if (!lista.contains(temp)) {
         				lista.add(temp);
         			}
@@ -247,11 +255,11 @@ public class JDBCPLeyDAO implements IPLeyDAO{
             result = stmt.executeQuery();
             while (result.next()) {
             	String[] campos = result.getString("tags").split(";");
-	            List<Tag> tags1 = new ArrayList<Tag>();
+	            List<Tag> tags = new ArrayList<Tag>();
 	            for (String s : campos) {
 	            	if (s != "") {
 	            		Tag t = tagDAO.select(s);
-	            		tags1.add(t);
+	            		tags.add(t);
 	            	}
 	            }
 	            String idUserActual = result.getString("idUsuario");
@@ -261,7 +269,9 @@ public class JDBCPLeyDAO implements IPLeyDAO{
         			temp.setNombre(result.getString("nombre"));
         			temp.setDescripcion(result.getString("descripcion"));
         			temp.setUsuario(usuarioDAO.select(result.getString("idUsuario")));
-        			temp.setTags(tags1);
+        			temp.setVotos(result.getInt("Votos"));
+    	            temp.setActiva(result.getBoolean("Activa"));
+        			temp.setTags(tags);
         			if (!lista.contains(temp)) {
         				lista.add(temp);
         			}
