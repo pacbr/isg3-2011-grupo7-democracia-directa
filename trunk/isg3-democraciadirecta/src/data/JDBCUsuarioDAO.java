@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import domain.Tag;
@@ -49,6 +50,54 @@ public class JDBCUsuarioDAO implements IUsuarioDAO{
         }
 
         return u;
+	}
+	
+	public List<Usuario> selectAll() {
+		Connection con = ConnectionManager.getInstance().checkOut();
+		ITagDAO tagDAO = new JDBCTagDAO();
+		String sql = "SELECT * FROM usuarios";
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        List<Usuario> lista = new ArrayList<Usuario>();
+
+        try {
+            stmt = con.prepareStatement(sql);
+            result = stmt.executeQuery();
+            while (result.next()) {
+            	Usuario temp = new Usuario();
+            	temp.setId(result.getString("id"));
+	            temp.setNick(result.getString("nick"));
+	            temp.setPassword(result.getString("password"));
+	            temp.setEmail(result.getString("email"));
+	            temp.setNombre(result.getString("nombre"));
+	            String[] campos = result.getString("tagsfav").split(";");
+	            List<Tag> tags = new ArrayList<Tag>();
+	            for (String s : campos) {
+	            	if (s != "") {
+	            		Tag t = tagDAO.select(s);
+	            		tags.add(t);
+	            	}
+	            }
+	            temp.setUserTags(tags);
+	            lista.add(temp);
+            }
+        } catch (SQLException e) {
+            System.out.println("Message: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("ErrorCode: " + e.getErrorCode());
+        } finally {
+            try {
+                if (result != null) {
+                    result.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException e) {
+            }
+        }
+
+        return lista;
 	}
 	
 	@Override
