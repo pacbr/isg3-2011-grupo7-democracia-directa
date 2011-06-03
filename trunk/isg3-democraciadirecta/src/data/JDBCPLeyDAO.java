@@ -9,6 +9,7 @@ import java.util.List;
 
 import domain.PLey;
 import domain.Tag;
+import domain.Usuario;
 
 public class JDBCPLeyDAO implements IPLeyDAO{
 	
@@ -129,6 +130,58 @@ public class JDBCPLeyDAO implements IPLeyDAO{
         return lista;
 	}
 
+	public List<PLey> getPLeyesByUser(Usuario user) {
+		Connection con = ConnectionManager.getInstance().checkOut();
+		
+        String sql = "SELECT * FROM pleyes";
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        List<PLey> lista = new ArrayList<PLey>();
+
+        try {
+            stmt = con.prepareStatement(sql);
+            result = stmt.executeQuery();
+            while (result.next()) {
+            	String[] campos = result.getString("tags").split(";");
+	            List<Tag> tags1 = new ArrayList<Tag>();
+	            for (String s : campos) {
+	            	if (s != "") {
+	            		Tag t = tagDAO.select(s);
+	            		tags1.add(t);
+	            	}
+	            }
+	            String idUserActual = result.getString("idUsuario");
+	            if(idUserActual.equals(user.getId())){
+	            	PLey temp = new PLey();
+        			temp.setId(result.getString("id"));
+        			temp.setNombre(result.getString("nombre"));
+        			temp.setDescripcion(result.getString("descripcion"));
+        			temp.setUsuario(usuarioDAO.select(result.getString("idUsuario")));
+        			temp.setTags(tags1);
+        			if (!lista.contains(temp)) {
+        				lista.add(temp);
+        			}
+	            }
+            }
+        } catch (SQLException e) {
+            System.out.println("Message: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("ErrorCode: " + e.getErrorCode());
+        } finally {
+            try {
+                if (result != null) {
+                    result.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException e) {
+            }
+        }
+
+        return lista;
+	}
+	
 	@Override
 	public boolean voto(PLey e) {
 		// TODO Auto-generated method stub
