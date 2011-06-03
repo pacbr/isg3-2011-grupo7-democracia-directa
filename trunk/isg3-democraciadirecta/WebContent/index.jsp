@@ -45,6 +45,9 @@ contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 			Hola <% out.println(u.getNick()); %> <br> <a href="FrontController?res=addpropuestaley.jsp">Añadir
 				propuesta de ley</a>
 		</p>
+		<p>
+			<a href="FrontController?res=userTags.jsp">Modifica tus tags favoritos</a>
+		</p>
 	<%
 	}
 	%>
