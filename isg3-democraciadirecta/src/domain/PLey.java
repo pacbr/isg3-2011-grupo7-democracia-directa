@@ -9,6 +9,8 @@ public class PLey {
 	private List<Tag> tags;
 	private String descripcion;
 	private Usuario usuario;
+	private Integer votos;
+	private boolean activa;
 	
 	public String getId() {
 		return id;
@@ -49,7 +51,16 @@ public class PLey {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+	
+	public Integer getVotos() {
+		return votos;
+	}
 
+	public void setVotos(Integer votos) {
+		this.votos = votos;
+	}
+
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -79,6 +90,14 @@ public class PLey {
 		} else if (!nombre.equals(other.nombre))
 			return false;
 		return true;
+	}
+
+	public void setActiva(boolean activa) {
+		this.activa = activa;
+	}
+
+	public boolean isActiva() {
+		return activa;
 	}
 	
 }

@@ -10,6 +10,8 @@ public interface IPLeyDAO {
 
 	List<PLey> getPLeyesByTags(List<Tag> tags);
 	List<PLey> getPLeyesByUser(Usuario user);
+	List<PLey> getPLeyesActivasByUser(Usuario user);
+	List<PLey> getPLeyesNoActivasByUser(Usuario user);
 	boolean voto(PLey e);
 	List<PLey> selectAll();
 	
