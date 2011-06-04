@@ -49,7 +49,7 @@ contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 			<a href="FrontController?res=userTags.jsp">Modifica tus tags favoritos</a>
 		</p>
 		<p>
-			<a href="FrontController?res=pleyesInteresantes2.jsp">Propuestas de ley más interesantes en estos momentos</a>
+			<a href="FrontController?res=pleyesInteresantes.jsp">Propuestas de ley más interesantes en estos momentos</a>
 		</p>
 	<%
 	}

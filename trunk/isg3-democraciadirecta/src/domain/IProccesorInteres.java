@@ -1,9 +1,11 @@
 package domain;
 
 import java.util.List;
-import java.util.Map;
+import java.util.SortedMap;
 
 public interface IProccesorInteres {
 	List<Usuario> getUsers();
-	Map<PLey,Integer> getPleysInteresantesByUser(Usuario user);
+	SortedMap<Integer, List<PLey>> getPleysInteresantesByUser(Usuario user);
+	Integer getInteresByUser(Usuario user);
+	List<PLey> getPleysNoActivasByUser(Usuario user);
 }
