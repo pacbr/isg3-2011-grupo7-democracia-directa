@@ -8,4 +8,5 @@ public interface IPLeyProcessor {
 	Tag obtenerTagPorId(String idTag);
 	Map<PLey, String> obtenerCoincidencias(PLey p);
 	boolean insertaPLey(PLey p);
+	PLey obtenerPLeyPorId(String id);
 }

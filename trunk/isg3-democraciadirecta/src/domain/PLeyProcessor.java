@@ -55,5 +55,9 @@ public class PLeyProcessor implements IPLeyProcessor{
 	public Tag obtenerTagPorId(String idTag) {
 		return tagDAO.select(idTag);
 	}
-
+	@Override
+	public PLey obtenerPLeyPorId(String id) {
+		return pleyDAO.select(id);
+	}
+	
 }

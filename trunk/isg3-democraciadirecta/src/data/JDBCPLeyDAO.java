@@ -301,5 +301,56 @@ public class JDBCPLeyDAO implements IPLeyDAO{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public PLey select(String idPley) {
+		Connection con = ConnectionManager.getInstance().checkOut();
+		
+        String sql = "SELECT * FROM pleyes WHERE (id = ?)";
+        PreparedStatement stmt = null;
+        ResultSet result = null;
+        PLey pley = null;
+
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, idPley);
+            result = stmt.executeQuery();
+            
+            result.next();
+            pley = new PLey();
+            pley.setId(idPley);
+            pley.setNombre(result.getString("nombre"));
+            pley.setDescripcion(result.getString("descripcion"));
+            pley.setUsuario(usuarioDAO.select(result.getString("idUsuario")));
+			pley.setVotos(result.getInt("Votos"));
+            pley.setActiva(result.getBoolean("Activa"));
+            String[] campos = result.getString("tags").split(";");
+	        List<Tag> tags = new ArrayList<Tag>();
+	        for (String s : campos) {
+	        	if (s != "") {
+	        		Tag t = tagDAO.select(s);
+	        		tags.add(t);
+	            }
+	        }
+	        pley.setTags(tags);
+	        
+        } catch (SQLException e) {
+            System.out.println("Message: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("ErrorCode: " + e.getErrorCode());
+        } finally {
+            try {
+                if (result != null) {
+                    result.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException e) {
+            }
+        }
+
+        return pley;
+	}
 	
 }

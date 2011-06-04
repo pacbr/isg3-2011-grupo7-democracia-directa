@@ -14,5 +14,6 @@ public interface IPLeyDAO {
 	List<PLey> getPLeyesNoActivasByUser(Usuario user);
 	boolean voto(PLey e);
 	List<PLey> selectAll();
+	PLey select(String idPley);
 	
 }
