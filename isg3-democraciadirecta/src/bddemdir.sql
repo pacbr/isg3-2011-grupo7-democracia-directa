@@ -42,10 +42,26 @@ CREATE TABLE IF NOT EXISTS `pleyes` (
 
 INSERT INTO `pleyes` (`id`, `nombre`, `tags`, `descripcion`, `idUsuario`, `Votos`, `Activa`) VALUES
 (1, 'No a los toros', '3;', 'Prohibici—n de las corridas de toros en Espa–a.', 1, 0, 'true'),
-(2, 'çrbitros con bigote', '2;', 'Expulsi—n definitiva de todos los ‡rbitros con bigote de las federaciones deportivas espa–olas.', 1, 0, 'true'),
-(3, 'Museos gratis para j—venes', '2;3;', 'Reforma que permita la entrada gratuita a todos los museos del estado a aquellos individuos menores de 26 a–os.', 1, 0, 'true'),
+(2, 'Arbitros con bigote', '2;', 'Expulsi—n definitiva de todos los ‡rbitros con bigote de las federaciones deportivas espa–olas.', 1, 0, 'true'),
+(3, 'Museos gratis para jovenes', '2;3;', 'Reforma que permita la entrada gratuita a todos los museos del estado a aquellos individuos menores de 26 a–os.', 1, 0, 'true'),
 (4, 'Reforma agraria del pepino', '8;12;', 'Reforma agraria para favorecer el cultivo del pepino.', 2, 0, 'true'),
-(6, 'Derogaci—n de la ley Sinde', '7;11;', 'A la mierda con la ley.', 3, 0, 'true');
+(5, 'Proteccion a ciudadanos de los mossos d-escuadra', '17;', 'Si algun mosso d-escuadra se pasa de violencia en sus actuaciones, se le eliminaran el casco, proteccion y defensa en sus proximas intervenciones con manifestantes. Tendran que defenderse con las manos.', 3, 0, 'true'),
+(6, 'Derogacion de la ley Sinde', '7;11;', 'A la mierda con la ley.', 3, 0, 'true'),
+(7, 'Derogacion ley de reproduccion asistida', '4;16;', 'No a la inseminación artificial (IA), la fecundación in vitro (FIV), con transferencia de embriones (TE), y la transferencia intratubárica de gametos (TIG)', 4, 150, 'true'),
+(8, 'Apoyo a Ciencia, Tecnologia e Innovacion', '4;9;19;', 'La generación de conocimiento en todos los ámbitos, su difusión y su aplicación para la obtención de un beneficio social o económico', 5, 56, 'true'),
+(9, 'Ley de bosques', '3;6;', 'No a la tala indiscriminada de bosques.', 1, 87, 'true'),
+(10, 'Amparo de mujeres maltratadas', '15;16;17;', 'Protección a las maltratadas y muerte a los maltratadores.', 3, 121, 'true'),
+(11, 'Stop inmigrantes rumanos chavolistas', '12;15;18;', 'Control del paso de inmigrantes rumanos que lleguen con toda la familia, una cabra, y en furgoneta.', 2, 1321, 'false'),
+(12, 'Ley de inmigracion y extranjeria', '12;15;18;', 'Proteccion a inmigrantes explotados por empresarios del campo.', 5, 51, 'true'),
+(13, 'Igualdad en el trabajo', '12;15;', 'Igualdad en funciones y sueldos independientemente del sexo.', 3, 566, 'true'),
+(14, 'ELIMINACION DE LOS PRIVILEGIOS DE LA CLASE POLITICA', '15;11;20;', 'Control estricto del absentismo de los cargos electos en sus respectivos puestos. Sanciones específicas por dejación de funciones.', 5, 1123, 'true'),
+(15, 'CONTRA EL DESEMPLEO', '11;12;', 'Reparto del trabajo fomentando las reducciones de jornada y la conciliación laboral hasta acabar con el desempleo estructural.', 5, 234, 'false'),
+(16, 'DERECHO A LA VIVIENDA', '15;16;', 'Expropiación por el Estado de las viviendas construidas en stock que no se han vendido para colocarlas en el mercado en régimen de alquiler protegido.', 5, 657, 'true'),
+(17, 'SERVICIOS PUBLICOS DE CALIDAD', '10;11;12', 'Supresión de gastos inútiles en las Administraciones Públicas y establecimiento de un control independiente de presupuestos y gastos.', 5, 97, 'false'),
+(18, 'CONTROL DE LAS ENTIDADES BANCARIAS', '11;', 'Prohibición de cualquier tipo de rescate o inyección de capital a entidades bancarias: aquellas entidades en dificultades deben quebrar o ser nacionalizadas para constituir una banca pública bajo control social.', 5, 0, 'true'),
+(19, 'FISCALIDAD', '11;', 'Aumento del tipo impositivo a las grandes fortunas y entidades bancarias.', 5, 748, 'true'),
+(20, 'LIBERTADES CIUDADANAS Y DEMOCRACIA PARTICIPATIVA', '15;20;', 'Modificación de la Ley Electoral para garantizar un sistema auténticamente representativo y proporcional que no discrimine a ninguna fuerza política.', 5, 110, 'true'),
+(21, 'REDUCCION DEL GASTO MILITAR', '17;11;', 'Reduccion del gasto militar.', 5, 556, 'true');
 
 -- --------------------------------------------------------
 
@@ -68,17 +84,22 @@ INSERT INTO `tags` (`id`, `nombre`) VALUES
 (2, 'Juventud'),
 (3, 'Cultura'),
 (4, 'Ciencia'),
-(5, 'Energ’a'),
+(5, 'Energia'),
 (6, 'Medio Ambiente'),
 (7, 'Internet'),
 (8, 'Agricultura'),
-(9, 'Innovaci—n'),
-(10, 'Educaci—n'),
-(11, 'Econom’a'),
+(9, 'Innovacion'),
+(10, 'Educacion'),
+(11, 'Economia'),
 (12, 'Empleo'),
 (13, 'Comercio'),
 (14, 'Industria'),
-(15, 'Igualdad');
+(15, 'Igualdad'),
+(16, 'Familia'),
+(17, 'Violencia'),
+(18, 'Inmigracion'),
+(19, 'Tecnologia'),
+(20, 'Politica');
 
 -- --------------------------------------------------------
 
