@@ -12,17 +12,17 @@
 	PLey pley;
 	pley = pp.obtenerPLeyPorId(request.getParameter("idPLey"));
 	%>
-	<table summary ="Listado de Productos" cellSpacing="1" cellPadding="6" width="770" align="center" border="0">
+	<table summary ="PLey" cellSpacing="1" cellPadding="6" width="770" align="center" border="0">
 	<tr valign ="middle" align="center">
-		<td id = "colchones" colspan="6"><b><%out.println(pley.getNombre()); %></b></td>
+		<td id = "nombre" colspan="6"><b><%out.println(pley.getNombre()); %></b></td>
 	</tr>
 	<tr valign ="middle" align="center" id="cabecera">
 	<td>&nbsp;</td><td><em>Descripción</em></td><td><em>Usuario</em></td><td><em>Votos</em></td>
-	<tr align="center" id="productos">
+	<tr align="center" id="descripcion">
 				<td></td>	<td> <%out.println(pley.getDescripcion());%> </td>	<td> <%out.println(pley.getUsuario().getNombre()); %></td>	<td> <%out.println(pley.getVotos()); %></td>
 				
 	</tr>
-		<tr align="center" id="productos">
+		<tr align="center" id="votar">
 				<td></td>	<td> <form action="" method="post">
 				<div>
 				<input type="submit" value="VOTAR"> </td>	
