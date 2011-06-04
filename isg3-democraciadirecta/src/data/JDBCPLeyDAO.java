@@ -245,7 +245,7 @@ public class JDBCPLeyDAO implements IPLeyDAO{
 	public List<PLey> getPLeyesNoActivasByUser(Usuario user) {
 		Connection con = ConnectionManager.getInstance().checkOut();
 		
-        String sql = "SELECT * FROM pleyes WHERE (Activa = false)";
+        String sql = "SELECT * FROM pleyes WHERE (Activa != true)";
         PreparedStatement stmt = null;
         ResultSet result = null;
         List<PLey> lista = new ArrayList<PLey>();
