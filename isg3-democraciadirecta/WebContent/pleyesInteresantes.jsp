@@ -54,14 +54,17 @@
 				Integer interesPLey;
 				int contador = 1;
 				while(!smapaFinal.isEmpty()){
-					
-				
-				//for(Integer interesPLey:smapaFinal.keySet()){
+								
 					interesPLey = smapaFinal.lastKey();
 					for(PLey p:smapaFinal.remove(smapaFinal.lastKey())){
 						%><p>
-						<b><%out.println(contador+":: ");%></b>
-						<%out.println(interesPLey+":"+p.getNombre()+" ("+p.getVotos()+" votos). Usuario: "+p.getUsuario().getNick());
+						<b><%out.println(contador+":: ");%></b><%
+						out.println(interesPLey);
+						%>
+						<a href="FrontController?res=muestraPLey.jsp?idPLey=<%=p.getId() %>"><%out.println(p.getNombre());%></a><%
+						session.setAttribute("id",p.getId());
+						
+						out.println(" ("+p.getVotos()+" votos). Usuario: "+p.getUsuario().getNick());
 						%></p><%
 					contador++;
 						}
