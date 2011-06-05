@@ -12,6 +12,7 @@
 	session.invalidate(); %>
 	<p><b>Deslogueado correctamente.</b></p>
 		Redireccionando a la página de inicio...
+	<% //response.sendRedirect("http://localhost:8080/democraciadirecta/"); %>
 	
 </body>
 </html>
