@@ -42,14 +42,18 @@ contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 		Usuario u = (Usuario)session.getAttribute("dd.usuario");
 	%>
 		<p>
-			Hola <% out.println(u.getNick()); %> <br> <a href="FrontController?res=addpropuestaley.jsp">Añadir
-				propuesta de ley</a>
+			Hola <% out.println(u.getNick()); %> <a href="FrontController?res=logOut.jsp">Cerrar Sesion</a> 
+			<br> 
+			<a href="FrontController?res=addpropuestaley.jsp">Añadir propuesta de ley</a>
+			
 		</p>
+		
 		<p>
 			<a href="FrontController?res=userTags.jsp">Modifica tus tags favoritos</a>
 		</p>
 		<p>
 			<a href="FrontController?res=pleyesInteresantes.jsp">Propuestas de ley más interesantes en estos momentos</a>
+
 		</p>
 	<%
 	}
