@@ -12,27 +12,33 @@
 	PLey pley;
 	pley = pp.obtenerPLeyPorId(request.getParameter("idPLey"));
 	%>
-	<table summary ="PLey" cellSpacing="1" cellPadding="6" width="770" align="center" border="0">
-	<tr valign ="middle" align="center">
-		<td id = "nombre" colspan="6"><b><%out.println(pley.getNombre()); %></b></td>
-	</tr>
-	<tr valign ="middle" align="center" id="cabecera">
-	<td>&nbsp;</td><td><em>Descripción</em></td><td><em>Usuario</em></td><td><em>Votos</em></td>
-	<tr align="center" id="descripcion">
-				<td></td>	<td> <%out.println(pley.getDescripcion());%> </td>	<td> <%out.println(pley.getUsuario().getNombre()); %></td>	<td> <%out.println(pley.getVotos()); %></td>
-				
-	</tr>
-		<tr align="center" id="votar">
-				<td></td>	<td> <form action="" method="post">
-				<div>
-				<input type="submit" value="VOTAR"> </td>	
-				
-			    
-	</tr>
-		
-	</tr>
-	
-	<% %>
+	<fieldset>
+		<legend
+			style="font-family: Arial, sans-serif; font-size: 18px; color: #660000"><%=pley.getNombre() %></legend>
+		<table summary="PLey" align="center">
+			
+			<%out.println("Autor: "+pley.getUsuario().getNick()); %>
+			
+			<tr valign ="middle" align="center" id="descripcion">
+				<td>&nbsp;</td><td><em>Descripción</em>
+			</tr>
+			<tr valign ="middle" align="center" id="descripcion">
+				<td></td>	<td> <%out.println(pley.getDescripcion());%> </td>	
+			</tr>
+			<tr valign ="middle" align="center" id="votar">
+				<td colspan="3" align="center">
+					<form action="" method="post"><input type="submit" value="VOTAR">
+					</form>
+				</td>
+			</tr>
+			<tr valign ="middle" align="center" id="votos">
+				<td colspan="3" align="center">
+					<%out.println("(Votos: "+pley.getVotos()+")"); %>
+				</td>
+			</tr>
+			
+		</table>
+	</fieldset>
 	
 </body>
 </html>
