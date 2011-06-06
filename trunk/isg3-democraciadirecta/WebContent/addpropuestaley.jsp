@@ -41,22 +41,34 @@
 	if (validaForm(nombre, tags, descripcion, usuario)) {
 	%>
 		<div>
- 		<%
-		PLey p = new PLey();
- 		p.setId(""+System.currentTimeMillis());
- 		p.setNombre(nombre);
- 		p.setTags(tags);
- 		p.setDescripcion(descripcion);
- 		p.setUsuario(usuario);
-		Map<PLey,String> mapa = pp.obtenerCoincidencias(p);
-		for (PLey l : mapa.keySet()) {
-		%>
-			<p>
-			<% out.println(l.getNombre()); %> -&gt; <% out.println(mapa.get(l)+"% de coincidencia de Tags."); %>
-			</p> 
-		<%
-		}
-		%>
+	 		<%
+			PLey p = new PLey();
+	 		p.setId(""+System.currentTimeMillis());
+	 		p.setNombre(nombre);
+	 		p.setTags(tags);
+	 		p.setDescripcion(descripcion);
+	 		p.setUsuario(usuario);
+			Map<PLey,String> mapa = pp.obtenerCoincidencias(p);
+			%>
+			<table width="50%"><tr><td width="50%">PLey</td><td width="50%">% Coincidencia Tags</td></tr>
+			<%
+			for (PLey l : mapa.keySet()) {
+			%>
+				<tr>
+				<td>
+					<a href="FrontController?res=muestraPLey.jsp?idPLey=<% out.println(l.getId()); %>">
+					<% out.println(l.getNombre()); %>
+					</a>
+				</td>
+				<td>
+					<% out.println(mapa.get(l)+"%"); %>
+				</td>
+				</tr> 
+			<%
+			}
+			%>
+			</table>
+			<a href=#>Continuar</a> | <a href="#">Cancelar</a>
 		</div>
 	<%
 	} else {
