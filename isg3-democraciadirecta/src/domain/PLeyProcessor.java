@@ -42,15 +42,18 @@ public class PLeyProcessor implements IPLeyProcessor{
 		}
 		return mapa;
 	}
+	
 	@Override
 	public boolean insertaPLey(PLey p) {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
 	@Override
 	public List<Tag> obtenerTags() {
 		return tagDAO.selectAll();
 	}
+	
 	@Override
 	public Tag obtenerTagPorId(String idTag) {
 		return tagDAO.select(idTag);
