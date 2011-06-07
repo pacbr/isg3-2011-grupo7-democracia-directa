@@ -9,7 +9,9 @@
 <link rel="stylesheet" type="text/css" href="style/style.css" />
 <style type="text/css">
 <!--
-	#favoritos td{background-color: rgb(238, 238, 238);}
+	#favoritos td{
+		background-color: rgb(238, 238, 238);
+	}
   	#top10 td{
 		padding: 5px;
 		font-size: 14px;
@@ -25,6 +27,16 @@
 		font-family: Arial;
 		text-transform: uppercase;
 	}
+	#all{
+		width:500px;
+	}
+	#top10{
+		float:right;
+	}
+	#favoritos{
+		float:left;
+	}
+	#buscador{float:left;}
 -->
 </style>
 </head>
@@ -33,12 +45,14 @@
 	<%
 	IProcessorUserTags proUserTags = new ProcessorUserTags();
 	Usuario usuario = (Usuario)session.getAttribute("dd.usuario");
+	String tagid = request.getParameter("tagid");
+	
 	//IUsuarioDAO user = new JDBCUsuarioDAO();
 	//user.select(usuario.getId());
 	%>
-	
+<div id="all">	
 	Hola <%out.println(usuario.getNombre()); %>  </p>
-	<div id=favoritos>
+	<div id="favoritos">
 		TAGS FAVORITOS
 		<br>
 		<table>
@@ -56,8 +70,7 @@
 			%>
 		</table>
 	</div>
-	<br>
-	<div id=top10>
+	<div id="top10">
 		TOP 10
 		<br>
 		<table>
@@ -72,7 +85,7 @@
 				<%
 				if(!usuario.getUserTags().contains(t)){
 				%>
-				<a href="FrontController?res=userTags.jsp?tagid=<%=t.getId()%>"><img src='img/pack-plus.gif'></a>
+				<a href="FrontController?res=addUserTag.jsp?tagid=<%=t.getId()%>"><img src='img/pack-plus.gif'></a>
 				<%
 				}else{	
 				%>
@@ -87,13 +100,13 @@
 			%>
 		</table>
 	</div>
-	<br>
-	<div id=buscador>
+	<div id="buscador">
 	<form>
 		<label>Buscar Tag </label>
 		<input type="text" id="tagABuscar" name="tag">
 		<input type="submit" value="Buscar">
 	</form>
 	</div>
+</div>
 </body>
 </html>
