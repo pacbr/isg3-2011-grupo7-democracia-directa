@@ -19,35 +19,36 @@ public class ProcessorUserTags implements IProcessorUserTags{
 	
 	@Override
 	public List<Tag> obtenerTop10() {
-		Map<Tag,Integer> mapTagVotos = new HashMap<Tag, Integer>();
-		for(PLey p:pleyDAO.selectAll()){
-			for(Tag t:p.getTags()){
-			//TODO Separar los tags de una pley
-				if(!mapTagVotos.containsKey(t)){
-					mapTagVotos.put(t, 1);
-				}else{
-					mapTagVotos.put(t, mapTagVotos.get(t)+1);
-				}
-			}
-		}
-		LinkedHashMap<Tag, Integer> mapResultado = new LinkedHashMap<Tag, Integer>();
-		List<Tag> misMapKeys = new ArrayList<Tag>(mapTagVotos.keySet());
-		List<Integer> misMapValues = new ArrayList<Integer>(mapTagVotos.values());
-		TreeSet<Integer> conjuntoOrdenado = new TreeSet<Integer>(misMapValues);
-		Integer[] arrayOrdenado = (Integer[]) conjuntoOrdenado.toArray();
-		int size = arrayOrdenado.length;
-		for (int i=0; i<size; i++) {
-			mapResultado.put(misMapKeys.get(misMapValues.indexOf(arrayOrdenado[i])),arrayOrdenado[i]);
-		}
-		//TODOJOSE seleccionar 10 primeras comparando con pleyes
-		List<Tag> lista = new ArrayList<Tag>();
-		for(Tag t:mapResultado.keySet()){
-			lista.add(t);
-			System.out.println(t.getId());
-		}
-		return lista;
+//		Map<Tag,Integer> mapTagVotos = new HashMap<Tag, Integer>();
+//		for(PLey p:pleyDAO.selectAll()){
+//			for(Tag t:p.getTags()){
+//			//TODO Separar los tags de una pley
+//				if(!mapTagVotos.containsKey(t)){
+//					mapTagVotos.put(t, 1);
+//				}else{
+//					mapTagVotos.put(t, mapTagVotos.get(t)+1);
+//				}
+//			}
+//		}
+//		LinkedHashMap<Tag, Integer> mapResultado = new LinkedHashMap<Tag, Integer>();
+//		List<Tag> misMapKeys = new ArrayList<Tag>(mapTagVotos.keySet());
+//		List<Integer> misMapValues = new ArrayList<Integer>(mapTagVotos.values());
+//		TreeSet<Integer> conjuntoOrdenado = new TreeSet<Integer>(misMapValues);
+//		Integer[] arrayOrdenado = (Integer[]) conjuntoOrdenado.toArray();
+//		int size = arrayOrdenado.length;
+//		for (int i=0; i<size; i++) {
+//			mapResultado.put(misMapKeys.get(misMapValues.indexOf(arrayOrdenado[i])),arrayOrdenado[i]);
+//		}
+//		//TODOJOSE seleccionar 10 primeras comparando con pleyes
+//		List<Tag> lista = new ArrayList<Tag>();
+//		for(Tag t:mapResultado.keySet()){
+//			lista.add(t);
+//			System.out.println(t.getId());
+//		}
+//		return lista;
+		return tagDAO.selectAll();
 	}
-
+	
 	@Override
 	public Tag obtenerTagPorId(String idTag) {
 		return tagDAO.select(idTag);

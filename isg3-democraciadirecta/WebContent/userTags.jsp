@@ -6,57 +6,94 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Democracia Directa - User Tags</title>
+<link rel="stylesheet" type="text/css" href="style/style.css" />
+<style type="text/css">
+<!--
+	#favoritos td{background-color: rgb(238, 238, 238);}
+  	#top10 td{
+		padding: 5px;
+		font-size: 14px;
+		background-color: #83aec0;
+		background-repeat: repeat-x;
+		color: #FFFFFF;
+		border-right-width: 1px;
+		border-bottom-width: 1px;
+		border-right-style: solid;
+		border-bottom-style: solid;
+		border-right-color: #558FA6;
+		border-bottom-color: #558FA6;
+		font-family: Arial;
+		text-transform: uppercase;
+	}
+-->
+</style>
 </head>
 <body>
+	
 	<%
-		IProcessorUserTags proUserTags = new ProcessorUserTags();
-			
-			
-			Usuario usuario = (Usuario)session.getAttribute("dd.usuario");
-			String tagid = request.getParameter("tagid");
-			if(tagid==null) { 
-			/* List<Tag> tagsdeusuario = usuario.getUserTags();
-			tagsdeusuario.add(tagToAdd);
-			sessionUsuario.setUserTags(tagsdeusuario); */
-	%>
-	<div>
-			<table >
-				<%
-				for (Tag t : proUserTags.obtenerTop10()) {
-				%>
-				<tr>
-					<td><%out.println(t.getId());out.println(t.getNombre());%></td><td><a href="FrontController?res=userTags.jsp?tagid=<%=t.getId()%>"> ADD </a> </td>
-				</tr>
-				<%
-				}
-				%>
-			</table>
- 		</div>
- 	<%
-	} else {
-	%>
-		<div>
-			<table >
-				<%
-				for (Tag t : proUserTags.obtenerTop10()) {
-				%>
-				<tr>
-				<% 
-				if(tagid.equals(t.getId()) && tagid!=null) {
-				%>
-					<td><%out.println(t.getId());out.println(t.getNombre());%></td><td>Añadido</td>
-					<%}else{ %>
-					<td><%out.println(t.getId());out.println(t.getNombre());%></td><td><a href="FrontController?res=userTags.jsp?tagid=<%=t.getId()%>"> ADD </a> </td>
-					<%} %>
-				</tr>
-				<%
-				}
-				%>
-			</table>
- 		</div>
-	<%
-	}
+	IProcessorUserTags proUserTags = new ProcessorUserTags();
+	Usuario usuario = (Usuario)session.getAttribute("dd.usuario");
+	//IUsuarioDAO user = new JDBCUsuarioDAO();
+	//user.select(usuario.getId());
 	%>
 	
+	Hola <%out.println(usuario.getNombre()); %>  </p>
+	<div id=favoritos>
+		TAGS FAVORITOS
+		<br>
+		<table>
+			<tr>
+				<th>FAVORITOS</th>
+			</tr>
+			<%
+			for (Tag t : usuario.getUserTags()) {
+			%>
+			<tr>
+				<td><%out.println(t.getNombre());%></td><td><a href="FrontController?res=userTags.jsp?tagid=<%=t.getId()%>"> Eliminar </a> </td>
+			</tr>
+			<%
+			}
+			%>
+		</table>
+	</div>
+	<br>
+	<div id=top10>
+		TOP 10
+		<br>
+		<table>
+			<%
+			for (Tag t : proUserTags.obtenerTop10()) {
+			%>
+			<tr>
+				<td>
+					<%out.println(t.getNombre());%>
+				</td>
+				<td>
+				<%
+				if(!usuario.getUserTags().contains(t)){
+				%>
+				<a href="FrontController?res=userTags.jsp?tagid=<%=t.getId()%>"><img src='img/pack-plus.gif'></a>
+				<%
+				}else{	
+				%>
+				
+				</td>
+				<%
+				}
+				%>
+			</tr>
+			<%
+			}
+			%>
+		</table>
+	</div>
+	<br>
+	<div id=buscador>
+	<form>
+		<label>Buscar Tag </label>
+		<input type="text" id="tagABuscar" name="tag">
+		<input type="submit" value="Buscar">
+	</form>
+	</div>
 </body>
 </html>
