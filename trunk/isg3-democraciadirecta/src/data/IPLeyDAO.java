@@ -15,5 +15,6 @@ public interface IPLeyDAO {
 	boolean voto(PLey e);
 	List<PLey> selectAll();
 	PLey select(String idPley);
+	boolean insert(PLey p);
 	
 }

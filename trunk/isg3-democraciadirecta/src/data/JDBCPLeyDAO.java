@@ -352,5 +352,47 @@ public class JDBCPLeyDAO implements IPLeyDAO{
 
         return pley;
 	}
+
+	@Override
+	public boolean insert(PLey p) {
+		boolean res = false;
+		PreparedStatement stmt = null;
+		String sql = "INSERT INTO pleyes ( id, nombre, tags, descripcion, idUsuario, Votos, Activa) VALUES (?, ?, ?, ?, ?, ?, ?) ";
+		
+		try {
+			
+			stmt = con.prepareStatement(sql);
+			
+			stmt.setString(1, p.getId());
+			stmt.setString(2, p.getNombre());
+			String tags = "";
+			for (Tag t : p.getTags()) {
+				tags = tags.concat(t.getId()+";");
+			}
+			stmt.setString(3, tags);
+			stmt.setString(4, p.getDescripcion());
+			stmt.setString(5, p.getUsuario().getId());
+			stmt.setInt(6, 0);
+			stmt.setString(7, "false");
+			
+			int resultado = stmt.executeUpdate();
+			if (resultado != 0){
+				res = true;
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Message: " + e.getMessage());
+			System.out.println("SQLState: " + e.getSQLState());
+			System.out.println("ErrorCode: " + e.getErrorCode());
+		} finally {
+			try {
+				if (stmt != null) {
+					stmt.close();
+				}
+			} catch (SQLException e) {
+			}
+		}
+		return res;
+	}
 	
 }

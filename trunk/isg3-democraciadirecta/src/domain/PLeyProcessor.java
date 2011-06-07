@@ -45,8 +45,7 @@ public class PLeyProcessor implements IPLeyProcessor{
 	
 	@Override
 	public boolean insertaPLey(PLey p) {
-		// TODO Auto-generated method stub
-		return false;
+		return pleyDAO.insert(p);
 	}
 	
 	@Override
