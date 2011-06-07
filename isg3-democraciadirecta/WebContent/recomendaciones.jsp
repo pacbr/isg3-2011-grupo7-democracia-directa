@@ -8,7 +8,7 @@
 	<script type="text/javascript">
 	 	function populatedropdown(topX){
 	 		var topX=document.getElementById(topX) 
-	 		for (var i=0; i<100; i++) 
+	 		for (var i=0; i<=30; i++) 
 	 			topX.options[i]=new Option(i, i+1) 
 	 	} 
  	</script>
@@ -20,10 +20,10 @@
 	%>
 	<div>
 		<label for="sugerencias">RECOMENDACIONES</label>
-		<br> 
-		<br>
-		<label for="">Favoritos + Top X</label>
-		<br>
+		<p> 
+		<label for="">Te recomendaremos entre tus <a href="FrontController?res=userTags.jsp">Tags Favoritos</a> y 
+		<BR>los Top X Tags del momento, elige el valor de X</label>
+		<p>
 		<form action="" name="someform">
 			<select id="topX">
 			</select> 
