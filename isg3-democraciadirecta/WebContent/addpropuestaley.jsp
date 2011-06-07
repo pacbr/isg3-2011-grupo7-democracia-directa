@@ -38,6 +38,7 @@
 		}
 	}
 	Usuario usuario = (Usuario)session.getAttribute("dd.usuario");
+	PLey sessionPLey = null;
 	if (validaForm(nombre, tags, descripcion, usuario)) {
 	%>
 		<div>
@@ -48,29 +49,44 @@
 	 		p.setTags(tags);
 	 		p.setDescripcion(descripcion);
 	 		p.setUsuario(usuario);
+	 		sessionPLey = p;
+	 		session.setAttribute("session.PLey", sessionPLey);
 			Map<PLey,String> mapa = pp.obtenerCoincidencias(p);
+			if (mapa.size() == 0) {
 			%>
-			<table width="50%"><tr><td width="50%">PLey</td><td width="50%">% Coincidencia Tags</td></tr>
+				<p>No hay ninguna PLey con coincidencia de tags.</p>
 			<%
-			for (PLey l : mapa.keySet()) {
+			} else {
 			%>
-				<tr>
-				<td>
-					<a href="FrontController?res=muestraPLey.jsp?idPLey=<% out.println(l.getId()); %>">
-					<% out.println(l.getNombre()); %>
-					</a>
-				</td>
-				<td>
-					<% out.println(mapa.get(l)+"%"); %>
-				</td>
-				</tr> 
+				<table width="50%"><tr><td width="50%">PLey</td><td width="50%">% Coincidencia Tags</td></tr>
+				<%
+				for (PLey l : mapa.keySet()) {
+				%>
+					<tr>
+					<td>
+						<a href="FrontController?res=muestraPLey.jsp?idPLey=<% out.println(l.getId()); %>">
+						<% out.println(l.getNombre()); %>
+						</a>
+					</td>
+					<td>
+						<% out.println(mapa.get(l)+"%"); %>
+					</td>
+					</tr> 
 			<%
+				}
 			}
 			%>
 			</table>
-			<a href=#>Continuar</a> | <a href="#">Cancelar</a>
+			<a href="FrontController?res=addpropuestaley.jsp?continuar=ok">Continuar</a> | <a href="FrontController?res=index.jsp">Cancelar</a>
 		</div>
 	<%
+	} else if (request.getParameter("continuar") != null && request.getParameter("continuar").equals("ok")) {
+		sessionPLey = (PLey)session.getAttribute("session.PLey");
+		if (pp.insertaPLey(sessionPLey)) {
+			out.println("PLey insertada con éxito.");
+		} else {
+			out.println("Error al insertar la PLey.");
+		}
 	} else {
 	%>
 		<div>
