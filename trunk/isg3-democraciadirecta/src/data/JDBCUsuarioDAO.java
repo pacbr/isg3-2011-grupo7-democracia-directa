@@ -19,7 +19,7 @@ public class JDBCUsuarioDAO implements IUsuarioDAO{
         PreparedStatement stmt = null;
         ResultSet result = null;
         Usuario u = null;
-
+        ITagDAO tagDAO = new JDBCTagDAO();
         try {
             stmt = con.prepareStatement(sql);
             stmt.setString(1, idUsuario);
@@ -33,6 +33,16 @@ public class JDBCUsuarioDAO implements IUsuarioDAO{
             u.setPassword(result.getString("password"));
             u.setEmail(result.getString("email"));
             u.setNombre(result.getString("nombre"));
+            String[] campos = result.getString("tagsfav").split(";");
+            List<Tag> tags = new ArrayList<Tag>();
+            for (String s : campos) {
+            	if (s != "") {
+            		Tag t = tagDAO.select(s);
+            		tags.add(t);
+            	}
+            }
+            u.setUserTags(tags);
+            
         } catch (SQLException e) {
             System.out.println("Message: " + e.getMessage());
             System.out.println("SQLState: " + e.getSQLState());
@@ -141,7 +151,8 @@ public class JDBCUsuarioDAO implements IUsuarioDAO{
         PreparedStatement stmt = null;
         ResultSet result = null;
         Usuario u = null;
-
+        ITagDAO tagDAO = new JDBCTagDAO();
+        
         try {
             stmt = con.prepareStatement(sql);
             stmt.setString(1, nick);
@@ -156,6 +167,15 @@ public class JDBCUsuarioDAO implements IUsuarioDAO{
             u.setPassword(result.getString("password"));
             u.setEmail(result.getString("email"));
             u.setNombre(result.getString("nombre"));
+            String[] campos = result.getString("tagsfav").split(";");
+            List<Tag> tags = new ArrayList<Tag>();
+            for (String s : campos) {
+            	if (s != "") {
+            		Tag t = tagDAO.select(s);
+            		tags.add(t);
+            	}
+            }
+            u.setUserTags(tags);
         } catch (SQLException e) {
             System.out.println("Message: " + e.getMessage());
             System.out.println("SQLState: " + e.getSQLState());
