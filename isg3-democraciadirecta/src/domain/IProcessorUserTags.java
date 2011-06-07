@@ -6,5 +6,5 @@ public interface IProcessorUserTags {
 	List<Tag> obtenerTop10();
 	Tag obtenerTagPorId(String idTag);
 	List<Tag> obtenerTagsActualesDeUsuario();
-	boolean insertaUserTag(Tag t);
+	boolean insertaUserTag(String idTag, String idUsuario);
 }

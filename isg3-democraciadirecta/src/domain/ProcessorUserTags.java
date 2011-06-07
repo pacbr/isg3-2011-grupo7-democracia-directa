@@ -10,12 +10,17 @@ import java.util.TreeSet;
 
 import data.IPLeyDAO;
 import data.ITagDAO;
+import data.IUserTagsDAO;
+import data.IUsuarioDAO;
 import data.JDBCPLeyDAO;
 import data.JDBCTagDAO;
+import data.JDBCUserTagsDAO;
+import data.JDBCUsuarioDAO;
 
 public class ProcessorUserTags implements IProcessorUserTags{
 	ITagDAO tagDAO = new JDBCTagDAO();
 	IPLeyDAO pleyDAO = new JDBCPLeyDAO();
+	IUserTagsDAO userTagsDAO = new JDBCUserTagsDAO();
 	
 	@Override
 	public List<Tag> obtenerTop10() {
@@ -61,9 +66,9 @@ public class ProcessorUserTags implements IProcessorUserTags{
 	}
 
 	@Override
-	public boolean insertaUserTag(Tag t) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean insertaUserTag(String idTag,String idUsuario) {
+		Tag t = tagDAO.select(idTag);
+		return userTagsDAO.insertaTagAUsuario(t, idUsuario);
 	}
 
 }
