@@ -408,9 +408,34 @@ public class JDBCPLeyDAO implements IPLeyDAO{
 	}
 
 	@Override
-	public boolean insertPositionList(PLey p, int position) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean insertPositionList(String idPley, int posicionLista) {
+		PreparedStatement stmt = null;
+		String sql = "UPDATE pleyes SET posicion = ? WHERE id = ?";
+		boolean res=false;
+		try {
+			stmt = (PreparedStatement) con.prepareStatement(sql);
+			
+			
+			stmt.setInt(1,posicionLista);
+			stmt.setString(2,idPley);
+
+			int resultado = stmt.executeUpdate();
+			if (resultado != 0){
+				res = true;
+			}
+		} catch (SQLException e) {
+			System.out.println("Message: " + e.getMessage());
+			System.out.println("SQLState: " + e.getSQLState());
+			System.out.println("ErrorCode: " + e.getErrorCode());
+		} finally {
+			try {
+				if (stmt != null) {
+					stmt.close();
+				}
+			} catch (SQLException e) {
+			}
+		}
+		return res;
 	}
 
 	@Override
