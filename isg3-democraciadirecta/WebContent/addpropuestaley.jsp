@@ -49,6 +49,10 @@
 	 		p.setTags(tags);
 	 		p.setDescripcion(descripcion);
 	 		p.setUsuario(usuario);
+	 		p.setVotos(0);
+	 		p.setActiva(true);
+	 		p.setPosicionLista(0);
+	 		p.setVisitas(0);
 	 		sessionPLey = p;
 	 		session.setAttribute("session.PLey", sessionPLey);
 			Map<PLey,String> mapa = pp.obtenerCoincidencias(p);

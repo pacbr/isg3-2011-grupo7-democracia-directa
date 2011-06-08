@@ -14,21 +14,22 @@ public class JDBCTagDAO implements ITagDAO{
 	@Override
 	public Tag select(String idTag) {
 		Connection con = ConnectionManager.getInstance().checkOut();
-        String sql = "SELECT * FROM tags WHERE (id = ? ) ";
+        String sql = "SELECT * FROM tags WHERE (id = ?)";
         PreparedStatement stmt = null;
         ResultSet result = null;
         Tag t = null;
 
         try {
             stmt = con.prepareStatement(sql);
-            stmt.setString(1, idTag);
+            stmt.setString(1, idTag.trim());
 
             result = stmt.executeQuery();
 
-            result.next();
-            t = new Tag();
-            t.setId(idTag);
-            t.setNombre(result.getString("nombre"));
+            if(result.next()) {
+	            t = new Tag();
+	            t.setId(result.getString("id"));
+	            t.setNombre(result.getString("nombre"));
+            }
         } catch (SQLException e) {
             System.out.println("Message: " + e.getMessage());
             System.out.println("SQLState: " + e.getSQLState());
