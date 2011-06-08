@@ -20,6 +20,7 @@ import data.JDBCUsuarioDAO;
 public class ProcessorUserTags implements IProcessorUserTags{
 	ITagDAO tagDAO = new JDBCTagDAO();
 	IPLeyDAO pleyDAO = new JDBCPLeyDAO();
+	IUsuarioDAO usuarioDAO = new JDBCUsuarioDAO();
 	IUserTagsDAO userTagsDAO = new JDBCUserTagsDAO();
 	
 	@Override
@@ -60,15 +61,14 @@ public class ProcessorUserTags implements IProcessorUserTags{
 	}
 
 	@Override
-	public List<Tag> obtenerTagsActualesDeUsuario() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Tag> obtenerTagsActualesDeUsuario(String idUsuario) {
+		Usuario user = usuarioDAO.select(idUsuario);
+		return user.getUserTags();
 	}
 
 	@Override
 	public boolean insertaUserTag(String idTag,String idUsuario) {
-		Tag t = tagDAO.select(idTag);
-		return userTagsDAO.insertaTagAUsuario(t, idUsuario);
+		return userTagsDAO.insertaTagAUsuario(idTag, idUsuario);
 	}
 
 }
