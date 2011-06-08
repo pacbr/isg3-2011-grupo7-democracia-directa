@@ -16,7 +16,7 @@ public interface IPLeyDAO {
 	List<PLey> selectAll();
 	PLey select(String idPley);
 	boolean insert(PLey p);
-	boolean insertPositionList(PLey p,int position);
+	boolean insertPositionList(String idPley, int posicionLista);
 	List<PLey> selectPLeyesActivas();
 	
 }
