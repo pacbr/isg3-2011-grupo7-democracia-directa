@@ -60,7 +60,7 @@
 				<th>FAVORITOS</th>
 			</tr>
 			<%
-			for (Tag t : usuario.getUserTags()) {
+			for (Tag t : proUserTags.obtenerTagsActualesDeUsuario(usuario.getId())) {
 			%>
 			<tr>
 				<td><%out.println(t.getNombre());%></td><td><a href="FrontController?res=userTags.jsp?tagid=<%=t.getId()%>"> Eliminar </a> </td>

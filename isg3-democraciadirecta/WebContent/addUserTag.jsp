@@ -18,8 +18,10 @@ ITagDAO tagDAO = new JDBCTagDAO();
 	//IUsuarioDAO user = new JDBCUsuarioDAO();
 	//user.select(usuario.getId());
 %>
-Se va a añadir el tag <%out.println(tagDAO.select(tagid).getNombre()); %> con id: <%out.println(tagDAO.select(tagid).getId()); %>
-
+Se ha añadido el tag "<%out.println(tagDAO.select(tagid).getNombre());%>" a tus
+ favoritos.
+ <br>
+	<a href="FrontController?res=userTags.jsp">Volver a UserTags</a>
 <% proUserTags.insertaUserTag(tagDAO.select(tagid).getId(),usuario.getId());%>
 </body>
 </html>
