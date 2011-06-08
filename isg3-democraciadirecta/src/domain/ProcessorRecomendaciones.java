@@ -13,27 +13,38 @@ public class ProcessorRecomendaciones implements IProcessorRecomendaciones {
 	private IPLeyDAO pleyDAO = new JDBCPLeyDAO();
 	private IUsuarioDAO usuarioDAO = new JDBCUsuarioDAO();
 	private ITagDAO tagDAO = new JDBCTagDAO();
-
+	
+	
 	@Override
-	public List<Tag> getFavoritos(Usuario u) {
-		return usuarioDAO.selectTags(u);
-	}
-
-	@Override
-	public List<Tag> getAllTags() {
-		return tagDAO.selectAll();
-	}
-
-	@Override
-	public Integer cuentaByTag(Tag t) {
+	public List<PLey> recomienda(Usuario u) {
+		
+		
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public List<PLey> getPleyByTag(List<Tag> tags) {
-		return pleyDAO.getPLeyesByTags(tags);
-	}
+	
+	
+//
+//	@Override
+//	public List<Tag> getFavoritos(Usuario u) {
+//		return usuarioDAO.selectTags(u);
+//	}
+//
+//	@Override
+//	public List<Tag> getAllTags() {
+//		return tagDAO.selectAll();
+//	}
+//
+//	@Override
+//	public Integer cuentaByTag(Tag t) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//
+//	@Override
+//	public List<PLey> getPleyByTag(List<Tag> tags) {
+//		return pleyDAO.getPLeyesByTags(tags);
+//	}
 	
 
 }
