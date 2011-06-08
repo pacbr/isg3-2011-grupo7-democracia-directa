@@ -45,6 +45,8 @@ public class JDBCPLeyDAO implements IPLeyDAO{
 	            temp.setUsuario(usuarioDAO.select(result.getString("idUsuario")));
 	            temp.setVotos(result.getInt("Votos"));
 	            temp.setActiva(result.getBoolean("Activa"));
+	            temp.setVisitas(result.getInt("Visitas"));
+	            temp.setPosicionLista(result.getInt("Posicion"));
 	            String[] campos = result.getString("tags").split(";");
 	            List<Tag> tags = new ArrayList<Tag>();
 	            for (String s : campos) {
@@ -106,6 +108,8 @@ public class JDBCPLeyDAO implements IPLeyDAO{
 	            			temp.setUsuario(usuarioDAO.select(result.getString("idUsuario")));
 	        	            temp.setVotos(result.getInt("Votos"));
 	        	            temp.setActiva(result.getBoolean("Activa"));
+	        	            temp.setVisitas(result.getInt("Visitas"));
+	        	            temp.setPosicionLista(result.getInt("Posicion"));
 	            			temp.setTags(tags1);
 	            			if (!lista.contains(temp)) {
 	            				lista.add(temp);
@@ -134,7 +138,7 @@ public class JDBCPLeyDAO implements IPLeyDAO{
         return lista;
 	}
 
-	public List<PLey> getPLeyesByUser(Usuario user) {
+	public List<PLey> selectPLeyesByUser(Usuario user) {
 		Connection con = ConnectionManager.getInstance().checkOut();
 		
         String sql = "SELECT * FROM pleyes";
@@ -163,6 +167,8 @@ public class JDBCPLeyDAO implements IPLeyDAO{
         			temp.setUsuario(usuarioDAO.select(result.getString("idUsuario")));
     	            temp.setVotos(result.getInt("Votos"));
     	            temp.setActiva(result.getBoolean("Activa"));
+    	            temp.setVisitas(result.getInt("Visitas"));
+    	            temp.setPosicionLista(result.getInt("Posicion"));
         			temp.setTags(tags);
         			if (!lista.contains(temp)) {
         				lista.add(temp);
@@ -188,7 +194,7 @@ public class JDBCPLeyDAO implements IPLeyDAO{
         return lista;
 	}
 	
-	public List<PLey> getPLeyesActivasByUser(Usuario user) {
+	public List<PLey> selectPLeyesActivasByUser(Usuario user) {
 		Connection con = ConnectionManager.getInstance().checkOut();
 		
         String sql = "SELECT * FROM pleyes WHERE (Activa = true)";
@@ -217,6 +223,8 @@ public class JDBCPLeyDAO implements IPLeyDAO{
         			temp.setUsuario(usuarioDAO.select(result.getString("idUsuario")));
         			temp.setVotos(result.getInt("Votos"));
     	            temp.setActiva(result.getBoolean("Activa"));
+    	            temp.setVisitas(result.getInt("Visitas"));
+    	            temp.setPosicionLista(result.getInt("Posicion"));
         			temp.setTags(tags);
         			if (!lista.contains(temp)) {
         				lista.add(temp);
@@ -242,7 +250,7 @@ public class JDBCPLeyDAO implements IPLeyDAO{
         return lista;
 	}
 	
-	public List<PLey> getPLeyesNoActivasByUser(Usuario user) {
+	public List<PLey> selectPLeyesNoActivasByUser(Usuario user) {
 		Connection con = ConnectionManager.getInstance().checkOut();
 		
         String sql = "SELECT * FROM pleyes WHERE (Activa != true)";
@@ -271,6 +279,8 @@ public class JDBCPLeyDAO implements IPLeyDAO{
         			temp.setUsuario(usuarioDAO.select(result.getString("idUsuario")));
         			temp.setVotos(result.getInt("Votos"));
     	            temp.setActiva(result.getBoolean("Activa"));
+    	            temp.setVisitas(result.getInt("Visitas"));
+    	            temp.setPosicionLista(result.getInt("Posicion"));
         			temp.setTags(tags);
         			if (!lista.contains(temp)) {
         				lista.add(temp);
@@ -324,6 +334,8 @@ public class JDBCPLeyDAO implements IPLeyDAO{
             pley.setUsuario(usuarioDAO.select(result.getString("idUsuario")));
 			pley.setVotos(result.getInt("Votos"));
             pley.setActiva(result.getBoolean("Activa"));
+            pley.setVisitas(result.getInt("Visitas"));
+            pley.setPosicionLista(result.getInt("Posicion"));
             String[] campos = result.getString("tags").split(";");
 	        List<Tag> tags = new ArrayList<Tag>();
 	        for (String s : campos) {
@@ -393,6 +405,65 @@ public class JDBCPLeyDAO implements IPLeyDAO{
 			}
 		}
 		return res;
+	}
+
+	@Override
+	public boolean insertPositionList(PLey p, int position) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public List<PLey> selectPLeyesActivas() {
+		Connection con = ConnectionManager.getInstance().checkOut();
+		String sql = "SELECT * FROM pleyes WHERE (Activa = true)";
+
+		PreparedStatement stmt = null;
+        ResultSet result = null;
+        List<PLey> lista = new ArrayList<PLey>();
+
+        try {
+            stmt = con.prepareStatement(sql);
+            result = stmt.executeQuery();
+            while (result.next()) {
+            	PLey temp = new PLey();
+            	temp.setId(result.getString("id"));
+	            temp.setNombre(result.getString("nombre"));
+	            temp.setDescripcion(result.getString("descripcion"));
+	            temp.setUsuario(usuarioDAO.select(result.getString("idUsuario")));
+	            temp.setVotos(result.getInt("Votos"));
+	            temp.setActiva(result.getBoolean("Activa"));
+	            temp.setVisitas(result.getInt("Visitas"));
+	            temp.setPosicionLista(result.getInt("Posicion"));
+	            String[] campos = result.getString("tags").split(";");
+	            List<Tag> tags = new ArrayList<Tag>();
+	            for (String s : campos) {
+	            	if (s != "") {
+	            		Tag t = tagDAO.select(s);
+	            		tags.add(t);
+	            	}
+	            }
+	            temp.setTags(tags);
+	            lista.add(temp);
+            }
+        } catch (SQLException e) {
+            System.out.println("Message: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("ErrorCode: " + e.getErrorCode());
+        } finally {
+            try {
+                if (result != null) {
+                    result.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException e) {
+            }
+        }
+
+        return lista;
+	
 	}
 	
 }
