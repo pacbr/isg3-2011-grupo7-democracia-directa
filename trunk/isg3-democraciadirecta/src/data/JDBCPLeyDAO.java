@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import domain.PLey;
@@ -373,7 +374,7 @@ public class JDBCPLeyDAO implements IPLeyDAO{
 			stmt.setString(4, p.getDescripcion());
 			stmt.setString(5, p.getUsuario().getId());
 			stmt.setInt(6, 0);
-			stmt.setString(7, "false");
+			stmt.setString(7, "true");
 			
 			int resultado = stmt.executeUpdate();
 			if (resultado != 0){
