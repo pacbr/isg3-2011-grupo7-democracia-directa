@@ -9,12 +9,14 @@ import domain.Usuario;
 public interface IPLeyDAO {
 
 	List<PLey> getPLeyesByTags(List<Tag> tags);
-	List<PLey> getPLeyesByUser(Usuario user);
-	List<PLey> getPLeyesActivasByUser(Usuario user);
-	List<PLey> getPLeyesNoActivasByUser(Usuario user);
+	List<PLey> selectPLeyesByUser(Usuario user);
+	List<PLey> selectPLeyesActivasByUser(Usuario user);
+	List<PLey> selectPLeyesNoActivasByUser(Usuario user);
 	boolean voto(PLey e);
 	List<PLey> selectAll();
 	PLey select(String idPley);
 	boolean insert(PLey p);
+	boolean insertPositionList(PLey p,int position);
+	List<PLey> selectPLeyesActivas();
 	
 }

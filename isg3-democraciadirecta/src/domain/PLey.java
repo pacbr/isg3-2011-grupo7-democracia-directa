@@ -11,6 +11,8 @@ public class PLey {
 	private Usuario usuario;
 	private Integer votos;
 	private boolean activa;
+	private Integer posicionLista;
+	private Integer visitas;
 	
 	public String getId() {
 		return id;
@@ -98,6 +100,22 @@ public class PLey {
 
 	public boolean isActiva() {
 		return activa;
+	}
+
+	public void setPosicionLista(Integer posicionLista) {
+		this.posicionLista = posicionLista;
+	}
+
+	public Integer getPosicionLista() {
+		return posicionLista;
+	}
+
+	public void setVisitas(Integer visitas) {
+		this.visitas = visitas;
+	}
+
+	public Integer getVisitas() {
+		return visitas;
 	}
 	
 }
