@@ -97,7 +97,7 @@
 				<br> 
 				<label for="tags">Tags</label>
 				<br>
-				<select multiple name="tags" size="2">
+				<select multiple name="tags" size="5">
 					<%
 					for (Tag t : pp.obtenerTags()) {
 					%>
