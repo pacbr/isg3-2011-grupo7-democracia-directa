@@ -28,6 +28,7 @@
 		text-transform: uppercase;
 	}
 	#all{
+		font-family: Arial;
 		width:500px;
 	}
 	#top10{
@@ -37,6 +38,7 @@
 		float:left;
 	}
 	#buscador{float:left;}
+	
 -->
 </style>
 </head>
@@ -56,14 +58,11 @@
 		TAGS FAVORITOS
 		<br>
 		<table>
-			<tr>
-				<th>FAVORITOS</th>
-			</tr>
 			<%
-			for (Tag t : proUserTags.obtenerTagsActualesDeUsuario(usuario.getId())) {
+			for (Tag t : proUserTags.obtenerTagsActualesDeUsuario(usuario)) {
 			%>
 			<tr>
-				<td><%out.println(t.getNombre());%></td><td><a href="FrontController?res=userTags.jsp?tagid=<%=t.getId()%>"> Eliminar </a> </td>
+				<td><%out.println(t.getNombre());%></td><td><a href="FrontController?res=addUserTag.jsp?tagid=<%=t.getId()%>&accion=delete"> Eliminar </a> </td>
 			</tr>
 			<%
 			}
@@ -83,9 +82,9 @@
 				</td>
 				<td>
 				<%
-				if(!usuario.getUserTags().contains(t)){
+				if(!proUserTags.obtenerTagsActualesDeUsuario(usuario).contains(t)){
 				%>
-				<a href="FrontController?res=addUserTag.jsp?tagid=<%=t.getId()%>"><img src='img/pack-plus.gif'></a>
+				<a href="FrontController?res=addUserTag.jsp?tagid=<%=t.getId()%>&accion=add"><img src='img/pack-plus.gif'></a>
 				<%
 				}else{	
 				%>
