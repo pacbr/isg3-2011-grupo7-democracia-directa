@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Log out</title>
-<meta http-equiv="Refresh" content="2;url=http://localhost:8080/democraciadirecta/">
+<meta http-equiv="Refresh" content="2;url=index.jsp">
 </head>
 <body>
 	<%
