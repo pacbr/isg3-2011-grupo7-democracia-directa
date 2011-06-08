@@ -61,14 +61,19 @@ public class ProcessorUserTags implements IProcessorUserTags{
 	}
 
 	@Override
-	public List<Tag> obtenerTagsActualesDeUsuario(String idUsuario) {
-		Usuario user = usuarioDAO.select(idUsuario);
+	public List<Tag> obtenerTagsActualesDeUsuario(Usuario u) {
+		Usuario user = usuarioDAO.select(u.getId());
 		return user.getUserTags();
 	}
 
 	@Override
-	public boolean insertaUserTag(String idTag,String idUsuario) {
-		return userTagsDAO.insertaTagAUsuario(idTag, idUsuario);
+	public boolean insertaUserTag(Tag t, Usuario u) {
+		return userTagsDAO.insertaTagAUsuario(t.getId(), u.getId());
+	}
+
+	@Override
+	public boolean eliminaUserTag(Tag t, Usuario u) {
+		return userTagsDAO.eliminaTagDeUsuario(t.getId(), u.getId());
 	}
 
 }

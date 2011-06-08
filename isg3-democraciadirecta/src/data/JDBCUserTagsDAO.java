@@ -42,17 +42,53 @@ public class JDBCUserTagsDAO implements IUserTagsDAO{
         try {
             stmt = (PreparedStatement) conn.prepareStatement(sql);
             
-            stmt.setInt(2, Integer.parseInt(idUsuario));
-//            stmt.setString(2, u.getNick());
-//            stmt.setString(3, u.getPassword());
-//            stmt.setString(4, u.getEmail());
-//            stmt.setString(5, u.getNombre());
-            for(Tag tag:tagsDeUsuarioActuales)
+            boolean tagRepetido=false;
+            for(Tag tag:tagsDeUsuarioActuales){
+            	if(idTag.equals(tag.getId()))
+            		tagRepetido=true;
     			cadenaDeTags=cadenaDeTags+tag.getId()+";";
-            String tag = tagDAO.select(idTag).getId();
-            cadenaDeTags=cadenaDeTags+tag+";";
+            }
+            if(tagRepetido==false){
+	            String tag = tagDAO.select(idTag).getId();
+	            cadenaDeTags=cadenaDeTags+tag+";";
+            }
+            
             stmt.setString(1, cadenaDeTags);
-//            stmt.setString(1, "1;2;3;");
+            stmt.setString(2, idUsuario);
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println("Message: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("ErrorCode: " + e.getErrorCode());
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException e) {
+            }
+        }
+		return false;
+    }
+	
+	public boolean eliminaTagDeUsuario(String idTag, String idUsuario) {
+		PreparedStatement stmt = null;
+        String sql = "UPDATE usuarios SET tagsfav = ? WHERE id = ?";
+
+        Usuario u = usuarioDAO.select(idUsuario);
+        List<Tag> tagsDeUsuarioActuales = u.getUserTags();
+        String cadenaDeTags = "";
+        try {
+            stmt = (PreparedStatement) conn.prepareStatement(sql);
+            
+            for(Tag tag:tagsDeUsuarioActuales){
+            	if(!idTag.equals(tag.getId()))
+            		cadenaDeTags=cadenaDeTags+tag.getId()+";";
+            }
+            
+            stmt.setString(1, cadenaDeTags);
+            stmt.setString(2, idUsuario);
             stmt.executeUpdate();
 
         } catch (SQLException e) {
