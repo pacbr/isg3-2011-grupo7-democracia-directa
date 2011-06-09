@@ -84,8 +84,13 @@ public class ProcessorUserTags implements IProcessorUserTags{
 	}
 	
 	@Override
-	public Tag obtenerTagPorId(String idTag) {
-		return tagDAO.select(idTag);
+	public Tag obtenerTagPorNombre(String nombre) {
+		Tag res = null;
+		for(Tag t:tagDAO.selectAll()){
+			if(t.getNombre().compareTo(nombre)==0)
+				res = tagDAO.select(t.getId());
+		}
+		return res;
 	}
 
 	@Override

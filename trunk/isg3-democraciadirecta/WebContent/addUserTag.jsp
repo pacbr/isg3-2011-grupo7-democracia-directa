@@ -5,14 +5,13 @@
 	IProcessorUserTags proUserTags = new ProcessorUserTags();
 	ITagDAO tagDAO = new JDBCTagDAO();
 	Usuario usuario = (Usuario)session.getAttribute("dd.usuario");
-	String acepta = request.getParameter("acepta");
 	String tagid = request.getParameter("tagid");
 	String accion = request.getParameter("accion");
-	if(acepta!=null && accion!=null){
-		if(acepta.compareTo("yes")==0 && accion.compareTo("add")==0){
+	if(accion!=null){
+		if(accion.compareTo("add")==0){
 			proUserTags.insertaUserTag(tagDAO.select(tagid),usuario);
 			response.sendRedirect("FrontController?res=userTags.jsp");
-		}else if(acepta.compareTo("yes")==0 && accion.compareTo("delete")==0){
+		}else if(accion.compareTo("delete")==0){
 			proUserTags.eliminaUserTag(tagDAO.select(tagid),usuario);
 			response.sendRedirect("FrontController?res=userTags.jsp");
 		}
@@ -31,6 +30,10 @@ if(accion.equals("add")){
 %>anadir el tag "<%out.println(tagDAO.select(tagid).getNombre());%>" a tus
  favoritos. ¿Estás seguro?
   <br>
+  	<form action="FrontController?res=userTags.jsp" method=post>
+		<input type="text" id="addtagyes" name="accion">
+		<input type="submit" value="Sí">
+	</form>
  	<a href="FrontController?res=addUserTag.jsp?tagid=<%=tagid%>&accion=add&acepta=yes">Sí</a>
  	<a href="FrontController?res=userTags.jsp">No</a>
 	<a href="FrontController?res=userTags.jsp">Volver a UserTags</a>
