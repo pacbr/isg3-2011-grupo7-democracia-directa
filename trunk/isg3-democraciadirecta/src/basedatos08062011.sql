@@ -97,6 +97,7 @@ INSERT INTO `tags` (`id`, `nombre`) VALUES
 ('19', 'Tecnologia'),
 ('2', 'Juventud'),
 ('20', 'Politica'),
+('21', 'TAGNoAsociado'),
 ('3', 'Cultura'),
 ('4', 'Ciencia'),
 ('5', 'Energia'),
@@ -104,7 +105,7 @@ INSERT INTO `tags` (`id`, `nombre`) VALUES
 ('7', 'Internet'),
 ('8', 'Agricultura'),
 ('9', 'Innovacion');
-('21', 'TAGNoAsociado');
+
 -- --------------------------------------------------------
 
 --
