@@ -27,12 +27,12 @@
 			favoritos = true;
 		}
 		
-/* 		System.out.println("Porcentaje1 "+p1);
+ 		System.out.println("Porcentaje1 "+p1);
 		System.out.println("Porcentaje2 "+p2);
 		System.out.println("nick "+nick);
-		System.out.println("boolean "+favoritos); */
+		System.out.println("boolean "+favoritos); 
 
-		for (PLey e : pr.recomienda(true, nick, p1, p2)){
+		for (PLey e : pr.recomienda(favoritos, nick, p1, p2)){
 			auxPrint.add(e);
 		}
 		
@@ -72,7 +72,9 @@
 		<br>
 	<%
 		cont++;
-	}%>		
+	}
+	auxPrint.clear();
+	%>		
 
 </body>
 </html>
