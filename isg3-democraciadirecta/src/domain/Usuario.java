@@ -10,7 +10,7 @@ public class Usuario {
 	private String email;
 	private String nombre;
 	private List<Tag> userTags;
-	private List<PLey> pleyesVotadas;
+	private List<String> pleyesVotadas;
 	
 	public String getId() {
 		return id;
@@ -60,11 +60,11 @@ public class Usuario {
 		return userTags;
 	}
 
-	public void setPleyesVotadas(List<PLey> pleyesVotadas) {
+	public void setPleyesVotadas(List<String> pleyesVotadas) {
 		this.pleyesVotadas = pleyesVotadas;
 	}
 
-	public List<PLey> getPleyesVotadas() {
+	public List<String> getPleyesVotadas() {
 		return pleyesVotadas;
 	}
 	
