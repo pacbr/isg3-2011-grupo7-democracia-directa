@@ -131,6 +131,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `email` varchar(50) CHARACTER SET latin1 NOT NULL,
   `nombre` varchar(50) CHARACTER SET latin1 NOT NULL,
   `tagsfav` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `leyesvotadas` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -138,9 +139,9 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 -- Volcar la base de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nick`, `password`, `email`, `nombre`, `tagsfav`) VALUES
-('1', 'practica', 'practica', 'practica@us.es', 'Pr?ctica', '1;2;3;4;5;6;7;'),
-('2', 'jose', 'jose', 'jose@isg3.com', 'Jose', '1;2;3;15;4;8;'),
-('3', 'mario', 'mario', 'mario@isg3.com', 'Mario', '1;6;7;10;'),
-('4', 'ramon', 'ramon', 'ramon@isg3.com', 'Ram?n', '2;7;9;5;14;'),
-('5', 'paco', 'paco', 'paco@isg3.com', 'Paco', '8;9;10;11;12;13;14;15;');
+INSERT INTO `usuarios` (`id`, `nick`, `password`, `email`, `nombre`, `tagsfav`, `leyesvotadas`) VALUES
+('1', 'practica', 'practica', 'practica@us.es', 'Pr?ctica', '1;2;3;4;5;6;7;','1;2;3;4;5;6;7;'),
+('2', 'jose', 'jose', 'jose@isg3.com', 'Jose', '1;2;3;15;4;8;','1;2;3;4;5;6;7;'),
+('3', 'mario', 'mario', 'mario@isg3.com', 'Mario', '1;6;7;10;','1;2;3;4;5;6;7;'),
+('4', 'ramon', 'ramon', 'ramon@isg3.com', 'Ram?n', '2;7;9;5;14;','1;2;3;4;5;6;7;'),
+('5', 'paco', 'paco', 'paco@isg3.com', 'Paco', '8;9;10;11;12;13;14;15;','1;2;3;4;5;6;7;');
