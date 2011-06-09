@@ -15,24 +15,64 @@
 		
 		String nick = request.getParameter("userID");
 		Integer i = new Integer("123");
-		Integer porcentaje1 = new Integer(request.getParameter("porcentaje1")); 
-		Integer porcentaje2 = new Integer(request.getParameter("porcentaje2"));
-		auxPrint.addAll(pr.recomienda(nick, porcentaje1, porcentaje2));
-// 		Integer aux1 = 1;
-// 		Integer aux2 = 100;
-// 		String aux3 = "3";
+		Integer p1 = new Integer(request.getParameter("porcentaje1")); 
+		Integer p2 = new Integer(request.getParameter("porcentaje2"));
+		boolean favoritos ;
+		if(request.getParameter("favoritos") == null)
+		{
+			favoritos = false;			
+		}
+		else
+		{
+			favoritos = true;
+		}
+		
+/* 		System.out.println("Porcentaje1 "+p1);
+		System.out.println("Porcentaje2 "+p2);
+		System.out.println("nick "+nick);
+		System.out.println("boolean "+favoritos); */
 
-		for (PLey e : pr.recomienda(nick, porcentaje1, porcentaje1)){
+		for (PLey e : pr.recomienda(true, nick, p1, p2)){
 			auxPrint.add(e);
 		}
 		
-		
+		int cont = 1;
 		for (PLey p : auxPrint){
 	%>
 		<br>
-		<a href="FrontController?res=muestraPLey.jsp?idPLey=<%=p.getId() %>"><%out.println(p.getNombre());%></a>
+			<B>
+				<%
+					out.println(cont+" ");
+				%>
+			</B>
+			<a href="FrontController?res=muestraPLey.jsp?idPLey=<%=	p.getId()%>">
+			<%
+				out.println(p.getNombre());
+			%>
+			</a>
+			<BR>
+			<B>TAGs :</B>
+			<%	
+				List<Tag> aux = p.getTags();
+				for(Tag t : aux){
+					out.println(t.getNombre()+"  ");					
+				}
+			%>
+			<BR>
+			<B>Usuario que ha propuesto la ley: </B>
+			<%
+				out.println(p.getUsuario().getNick());
+			%>
+			<BR>
+			<B>Votos recibidos hasta el momento: </B>
+			<%
+				out.println("("+p.getVotos()+")");
+			%>
+
 		<br>
-	<%}%>		
+	<%
+		cont++;
+	}%>		
 
 </body>
 </html>
