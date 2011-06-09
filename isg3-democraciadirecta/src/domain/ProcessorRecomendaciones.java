@@ -24,8 +24,10 @@ public class ProcessorRecomendaciones implements IProcessorRecomendaciones
 	@Override
 	public List<PLey> recomienda(boolean b, String idUsuario, Integer i, Integer j) 
 	{
-//		System.out.println("i: "+i);
-//		System.out.println("j: "+j);
+		System.out.println("i: "+i);
+		System.out.println("j: "+j);
+		System.out.println("idUsuario: "+idUsuario);
+		System.out.println("boolean : "+b);
 		//A partir de la idUsuario obtengo el nick del Usuario
 		Usuario u = usuarioDAO.select(idUsuario);		
 		//Creo la lista de Pleyes que devuelve el metodo
@@ -95,23 +97,31 @@ public class ProcessorRecomendaciones implements IProcessorRecomendaciones
 		if (porcentajeMinimo==porcentajeMaximo){
 			porcentajeMinimo=porcentajeMaximo-1;
 		}
-//		System.out.println("pMinimo: "+porcentajeMinimo);
-//		System.out.println("pMaximo: "+porcentajeMaximo);
+		System.out.println("pMinimo: "+porcentajeMinimo);
+		System.out.println("pMaximo: "+porcentajeMaximo);
 		//Creo un mapa auxiliar y elimino los TAGs que no se encuentran dentro del 
 		// porcentaje de TAGs deseado
 		SortedMap<Integer,List<Tag>> mapaRes = new TreeMap<Integer, List<Tag>>(); 
 		mapaRes.putAll(mapaAux);
+		System.out.println("tamaño mapa a devolver antes: "+mapaRes.size());
 		Integer principioMapa = 0;
 		Integer finMapa = tamMapa;
 		while(principioMapa<porcentajeMinimo){
+			System.out.println("Eliminando: "+principioMapa);
+			System.out.println("FirstKey: "+mapaRes.firstKey());
 			mapaRes.remove(mapaRes.firstKey());
 			principioMapa++;
+			
 		}
+		System.out.println("tamaño mapa a devolver: "+mapaRes.size());
+		
 		while(finMapa>porcentajeMaximo){
+			System.out.println("Eliminando: "+finMapa);
+			System.out.println("FirstKey: "+mapaRes.lastKey());
 			mapaRes.remove(mapaRes.lastKey());
 			finMapa--;
 		}
-//		System.out.println("tamaño mapa a devolver: "+mapaRes.size());
+		System.out.println("tamaño mapa a devolver despues: "+mapaRes.size());
 		//Genero una List<Tag> auxiliar en la que introducire ya si todos los Tags
 		// para poder utilizar el metodo getPLeyesByTags que recibe una List<Tag>
 		// y asi obtener la lista de Pleyes que mostrare al usuario
@@ -139,7 +149,9 @@ public class ProcessorRecomendaciones implements IProcessorRecomendaciones
 			List<PLey> lfavoritospley = pleyDAO.getPLeyesByTags(listafavoritos);
 			for(PLey e : lfavoritospley)
 			{
-				res.add(e);
+				if(!res.contains(e)){
+					res.add(e);
+				}
 			}
 		}
 		
@@ -149,7 +161,9 @@ public class ProcessorRecomendaciones implements IProcessorRecomendaciones
 		List<PLey> lfiltradospley = pleyDAO.getPLeyesByTags(resTags);
 		for(PLey e : lfiltradospley)
 		{
-			res.add(e);
+			if(!res.contains(e)){
+				res.add(e);
+			}
 		}
 		return res; 
 	}
