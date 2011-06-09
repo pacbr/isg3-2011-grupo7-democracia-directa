@@ -1,12 +1,11 @@
 package data;
 
-import java.util.Set;
-
+import java.util.List;
 import domain.*;
 
 public interface IUserTagsDAO {
 	
-	Set<Tag> getUserTags(String idUsuario);
+	List<Tag> getUserTags(String idUsuario);
 	boolean insertaTagAUsuario(String idTag, String idUsuario);
 	boolean eliminaTagDeUsuario(String idTag, String idUsuario);
 

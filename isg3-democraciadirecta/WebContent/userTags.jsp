@@ -48,6 +48,7 @@
 	IProcessorUserTags proUserTags = new ProcessorUserTags();
 	Usuario usuario = (Usuario)session.getAttribute("dd.usuario");
 	String tagid = request.getParameter("tagid");
+	String busca = request.getParameter("busca");
 	
 	//IUsuarioDAO user = new JDBCUsuarioDAO();
 	//user.select(usuario.getId());
@@ -100,10 +101,12 @@
 		</table>
 	</div>
 	<div id="buscador">
-	<form>
+	<form action="FrontController?res=userTags.jsp" method=post>
 		<label>Buscar Tag </label>
-		<input type="text" id="tagABuscar" name="tag">
+		<input type="text" id="tagABuscar" name="busca">
 		<input type="submit" value="Buscar">
+		<%if(busca.compareTo(use))
+			out.println("Hola");%>
 	</form>
 	</div>
 </div>

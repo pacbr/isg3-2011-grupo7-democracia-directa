@@ -2,8 +2,6 @@ package data;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Set;
-
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
@@ -26,9 +24,8 @@ public class JDBCUserTagsDAO implements IUserTagsDAO{
     }
 
 	@Override
-	public Set<Tag> getUserTags(String idUsuario) {
-		
-		return null;
+	public List<Tag> getUserTags(String idUsuario) {
+		return usuarioDAO.selectTags(usuarioDAO.select(idUsuario));
 	}
 	
 	@Override
