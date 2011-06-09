@@ -37,33 +37,49 @@
 		<p>
 		<form action="FrontController?res=pleyesRecomendadas.jsp" method="post">
 		<select name="porcentaje1">
-		<option value="1"> 99
-		<option value="10"> 90
-		<option value="20"> 80
-		<option value="30"> 70
-		<option value="40"> 60
+		<option value="1"> 0
+		<option value="10"> 10
+		<option value="15"> 15
+		<option value="20"> 20
+		<option value="25"> 25
+		<option value="30"> 30
+		<option value="35"> 35
+		<option value="40"> 40
+		<option value="45"> 45
 		<option value="50"> 50
-		<option value="60"> 40
-		<option value="70"> 30
-		<option value="80"> 20
-		<option value="90"> 10
-		<option value="99"> 1	
-		
+		<option value="55"> 55
+		<option value="60"> 60
+		<option value="65"> 65
+		<option value="70"> 70
+		<option value="75"> 75
+		<option value="80"> 80
+		<option value="85"> 85
+		<option value="90"> 90
+		<option value="95"> 95
+		<option value="100"> 100
 		</select>
 		
 		<select name="porcentaje2">
-		<option value="2"> 98
-		<option value="5"> 95
-		<option value="15"> 85
-		<option value="25"> 75
-		<option value="35"> 65
-		<option value="45"> 55
-		<option value="55"> 45
-		<option value="65"> 35
-		<option value="75"> 25
-		<option value="85"> 15
-		<option value="95"> 5
-		<option value="100"> 0
+		<option value="1"> 0
+		<option value="10"> 10
+		<option value="15"> 15
+		<option value="20"> 20
+		<option value="25"> 25
+		<option value="30"> 30
+		<option value="35"> 35
+		<option value="40"> 40
+		<option value="45"> 45
+		<option value="50"> 50
+		<option value="55"> 55
+		<option value="60"> 60
+		<option value="65"> 65
+		<option value="70"> 70
+		<option value="75"> 75
+		<option value="80"> 80
+		<option value="85"> 85
+		<option value="90"> 90
+		<option value="95"> 95
+		<option value="100"> 100
 		</select>
 		
 		<input type="checkbox" name="favoritos" id="favoritos" value="1">  Temas Favoritos
