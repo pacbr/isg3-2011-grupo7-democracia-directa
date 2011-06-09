@@ -43,6 +43,16 @@ public class JDBCUsuarioDAO implements IUsuarioDAO{
             }
             u.setUserTags(tags);
             
+            String[] camposVotadas = result.getString("leyesvotadas").split(";");
+            List<String> votos = new ArrayList<String>();
+            for (String s : camposVotadas) {
+            	if (s != "") {
+            		
+            		votos.add(s);
+            	}
+            }
+            u.setPleyesVotadas(votos);
+            
         } catch (SQLException e) {
             System.out.println("Message: " + e.getMessage());
             System.out.println("SQLState: " + e.getSQLState());
@@ -223,5 +233,51 @@ public class JDBCUsuarioDAO implements IUsuarioDAO{
 	public Tag deleteTag(Tag t) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean insertVoto(String idPLey, String idUsuario) {
+		boolean res = false;
+		Connection con = ConnectionManager.getInstance().checkOut();
+        PreparedStatement stmt = null;
+        String sql = "UPDATE usuarios SET leyesvotadas = ? WHERE id = ?";
+        IPLeyDAO pleyDAO = new JDBCPLeyDAO();
+        Usuario u = select(idUsuario);
+        List<String> votosRealizados = u.getPleyesVotadas();
+        String cadenaDeVotos = "";
+        try {
+            stmt = (PreparedStatement) con.prepareStatement(sql);
+            
+            boolean votoRepetido=false;
+            for(String s:votosRealizados){
+            	if(idPLey.equals(s))
+            		votoRepetido=true;
+    			cadenaDeVotos=cadenaDeVotos+s+";";
+            }
+            if(votoRepetido==false){
+            	String voto = pleyDAO.select(idPLey).getId();
+	            cadenaDeVotos=cadenaDeVotos+voto+";";
+            }
+            
+            stmt.setString(1, cadenaDeVotos);
+            stmt.setString(2, idUsuario);
+            int resultado = stmt.executeUpdate();
+			if (resultado != 0){
+				res = true;
+			}
+
+        } catch (SQLException e) {
+            System.out.println("Message: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("ErrorCode: " + e.getErrorCode());
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException e) {
+            }
+        }
+		return res;
 	}
 }
