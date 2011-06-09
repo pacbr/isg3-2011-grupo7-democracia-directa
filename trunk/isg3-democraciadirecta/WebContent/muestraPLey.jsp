@@ -9,33 +9,51 @@
 <body>
 	<%
 	IPLeyProcessor pp = new PLeyProcessor();
+	IProccesorUsuario up = new ProccesorUsuario();
+	Usuario usuario = (Usuario)session.getAttribute("dd.usuario");
 	PLey pley;
 	pley = pp.obtenerPLeyPorId(request.getParameter("idPLey"));
-	%>
-	<fieldset>
-		<legend
-			style="font-family: Arial, sans-serif; font-size: 18px; color: #660000"><%=pley.getNombre() %></legend>
-		<table summary="PLey" align="center">
+	PLey sessionPley = pley;
+	
 			
-			<%out.println("Autor: "+pley.getUsuario().getNick()); %>
-			
-			<tr valign ="middle" align="center" id="descripcion">
-				<td>&nbsp;</td><td><em>Descripción</em>
-			</tr>
-			<tr valign ="middle" align="center" id="descripcion">
-				<td></td>	<td> <%out.println(pley.getDescripcion());%> </td>	
-			</tr>
-			<tr valign ="middle" align="center" id="votar">
-				<td colspan="3" align="center">
-					<form action="" method="post"><input type="submit" value="VOTAR">
-					</form>
-				</td>
-			</tr>
-			<tr valign ="middle" align="center" id="votos">
-				<td colspan="3" align="center">
-					<%out.println("(Votos: "+pley.getVotos()+")"); %>
-				</td>
-			</tr>
+			session.setAttribute("session.PLey", sessionPley);
+			if (request.getParameter("votar") != null && request.getParameter("votar").equals("ok")) {
+				sessionPley = (PLey)session.getAttribute("session.PLey");
+				//if (up.votaPLey(sessionPley,usuario)) {
+					//out.println("VOTADA CORRECTAMENTE");
+				//} else {
+					//out.println("HA HABIDO UN ERROR AL VOTAR");
+				//}
+			}else{
+				%>
+				<fieldset>
+				<legend
+					style="font-family: Arial, sans-serif; font-size: 18px; color: #660000"><%=pley.getNombre() %></legend>
+				<table summary="PLey" align="center">
+					
+					<%out.println("Autor: "+pley.getUsuario().getNick()); %>
+					
+					<tr valign ="middle" align="center" id="descripcion">
+						<td>&nbsp;</td><td><em>Descripción</em>
+					</tr>
+					<tr valign ="middle" align="center" id="descripcion">
+						<td></td>	<td> <%out.println(pley.getDescripcion());%> </td>	
+					</tr>
+					<tr valign ="middle" align="center" id="votar">
+						<td colspan="3" align="center">
+							<form action="FrontController?res=muestraPLey.jsp?votar=ok" method="post"><input type="submit" value="VOTAR">
+					
+							</form>
+						</td>
+					</tr>
+					<tr valign ="middle" align="center" id="votos">
+						<td colspan="3" align="center">
+							<%out.println("(Votos: "+pley.getVotos()+")"); %>
+						</td>
+					</tr>
+					<%
+			}
+			%>
 			
 		</table>
 	</fieldset>
