@@ -26,8 +26,8 @@ public class ProcessorRecomendaciones implements IProcessorRecomendaciones
 	{
 		System.out.println("i: "+i);
 		System.out.println("j: "+j);
-		System.out.println("idUsuario: "+idUsuario);
-		System.out.println("boolean : "+b);
+//		System.out.println("idUsuario: "+idUsuario);
+//		System.out.println("boolean : "+b);
 		//A partir de la idUsuario obtengo el nick del Usuario
 		Usuario u = usuarioDAO.select(idUsuario);		
 		//Creo la lista de Pleyes que devuelve el metodo
@@ -47,13 +47,16 @@ public class ProcessorRecomendaciones implements IProcessorRecomendaciones
 //		System.out.println("maximo: "+max);
 		//Obtengo la lista de todos los Tags que existen
 		List<Tag> listaTodos = tagDAO.selectAll();
+//		System.out.println("Cuantos tags hay? "+listaTodos.size());
 		//Creo el Mapa en el que almacenare un numero de repeticiones dado
 		// y los tags que se han repetido ese numero de veces
 		SortedMap<Integer,List<Tag>> mapaAux = new TreeMap<Integer, List<Tag>>(); 
-		
+		Integer contador = 0;
 		//Uso el for para filtrar 
 		for(Tag t : listaTodos)
 		{
+//			System.out.println("contador: "+contador);
+//			contador++;
 			//Genero la lista de Pleyes que devolvere en las que aparecen los TAGs que se 
 			// encuentren en el porcentaje deseado por el Usuario  
 			List<PLey> listaPleysDeUnTagDeTodos = new ArrayList<PLey>();
@@ -72,6 +75,7 @@ public class ProcessorRecomendaciones implements IProcessorRecomendaciones
 			//Dado el numero de apariciones del Tag en diferentes Pleyes lo almaceno en su correspondiente
 			// posicion en el Map si existe, o creo la Key y luego lo almaceno
 			Integer clave = listaPleysDeUnTagDeTodos.size()+1;
+			System.out.println("El Tag: "+t.getNombre() +" ha aparecido en "+clave+" leyes");
 			if(mapaAux.containsKey(clave))
 			{
 				mapaAux.get(clave).add(t);
@@ -81,12 +85,14 @@ public class ProcessorRecomendaciones implements IProcessorRecomendaciones
 				List<Tag> listClave = new ArrayList<Tag>();
 				listClave.add(t);
 				mapaAux.put(clave, listClave);
+//				System.out.println("Como la clave: "+clave+" no esta en el mapa, la agrego");
 			}
+//			System.out.println("tamaño mapaAux: "+mapaAux.size());
+
 		}
 		//Calculo el numero de diferentes repeticiones posibles y los limites superior e inferior
 		// por los cuales se filtraran los TAGs segun el porcentaje que haya elegido el Usuario
-		Integer tamMapa = mapaAux.size()+1;
-//		System.out.println("tamañoMapa Original "+tamMapa);
+		Integer tamMapa = mapaAux.size();
 		Integer porcentajeMinimo = (min*tamMapa)/100;
 		Integer porcentajeMaximo = (max*tamMapa)/100;
 		//Evito que el porcentaje maximo sea 0
@@ -103,25 +109,23 @@ public class ProcessorRecomendaciones implements IProcessorRecomendaciones
 		// porcentaje de TAGs deseado
 		SortedMap<Integer,List<Tag>> mapaRes = new TreeMap<Integer, List<Tag>>(); 
 		mapaRes.putAll(mapaAux);
-		System.out.println("tamaño mapa a devolver antes: "+mapaRes.size());
+		System.out.println("tamaño mapa de Int,List<Tag> devolver antes: "+mapaRes.size()+1);
 		Integer principioMapa = 0;
 		Integer finMapa = tamMapa;
 		while(principioMapa<porcentajeMinimo){
-			System.out.println("Eliminando: "+principioMapa);
 			System.out.println("FirstKey: "+mapaRes.firstKey());
 			mapaRes.remove(mapaRes.firstKey());
 			principioMapa++;
 			
 		}
-		System.out.println("tamaño mapa a devolver: "+mapaRes.size());
+		System.out.println("tamaño mapa a devolver: "+mapaRes.size()+1);
 		
 		while(finMapa>porcentajeMaximo){
-			System.out.println("Eliminando: "+finMapa);
-			System.out.println("FirstKey: "+mapaRes.lastKey());
+			System.out.println("LastKey: "+mapaRes.lastKey());
 			mapaRes.remove(mapaRes.lastKey());
 			finMapa--;
 		}
-		System.out.println("tamaño mapa a devolver despues: "+mapaRes.size());
+		System.out.println("tamaño mapa a devolver despues: "+mapaRes.size()+1);
 		//Genero una List<Tag> auxiliar en la que introducire ya si todos los Tags
 		// para poder utilizar el metodo getPLeyesByTags que recibe una List<Tag>
 		// y asi obtener la lista de Pleyes que mostrare al usuario
@@ -129,12 +133,17 @@ public class ProcessorRecomendaciones implements IProcessorRecomendaciones
 		
 		//Obtengo de dentro del mapa cada List<Tag> que corresponde a cada Key y 
 		// y almaceno dichos Tags en la Lista que pasare al metodo getPLeyesByTags
-		Collection<List<Tag>> mapaValuesTags = mapaAux.values();
+		Collection<List<Tag>> mapaValuesTags = mapaRes.values();
+		System.out.println("tamaño mapaValuesTags "+mapaValuesTags.size()+1);
+		System.out.println("tamaño mapaAux "+mapaAux.size()+1);
 		for(List<Tag> e : mapaValuesTags)
 		{
 			for(Tag e2 : e)
 			{
-				resTags.add(e2);
+				if(!resTags.contains(e2)){
+					resTags.add(e2);
+				}
+				
 			}
 		}
 		
@@ -146,8 +155,9 @@ public class ProcessorRecomendaciones implements IProcessorRecomendaciones
 			
 			//Obtengo la List<Pleys> de los Tags favoritos del Usuario y la almaceno
 			// en la variable que devuelve el metodo
-			List<PLey> lfavoritospley = pleyDAO.getPLeyesByTags(listafavoritos);
-			for(PLey e : lfavoritospley)
+			List<PLey> listpleysfavoritas = pleyDAO.getPLeyesByTags(listafavoritos);
+			System.out.println("Tamaño listpleysfavoritas " +listpleysfavoritas.size()+1);
+			for(PLey e : listpleysfavoritas)
 			{
 				if(!res.contains(e)){
 					res.add(e);
@@ -158,13 +168,16 @@ public class ProcessorRecomendaciones implements IProcessorRecomendaciones
 		
 		//Obtengo la List<Pleys> de los Tags elegidos por porcentaje por el Usuario
 		// y la almaceno en la variable que devuelve el metodo
-		List<PLey> lfiltradospley = pleyDAO.getPLeyesByTags(resTags);
-		for(PLey e : lfiltradospley)
+		List<PLey> listpleyfiltradas = pleyDAO.getPLeyesByTags(resTags);
+		System.out.println("Tamaño listpleyfiltradas " +listpleyfiltradas.size()+1);
+		System.out.println("Tamaño de resTags " +resTags.size()+1);
+		for(PLey e : listpleyfiltradas)
 		{
 			if(!res.contains(e)){
 				res.add(e);
 			}
 		}
+		System.out.println("Tamaño de RES " +res.size()+1);
 		return res; 
 	}
 
