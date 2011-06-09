@@ -1,8 +1,12 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -23,36 +27,60 @@ public class ProcessorUserTags implements IProcessorUserTags{
 	IUsuarioDAO usuarioDAO = new JDBCUsuarioDAO();
 	IUserTagsDAO userTagsDAO = new JDBCUserTagsDAO();
 	
+	private class Tag2 implements Comparable<Tag2>{
+		
+		Integer id;
+		Integer apariciones=0;
+		public Tag2(Integer id){
+			this.id=id;
+		}
+		public Integer getId() {
+			return id;
+		}
+		public void setId(Integer id) {
+			this.id = id;
+		}
+		public void aumentaApariciones(){
+			this.apariciones++;
+		}
+		public Integer getApariciones(){
+			return this.apariciones;
+		}
+		@Override
+		public int compareTo(Tag2 o) {
+			//Se ordenan de mayor a menor
+			return o.getApariciones() - this.getApariciones() ;
+		}
+		
+	}
+	
 	@Override
 	public List<Tag> obtenerTop10() {
-//		Map<Tag,Integer> mapTagVotos = new HashMap<Tag, Integer>();
-//		for(PLey p:pleyDAO.selectAll()){
-//			for(Tag t:p.getTags()){
-//			//TODO Separar los tags de una pley
-//				if(!mapTagVotos.containsKey(t)){
-//					mapTagVotos.put(t, 1);
-//				}else{
-//					mapTagVotos.put(t, mapTagVotos.get(t)+1);
-//				}
-//			}
-//		}
-//		LinkedHashMap<Tag, Integer> mapResultado = new LinkedHashMap<Tag, Integer>();
-//		List<Tag> misMapKeys = new ArrayList<Tag>(mapTagVotos.keySet());
-//		List<Integer> misMapValues = new ArrayList<Integer>(mapTagVotos.values());
-//		TreeSet<Integer> conjuntoOrdenado = new TreeSet<Integer>(misMapValues);
-//		Integer[] arrayOrdenado = (Integer[]) conjuntoOrdenado.toArray();
-//		int size = arrayOrdenado.length;
-//		for (int i=0; i<size; i++) {
-//			mapResultado.put(misMapKeys.get(misMapValues.indexOf(arrayOrdenado[i])),arrayOrdenado[i]);
-//		}
-//		//TODOJOSE seleccionar 10 primeras comparando con pleyes
-//		List<Tag> lista = new ArrayList<Tag>();
-//		for(Tag t:mapResultado.keySet()){
-//			lista.add(t);
-//			System.out.println(t.getId());
-//		}
-//		return lista;
-		return tagDAO.selectAll();
+		List<Tag> arraytags = new ArrayList<Tag>();
+		List<Tag2> arraytags2 = new ArrayList<Tag2>();
+		
+		for(Tag t:tagDAO.selectAll()){
+			arraytags2.add(new Tag2(Integer.parseInt(t.getId())));
+		}
+		
+		for(PLey p:pleyDAO.selectAll()){
+			for(Tag t:p.getTags()){
+				for(Tag2 t2:arraytags2){
+					if(t.getId().compareTo(t2.getId().toString())==0){
+						t2.aumentaApariciones();
+					}
+				}
+			}
+				
+		}
+		Collections.sort(arraytags2);
+		int i =1;
+		for(Tag2 t2:arraytags2){
+				if(i<=10)
+				arraytags.add(tagDAO.select(t2.getId().toString()));
+				i++;
+		}
+		return arraytags;
 	}
 	
 	@Override
