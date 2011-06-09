@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface IProcessorRecomendaciones {
 
-	List<PLey> recomienda(String s, Integer i, Integer j);
+	List<PLey> recomienda(boolean b, String idUsuario, Integer i, Integer j);
 
 }
