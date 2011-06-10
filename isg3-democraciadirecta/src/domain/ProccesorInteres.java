@@ -8,69 +8,14 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 import data.IPLeyDAO;
-import data.IUsuarioDAO;
 import data.JDBCPLeyDAO;
-import data.JDBCUsuarioDAO;
 
 public class ProccesorInteres implements IProccesorInteres{
 	private IPLeyDAO pleyDAO = new JDBCPLeyDAO();
-	private IUsuarioDAO usuarioDAO = new JDBCUsuarioDAO();
 		
 	@Override
-	public List<Usuario> getUsers() {
-		return usuarioDAO.selectAll();
-	}
-
-	@Override
-	public SortedMap<Integer,List<PLey>> getPleysInteresantesByUser(Usuario user) {
-		Integer interesUsuario = new Integer(0);
-		Integer interesLey = new Integer (0);
-		SortedMap<Integer, List<PLey>> mapaPleyes = new TreeMap<Integer, List<PLey>>();
-		List<PLey> pleyesActivas = pleyDAO.selectPLeyesActivasByUser(user);
-		List<PLey> pleyesNoActivas = pleyDAO.selectPLeyesNoActivasByUser(user);
-		for(PLey p:pleyesNoActivas){
-			interesUsuario+=p.getVotos();
-		}
-		interesUsuario =(int)(interesUsuario*0.25);		
-		for(PLey p:pleyesActivas){
-			interesLey = p.getVotos()+interesUsuario;
-			if(mapaPleyes.containsKey(interesLey)){
-				mapaPleyes.get(interesLey).add(p);
-			}else{
-				List<PLey> lista = new ArrayList<PLey>();
-				lista.add(p);
-				mapaPleyes.put(interesLey, lista);
-			}
-			
-		}
-		return mapaPleyes;
-	}
-
-	@Override
-	public Integer getInteresByUser(Usuario user) {
-		Integer interesUsuario = new Integer(0);
-		List<PLey> pleyesNoActivas = pleyDAO.selectPLeyesNoActivasByUser(user);
-		for(PLey p:pleyesNoActivas){
-			interesUsuario+=p.getVotos();
-		}
-		interesUsuario =(int)(interesUsuario*0.25);
-		return interesUsuario;
-	}
-
-	@Override
-	public List<PLey> getPleysNoActivasByUser(Usuario user) {
-		List<PLey> pleyesNoActivas = pleyDAO.selectPLeyesNoActivasByUser(user);
-		return pleyesNoActivas;
-	}
-
-	@Override
-	public List<PLey> getPLeysActivas() {
-		return pleyDAO.selectPLeyesActivas();
-	}
-
-	@Override
 	public Integer getInteresUsuario(Usuario u) {
-		Integer interesUsuario=0;
+		Integer interesUsuario= new Integer(0);
 		List<PLey> pleyesNoActivas = pleyDAO.selectPLeyesNoActivasByUser(u);
 		for(PLey p:pleyesNoActivas){
 			interesUsuario +=p.getVotos();
@@ -82,19 +27,31 @@ public class ProccesorInteres implements IProccesorInteres{
 	@Override
 	public int getMovimientoEnLista(PLey p, int actualPos) {
 		int valor=2;
-		if(p.getVotos()>10){
-			if((p.getMaxPosicionLista()<actualPos) && (p.getMaxPosicionLista()<p.getMinPosicionLista())){
-				valor=-1;
-			}else{
-				if(p.getMaxPosicionLista()>actualPos){
-					valor=1;
-					setNewMaxPositionOnList(p,actualPos);
+		if((p.getMaxPosicionLista()==0)&&(p.getMinPosicionLista()==0)){
+			setNewMaxPositionOnList(p,actualPos);
+			setNewMinPositionOnList(p,actualPos);
+		}else{
+			if(p.getVotos()>10){
+				if(p.getMaxPosicionLista()<actualPos){
+					if(p.getMinPosicionLista()<actualPos){
+						setNewMinPositionOnList(p,actualPos);
+					}
+					valor = -1;
 				}else{
-					if(p.getMaxPosicionLista()==p.getMinPosicionLista()){
-						valor=0;
+					if(p.getMaxPosicionLista()>actualPos){
+						setNewMaxPositionOnList(p, actualPos);
+						valor = 1;
 					}else{
-						if(p.getMaxPosicionLista()==actualPos){
+						if(p.getMaxPosicionLista()<p.getMinPosicionLista()){
+							/*MAX = posActual
+							 ...
+							 MIN*/
 							valor=1;
+						}else{		
+							/*
+							MAX = MIN = posActual
+							 */
+							valor = 0;
 						}
 					}
 				}
@@ -102,7 +59,7 @@ public class ProccesorInteres implements IProccesorInteres{
 		}
 		return valor;
 	}
-		
+				
 	@Override
 	public void setNewMaxPositionOnList(PLey p, int posicionLista) {
 		p.setMaxPosicionLista(posicionLista);
@@ -116,10 +73,10 @@ public class ProccesorInteres implements IProccesorInteres{
 	}
 
 	@Override
-	public SortedMap<Integer,List<PLey>> creaMapaPLeyes(List<PLey> pleyesActivas) {
-		
+	public SortedMap<Integer,List<PLey>> creaMapaPLeyes() {
 		SortedMap<Integer,List<PLey>> mapaPleyesOrdenadas = new TreeMap<Integer,List<PLey>>();
 		Map<Usuario,Integer> mapaInteresUsuarios = new HashMap<Usuario,Integer>();
+		List<PLey> pleyesActivas = pleyDAO.selectPLeyesActivas();
 		Integer interesUsuario;
 		
 		for(PLey p:pleyesActivas){
@@ -137,5 +94,4 @@ public class ProccesorInteres implements IProccesorInteres{
 		}
 		return mapaPleyesOrdenadas;
 	}
-	
 }
