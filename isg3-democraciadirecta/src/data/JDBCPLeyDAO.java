@@ -557,6 +557,34 @@ public class JDBCPLeyDAO implements IPLeyDAO{
 		return res;
 	}
 
+	@Override
+	public boolean insertVisita(String idPley) {
+		PreparedStatement stmt = null;
+		String sql = "UPDATE pleyes SET visitas = visitas+1 WHERE id = ?";
+		boolean res=false;
+		try {
+			stmt = (PreparedStatement) con.prepareStatement(sql);
+			
+			stmt.setString(1, idPley);
+			int resultado = stmt.executeUpdate();
+			if (resultado != 0){
+				res = true;
+			}
+		} catch (SQLException e) {
+			System.out.println("Message: " + e.getMessage());
+			System.out.println("SQLState: " + e.getSQLState());
+			System.out.println("ErrorCode: " + e.getErrorCode());
+		} finally {
+			try {
+				if (stmt != null) {
+					stmt.close();
+				}
+			} catch (SQLException e) {
+			}
+		}
+		return res;
+	}
+
 	
 	
 }

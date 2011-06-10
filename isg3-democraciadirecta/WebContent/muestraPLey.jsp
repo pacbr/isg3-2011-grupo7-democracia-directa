@@ -38,6 +38,7 @@
 	if (!(request.getParameter("votar") != null && request.getParameter("votar").equals("ok"))) {
 		sessionPley = pp.obtenerPLeyPorId(request.getParameter("idPLey"));
 		session.setAttribute("session.PLey", sessionPley);
+		pp.nuevaVisita(sessionPley);
 	}else{
 		sessionPley = (PLey)session.getAttribute("session.PLey");
 	}
@@ -92,7 +93,7 @@
 				</td>
 				</tr>
 				<tr colspan="3" align="left">
-					<td><a href="FrontController?res=index.jsp">Volver al index</a></td>
+					<td><a href="FrontController?res=index.jsp">Volver al inicio</a></td>
 				</tr>
 				<%
 			}
@@ -116,7 +117,7 @@
 				</td>
 				</tr>
 				<tr colspan="3" align="left">
-					<td><a href="FrontController?res=index.jsp">Volver al index</a></td>
+					<td><a href="FrontController?res=index.jsp">Volver al inicio</a></td>
 				</tr>
 				<%
 			} else {
@@ -129,7 +130,7 @@
 				</td>
 				</tr>
 				<tr colspan="3" align="left">
-					<td><a href="FrontController?res=index.jsp">Volver al index</a></td>
+					<td><a href="FrontController?res=index.jsp">Volver al inicio</a></td>
 				</tr>
 				<%
 			}
