@@ -27,5 +27,4 @@ public interface IUsuarioDAO {
 
 	boolean insertVoto(String idPLey, String idUsuario);
 	
-	
 }

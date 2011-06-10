@@ -280,4 +280,5 @@ public class JDBCUsuarioDAO implements IUsuarioDAO{
         }
 		return res;
 	}
+	
 }

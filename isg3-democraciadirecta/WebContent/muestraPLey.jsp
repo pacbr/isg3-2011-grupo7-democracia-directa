@@ -12,7 +12,7 @@
 	Usuario usuario = (Usuario)session.getAttribute("dd.usuario");
 	IProccesorUsuario up = new ProccesorUsuario();
 	PLey sessionPley;
-	
+		
 	if (!(request.getParameter("votar") != null && request.getParameter("votar").equals("ok"))) {
 		sessionPley = pp.obtenerPLeyPorId(request.getParameter("idPLey"));
 		session.setAttribute("session.PLey", sessionPley);
@@ -90,7 +90,7 @@
 				<tr valign ="middle" align="center" id="votar">
 					<td colspan="3" align="center">
 				<%
-				out.println("Ya has votado esta ley");
+				out.println("Sólo puedes dar un voto a esta ley");
 				%>
 				</td>
 				</tr>
