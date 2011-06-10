@@ -61,5 +61,8 @@ public class PLeyProcessor implements IPLeyProcessor{
 	public PLey obtenerPLeyPorId(String id) {
 		return pleyDAO.select(id);
 	}
-	
+	@Override
+	public List<PLey> obtenerTodasPleyes() {
+		return pleyDAO.selectAll();
+	}
 }

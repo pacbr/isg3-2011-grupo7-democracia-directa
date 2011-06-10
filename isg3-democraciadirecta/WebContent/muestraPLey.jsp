@@ -5,6 +5,28 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Pley</title>
+<style type="text/css">
+<!--
+	#all{
+		font-family:Helvetica;
+		margin:auto;
+		float: inherit;
+		width:1100px;
+	}
+	#all legend{
+		style="font-family:Helvetica ;
+		 font-size: 18px; 
+		 color: #660000;
+	}
+	#all table{
+		padding:5px;
+	}
+	.desc{
+		font-style: italic;
+		font-weight: bold;
+	}
+-->
+</style>
 </head>
 <body>
 	<%
@@ -20,29 +42,28 @@
 		sessionPley = (PLey)session.getAttribute("session.PLey");
 	}
 	%>
-	
+	<div id="all">
 	<fieldset>
-	<legend
-		style="font-family: Arial, sans-serif; font-size: 18px; color: #660000"><%=sessionPley.getNombre() %></legend>
-	<table summary="PLey" align="center">
+	<legend><%=sessionPley.getNombre() %></legend>
+	<table summary="PLey">
 		
-		<%out.println("Autor: "+sessionPley.getUsuario().getNick()); %>
 		
-		<tr valign ="middle" align="center" id="descripcion">
-			<td>&nbsp;</td><td><b><em>Descripción</em></b>
+		<tr valign ="middle" align="left" id="autor">
+			<td><%out.println("Autor: "+sessionPley.getUsuario().getNombre()); %></td>
 		</tr>
-		<tr valign ="middle" align="center" id="descripcion">
-			<td></td>	<td> <%out.println(sessionPley.getDescripcion());%> </td>	
+		<tr></tr>
+		<tr valign ="middle" align="left" id="descripcion">
+			<td> <span class="desc">Descripción:</span><p><%out.println(sessionPley.getDescripcion());%> </p></td>	
 		</tr>
-		<tr valign ="middle" align="center" id="descripcion">
-			<td></td>	<td><b> <%out.println("TAGS: ");%></b><%
+		<tr valign ="middle" align="left" id="descripcion">
+			<td><b> <%out.println("TAGS: ");%></b><%
 							for(Tag t:sessionPley.getTags()){
 								out.println(t.getNombre());
 							}
 							%> </td>	
 		</tr>
-		<tr valign ="middle" align="center" id="votos">
-			<td colspan="3" align="center">
+		<tr valign ="middle" align="left" id="votos">
+			<td colspan="3" align="left">
 		
 		<%
 		if (!(request.getParameter("votar") != null && request.getParameter("votar").equals("ok"))) {
@@ -53,8 +74,8 @@
 			if( !up.pleyVotada(usuario, sessionPley)){
 				%>
 				
-				<tr valign ="middle" align="center" id="votar">
-					<td colspan="3" align="center">
+				<tr valign ="middle" align="left" id="votar">
+					<td colspan="3" align="left">
 						<form action="FrontController?res=muestraPLey.jsp?votar=ok" method="post"><input type="submit" value="VOTAR">
 				
 						</form>
@@ -63,12 +84,15 @@
 				<%
 			}else{
 				%>
-				<tr valign ="middle" align="center" id="novotar">
-				<td colspan="3" align="center">
+				<tr valign ="middle" align="left" id="novotar">
+				<td colspan="3" align="left">
 				<%
 				out.println("YA HAS VOTADO ESTA LEY");
 				%>
 				</td>
+				</tr>
+				<tr colspan="3" align="left">
+					<td><a href="FrontController?res=index.jsp">Volver al index</a></td>
 				</tr>
 				<%
 			}
@@ -77,29 +101,35 @@
 			if(up.votaPLey(sessionPley, usuario)){
 				PLey pley2 = pp.obtenerPLeyPorId(sessionPley.getId());
 				%>
-				<tr valign ="middle" align="center" id="votar">
-					<td colspan="3" align="center">
+				<tr valign ="middle" align="left" id="votar">
+					<td colspan="3" align="left">
 				<%
 				out.println("(Votos: "+pley2.getVotos()+")"); 
 				%>
 				</td>
 				</tr>
-				<tr valign ="middle" align="center" id="votar">
-					<td colspan="3" align="center">
+				<tr valign ="middle" align="left" id="votar">
+					<td colspan="3" align="left">
 				<%
 				out.println("Tu voto se ha realizado correctamente.");
 				%>
 				</td>
 				</tr>
+				<tr colspan="3" align="left">
+					<td><a href="FrontController?res=index.jsp">Volver al index</a></td>
+				</tr>
 				<%
 			} else {
 				%>
-				<tr valign ="middle" align="center" id="votar">
-					<td colspan="3" align="center">
+				<tr valign ="middle" align="left" id="votar">
+					<td colspan="3" align="left">
 				<%
 				out.println("Sólo puedes dar un voto a esta ley");
 				%>
 				</td>
+				</tr>
+				<tr colspan="3" align="left">
+					<td><a href="FrontController?res=index.jsp">Volver al index</a></td>
 				</tr>
 				<%
 			}
@@ -110,6 +140,6 @@
 		
 		</table>
 	</fieldset>
-	
+</div>
 </body>
 </html>
