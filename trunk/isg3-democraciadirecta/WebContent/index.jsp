@@ -11,51 +11,110 @@ contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <style type="text/css">
 <!--
 	#all{
-		font-family: Arial;
+		font-family:Helvetica;
+		margin:auto;
+		float: inherit;
+		width:1100px;
+	}
+	#all h1{
+		text-align:center;
 	}
 	#arribaderecha{
 		float:right;
 	}
-	#leyes{
+	.leyes{
 		float:left;
+		padding: 10px;
+		width: 650px;
 	}
-	#votos{
-		align:right;
-		font:Verdana;
-		color:red;
-
+	.leyes td{
+		padding:5px;
 	}
-	#nombreleyes{
-		font:Verdana;
-		color:blue;
+	.leyes thead{
+		font-weight: bold;
+	}
+	.votos{
+		font-weight:bold;
+		text-align:right;
+		text-size:20px;
+		border-right-color: black;
+		border-right-style: solid;
+		border-right-width: 2px;
+	}
+	.nombreleyes a{
+		color:#dd7777;
+	}
+	.nombreleyes a{
+		color:#dd7777;
 	}
 	#aviso{
 		align:right;
-		font:Verdana;
 		font-size:20px;
+	}
+	#cierra{
+		font-weight:bold;
+		padding:10px;
+		font-size:15px;
+		text-align:right;
+	}
+	#cierra a{
+		padding-left:15px;
+		font-size:10px;
+		text-align:right;
+	}
+	#menuderecha{
+		border:medium;
+		border-color:black;
+		float:right;
+		text-align: right;
+	}
+	#options {
+		 margin: auto;
+	}
+	#options a{
+		color:#669;
+	}
+	#options td{
+		text-align:center;
+		padding: 7px;
+		color: #669;
+		border: 1px solid #e8edff;
+		background: #eff2ff;
+	}
+	#floatderecha{
+		float:right;
+	}
+	#usuario td{
+		padding:3px;
+	}
+	.tagsdeleyes{
+		font-size: 10px;
 	}
 -->
 </style>
 </head>
 <body>
 	<div id=all>
-	<div id=leyes>
-	<%
-	if (session.getAttribute("dd.usuario") == null) {
-		IPLeyDAO pd = new JDBCPLeyDAO();
+		<h1>DEMOCRACIA DIRECTA</h1>
+		
+		<%if (session.getAttribute("dd.usuario") == null) {
+			IPLeyDAO pd = new JDBCPLeyDAO();
 		%>
-		<table>
-		<%
-		for(PLey p:pd.selectAll()){
-			%>
-			<tr>
-				<td id=votos><%out.println(p.getVotos()); %></td><td id=nombreleyes><%out.println(p.getNombre());%></td>
-			</tr>
-			<%
-		}
-	%>
-	</table>
-	</div>
+		<div class=leyes>
+			<table>
+				<thead>
+					<td>Votos</td><td>Leyes</td>
+				</thead>
+				<tbody>
+					<%for(PLey p:pd.selectAll()){%>
+					<tr>
+						<td class="votos"><%out.println(p.getVotos()); %></td><td class="nombreleyes"><%out.println(p.getNombre());%>  <span class="tagsdeleyes"> &nbsp;&nbsp;&nbsp;[<%for(Tag t : p.getTags()){out.println(t.getNombre());}%>]</span></td>
+					</tr>
+					<%}%>
+				</tbody>
+			</table>
+		</div>
+	<div id="floatderecha">
 		<form action="FrontController?res=index.jsp" method="post">
 		<div id="usuario">
 				<table summary="Identificación de Usuario" align="right">
@@ -70,47 +129,61 @@ contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 						</td>
 					</tr>
 					<tr>
-						<td colspan="3" align="center"><input type="submit"
+						<td colspan="2" align="center"><input type="submit"
 							value="ENTRAR" /></td>
 					</tr>
 					<tr>
-						<td>Debes estar logueado para poder votar</td>
+						<td colspan="2" align="center">Debes hacer login para poder votar</td>
 					</tr>
 				</table>
 		</div>
 		<!--cierra arribaDcha -->
-	</form>
+		</form>
+	</div>
 	<%
 	} else {
 		Usuario u = (Usuario)session.getAttribute("dd.usuario");
 	%>
-		
-			<div align="right">
-			<a href="FrontController?res=logOut.jsp">Cerrar Sesion</a>
+		<div class=leyes>
+		<%IProcessorUserTags proUserTags = new ProcessorUserTags();%>
+			<table>
+				<thead>
+					<td>Votos</td><td>Leyes</td>
+				</thead>
+				<tbody>
+					<%for(PLey p:proUserTags.obtenerLeyesConTagDeUsuario(u)){%>
+					<tr>
+						<td class="votos"><%out.println(p.getVotos()); %></td><td class="nombreleyes"><a href="FrontController?res=muestraPLey.jsp?idPLey=<%=p.getId()%>"><%out.println(p.getNombre());%> </a> <span class="tagsdeleyes"> &nbsp;&nbsp;&nbsp;[<%for(Tag t : p.getTags()){out.println(t.getNombre());}%>]</span></td>
+					</tr>
+					<%}%>
+				</tbody>
+			</table>
+		</div>
+		<div id="menuderecha">
+			<div id="cierra">
+				Usuario: <% out.println(u.getNombre()); %> <a href="FrontController?res=logOut.jsp">Cerrar Sesion</a>
 			</div>
-			
-			<div>
-			Hola <% out.println(u.getNick()); %> 
+		
+			<div id="options">
+				<table>
+					<tbody>
+						<tr>
+							<td><a href="FrontController?res=addpropuestaley.jsp">Añade propuesta de ley</a></td>
+						</tr>
+						<tr>
+							<td><a href="FrontController?res=userTags.jsp">Tags favoritos</a></td>
+						</tr>
+						<tr>
+							<td><a href="FrontController?res=pleyesInteresantes.jsp">Propuestas más interesantes</a></td>					
+						</tr>
+						<tr>
+							<td><a href="FrontController?res=recomendaciones.jsp">¿Te sugiero algo que votar?</a></td>					
+						</tr>
+					</tbody>
+				</table>
 			</div>
-			<br> 
-			<a href="FrontController?res=addpropuestaley.jsp">Añadir propuesta de ley</a>
-			
-		
-		
-		<p>
-			<a href="FrontController?res=userTags.jsp">Modifica tus tags favoritos</a>
-		</p>
-
-		<p>
-			<a href="FrontController?res=pleyesInteresantes.jsp">Propuestas de ley más interesantes en estos momentos</a>
-
-		</p>
-		<p>
-			<a href="FrontController?res=recomendaciones.jsp">¿Quieres que te sugiera algo que votar?</a>
-		</p>
-	<%
-	}
-	%>
+		</div>
+	<%}%>
 	</div>
 </body>
 </html>
