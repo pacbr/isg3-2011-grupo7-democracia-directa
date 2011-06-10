@@ -11,7 +11,8 @@ public class PLey {
 	private Usuario usuario;
 	private Integer votos;
 	private boolean activa;
-	private Integer posicionLista;
+	private Integer maxPosicionLista;
+	private Integer minPosicionLista;
 	private Integer visitas;
 	
 	public String getId() {
@@ -102,20 +103,28 @@ public class PLey {
 		return activa;
 	}
 
-	public void setPosicionLista(Integer posicionLista) {
-		this.posicionLista = posicionLista;
-	}
-
-	public Integer getPosicionLista() {
-		return posicionLista;
-	}
-
 	public void setVisitas(Integer visitas) {
 		this.visitas = visitas;
 	}
 
 	public Integer getVisitas() {
 		return visitas;
+	}
+
+	public void setMaxPosicionLista(Integer maxPosicionLista) {
+		this.maxPosicionLista = maxPosicionLista;
+	}
+
+	public Integer getMaxPosicionLista() {
+		return maxPosicionLista;
+	}
+
+	public void setMinPosicionLista(Integer minPosicionLista) {
+		this.minPosicionLista = minPosicionLista;
+	}
+
+	public Integer getMinPosicionLista() {
+		return minPosicionLista;
 	}
 	
 }

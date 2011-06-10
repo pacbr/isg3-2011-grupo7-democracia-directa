@@ -16,8 +16,10 @@ public interface IPLeyDAO {
 	List<PLey> selectAll();
 	PLey select(String idPley);
 	boolean insert(PLey p);
-	boolean insertPositionList(String idPley, int posicionLista);
+	
 	List<PLey> selectPLeyesActivas();
 	boolean insertVoto(String idPLey);
 	
+	boolean insertMaxPositionList(String idPley, int posicionLista);
+	boolean insertMinPositionList(String idPley, int posicionLista);
 }
