@@ -10,4 +10,5 @@ public interface IPLeyProcessor {
 	boolean insertaPLey(PLey p);
 	PLey obtenerPLeyPorId(String id);
 	public List<PLey> obtenerTodasPleyes();
+	boolean nuevaVisita(PLey pley);
 }

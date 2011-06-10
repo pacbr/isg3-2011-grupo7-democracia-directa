@@ -22,4 +22,5 @@ public interface IPLeyDAO {
 	
 	boolean insertMaxPositionList(String idPley, int posicionLista);
 	boolean insertMinPositionList(String idPley, int posicionLista);
+	boolean insertVisita(String idPley);
 }

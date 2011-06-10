@@ -65,4 +65,9 @@ public class PLeyProcessor implements IPLeyProcessor{
 	public List<PLey> obtenerTodasPleyes() {
 		return pleyDAO.selectAll();
 	}
+
+	@Override
+	public boolean nuevaVisita(PLey pley) {
+		return pleyDAO.insertVisita(pley.getId());
+	}
 }
