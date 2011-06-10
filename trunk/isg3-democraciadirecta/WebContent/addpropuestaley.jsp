@@ -51,7 +51,8 @@
 	 		p.setUsuario(usuario);
 	 		p.setVotos(0);
 	 		p.setActiva(true);
-	 		p.setPosicionLista(0);
+	 		p.setMaxPosicionLista(0);
+	 		p.setMinPosicionLista(0);
 	 		p.setVisitas(0);
 	 		sessionPLey = p;
 	 		session.setAttribute("session.PLey", sessionPLey);
