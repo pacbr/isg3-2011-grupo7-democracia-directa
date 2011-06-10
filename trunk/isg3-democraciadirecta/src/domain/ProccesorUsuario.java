@@ -1,5 +1,7 @@
 package domain;
 
+import java.util.List;
+
 import data.IPLeyDAO;
 import data.IUsuarioDAO;
 import data.JDBCPLeyDAO;
@@ -12,14 +14,16 @@ IPLeyDAO pleyDAO = new JDBCPLeyDAO();
 	@Override
 	public boolean votaPLey(PLey p, Usuario u){
 		boolean res = false;
-		res = usuarioDAO.insertVoto(p.getId(), u.getId());
-		res = res && pleyDAO.insertVoto(p.getId());
+		if (!usuarioDAO.select(u.getId()).getPleyesVotadas().contains(p.getId())){
+			res = usuarioDAO.insertVoto(p.getId(), u.getId()) && pleyDAO.insertVoto(p.getId());
+		}
 		return res;
 	}
 
 	@Override
 	public boolean pleyVotada(Usuario usuario, PLey pley) {
-		// TODO PACO
-		return false;
+		List<String> lista = usuarioDAO.select(usuario.getId()).getPleyesVotadas();
+		return lista.contains(pley.getId());
 	}
+
 }
