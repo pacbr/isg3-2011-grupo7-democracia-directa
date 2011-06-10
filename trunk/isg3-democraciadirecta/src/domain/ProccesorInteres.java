@@ -83,7 +83,7 @@ public class ProccesorInteres implements IProccesorInteres{
 			if(!mapaInteresUsuarios.containsKey(p.getUsuario())){
 				mapaInteresUsuarios.put(p.getUsuario(),getInteresUsuario(p.getUsuario()));
 			}
-			interesUsuario=mapaInteresUsuarios.get(p.getUsuario())+p.getVotos();
+			interesUsuario=(int)(mapaInteresUsuarios.get(p.getUsuario())+p.getVotos()+(p.getVisitas()*0.4));
 			if(!mapaPleyesOrdenadas.containsKey(interesUsuario)){
 				List<PLey> listaInteres = new ArrayList<PLey>();
 				listaInteres.add(p);
