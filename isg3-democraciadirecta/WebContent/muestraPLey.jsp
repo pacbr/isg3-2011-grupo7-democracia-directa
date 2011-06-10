@@ -29,10 +29,17 @@
 		<%out.println("Autor: "+sessionPley.getUsuario().getNick()); %>
 		
 		<tr valign ="middle" align="center" id="descripcion">
-			<td>&nbsp;</td><td><em>Descripción</em>
+			<td>&nbsp;</td><td><b><em>Descripción</em></b>
 		</tr>
 		<tr valign ="middle" align="center" id="descripcion">
 			<td></td>	<td> <%out.println(sessionPley.getDescripcion());%> </td>	
+		</tr>
+		<tr valign ="middle" align="center" id="descripcion">
+			<td></td>	<td><b> <%out.println("TAGS: ");%></b><%
+							for(Tag t:sessionPley.getTags()){
+								out.println(t.getNombre());
+							}
+							%> </td>	
 		</tr>
 		<tr valign ="middle" align="center" id="votos">
 			<td colspan="3" align="center">
