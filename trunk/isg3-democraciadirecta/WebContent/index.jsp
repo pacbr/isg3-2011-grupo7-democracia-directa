@@ -69,7 +69,7 @@ contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 		text-align: right;
 	}
 	#options {
-		 margin: auto;
+		 margin: auto;	
 	}
 	#options a{
 		color:#669;
@@ -90,6 +90,11 @@ contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 	.tagsdeleyes{
 		font-size: 10px;
 	}
+	#seleccionaTodas{
+		padding:5px;
+		text-align: right;
+		font-size:10px;
+	}
 -->
 </style>
 </head>
@@ -98,7 +103,7 @@ contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 		<h1>DEMOCRACIA DIRECTA</h1>
 		
 		<%if (session.getAttribute("dd.usuario") == null) {
-			IPLeyDAO pd = new JDBCPLeyDAO();
+			IPLeyProcessor pd = new PLeyProcessor();
 		%>
 		<div class=leyes>
 			<table>
@@ -106,7 +111,7 @@ contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 					<td>Votos</td><td>Leyes</td>
 				</thead>
 				<tbody>
-					<%for(PLey p:pd.selectAll()){%>
+					<%for(PLey p:pd.obtenerTodasPleyes()){%>
 					<tr>
 						<td class="votos"><%out.println(p.getVotos()); %></td><td class="nombreleyes"><%out.println(p.getNombre());%>  <span class="tagsdeleyes"> &nbsp;&nbsp;&nbsp;[<%for(Tag t : p.getTags()){out.println(t.getNombre());}%>]</span></td>
 					</tr>
@@ -143,6 +148,7 @@ contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 	<%
 	} else {
 		Usuario u = (Usuario)session.getAttribute("dd.usuario");
+		String todas = request.getParameter("todas");
 	%>
 		<div class=leyes>
 		<%IProcessorUserTags proUserTags = new ProcessorUserTags();%>
@@ -151,7 +157,15 @@ contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 					<td>Votos</td><td>Leyes</td>
 				</thead>
 				<tbody>
-					<%for(PLey p:proUserTags.obtenerLeyesConTagDeUsuario(u)){%>
+					<% 
+					List<PLey> lp = new ArrayList<PLey>();
+					if(todas != null && todas.compareTo("yes")==0){
+						IPLeyProcessor pp=new PLeyProcessor();
+						lp = pp.obtenerTodasPleyes();
+					}else{
+						lp = proUserTags.obtenerLeyesConTagDeUsuario(u);
+					}
+						for(PLey p:lp){%>
 					<tr>
 						<td class="votos"><%out.println(p.getVotos()); %></td><td class="nombreleyes"><a href="FrontController?res=muestraPLey.jsp?idPLey=<%=p.getId()%>"><%out.println(p.getNombre());%> </a> <span class="tagsdeleyes"> &nbsp;&nbsp;&nbsp;[<%for(Tag t : p.getTags()){out.println(t.getNombre());}%>]</span></td>
 					</tr>
@@ -162,8 +176,16 @@ contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 		<div id="menuderecha">
 			<div id="cierra">
 				Usuario: <% out.println(u.getNombre()); %> <a href="FrontController?res=logOut.jsp">Cerrar Sesion</a>
+				<br>
 			</div>
-		
+			<div id="seleccionaTodas">
+				<%if(todas != null && todas.compareTo("yes")==0){%>
+					<a href="FrontController?res=index.jsp">Ver leyes con mis tags favoritos</a>
+				<%}else{%>
+					<a href="FrontController?res=index.jsp?todas=yes">Ver todas las leyes</a>
+					
+				<%} %>
+			</div>
 			<div id="options">
 				<table>
 					<tbody>

@@ -91,15 +91,15 @@
 	String tagid = request.getParameter("tagid");
 	String busca = request.getParameter("busca");
 	String accion = request.getParameter("accion");
-	ITagDAO tagDAO = new JDBCTagDAO();
+	
 	
 	if(accion!=null){
 		if(accion.compareTo("add")==0){
 			proUserTags.insertaUserTag(proUserTags.obtenerTagPorId(tagid),usuario);
-			response.sendRedirect("FrontController?res=userTags.jsp");
+			//response.sendRedirect("FrontController?res=userTags.jsp");
 		}else if(accion.compareTo("delete")==0){
 			proUserTags.eliminaUserTag(proUserTags.obtenerTagPorId(tagid),usuario);
-			response.sendRedirect("FrontController?res=userTags.jsp");
+			//response.sendRedirect("FrontController?res=userTags.jsp");
 		}
 	}
 	

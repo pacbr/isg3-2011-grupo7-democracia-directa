@@ -9,5 +9,5 @@ public interface IPLeyProcessor {
 	Map<PLey, String> obtenerCoincidencias(PLey p);
 	boolean insertaPLey(PLey p);
 	PLey obtenerPLeyPorId(String id);
-	
+	public List<PLey> obtenerTodasPleyes();
 }
