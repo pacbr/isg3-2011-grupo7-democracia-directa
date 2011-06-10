@@ -80,16 +80,23 @@ public class ProccesorInteres implements IProccesorInteres{
 	}
 
 	@Override
-	public int getLastPositionOnList(PLey p, int actualPos) {
+	public int getMovimientoEnLista(PLey p, int actualPos) {
 		int valor=2;
-		if(p.getPosicionLista()<actualPos && p.getPosicionLista()>0){
-			valor=-1;
-		}else{
-			if(p.getPosicionLista()>actualPos){
-				valor=1;
+		if(p.getVotos()>10){
+			if((p.getMaxPosicionLista()<actualPos) && (p.getMaxPosicionLista()<p.getMinPosicionLista())){
+				valor=-1;
 			}else{
-				if(p.getPosicionLista()==actualPos){
-					valor=0;
+				if(p.getMaxPosicionLista()>actualPos){
+					valor=1;
+					setNewMaxPositionOnList(p,actualPos);
+				}else{
+					if(p.getMaxPosicionLista()==p.getMinPosicionLista()){
+						valor=0;
+					}else{
+						if(p.getMaxPosicionLista()==actualPos){
+							valor=1;
+						}
+					}
 				}
 			}
 		}
@@ -97,9 +104,15 @@ public class ProccesorInteres implements IProccesorInteres{
 	}
 		
 	@Override
-	public void setNewPositionOnList(PLey p, int posicionLista) {
-		p.setPosicionLista(posicionLista);
-		pleyDAO.insertPositionList(p.getId(),posicionLista);
+	public void setNewMaxPositionOnList(PLey p, int posicionLista) {
+		p.setMaxPosicionLista(posicionLista);
+		pleyDAO.insertMaxPositionList(p.getId(),posicionLista);
+	}
+	
+	@Override
+	public void setNewMinPositionOnList(PLey p, int posicionLista) {
+		p.setMinPosicionLista(posicionLista);
+		pleyDAO.insertMinPositionList(p.getId(),posicionLista);
 	}
 
 	@Override
@@ -124,10 +137,5 @@ public class ProccesorInteres implements IProccesorInteres{
 		}
 		return mapaPleyesOrdenadas;
 	}
-	
-	public boolean prueba (PLey p){
-		return pleyDAO.insert(p);
-	}
-	
 	
 }

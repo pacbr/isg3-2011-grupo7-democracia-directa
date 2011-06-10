@@ -46,7 +46,8 @@ public class JDBCPLeyDAO implements IPLeyDAO{
 	            temp.setVotos(result.getInt("Votos"));
 	            temp.setActiva(result.getBoolean("Activa"));
 	            temp.setVisitas(result.getInt("Visitas"));
-	            temp.setPosicionLista(result.getInt("Posicion"));
+	            temp.setMaxPosicionLista(result.getInt("posicionMax"));
+	            temp.setMinPosicionLista(result.getInt("posicionMin"));
 	            String[] campos = result.getString("tags").split(";");
 	            List<Tag> tags = new ArrayList<Tag>();
 	            for (String s : campos) {
@@ -109,7 +110,8 @@ public class JDBCPLeyDAO implements IPLeyDAO{
 	        	            temp.setVotos(result.getInt("Votos"));
 	        	            temp.setActiva(result.getBoolean("Activa"));
 	        	            temp.setVisitas(result.getInt("Visitas"));
-	        	            temp.setPosicionLista(result.getInt("Posicion"));
+	        	            temp.setMaxPosicionLista(result.getInt("posicionMax"));
+	        	            temp.setMinPosicionLista(result.getInt("posicionMin"));
 	            			temp.setTags(tags1);
 	            			if (!lista.contains(temp)) {
 	            				lista.add(temp);
@@ -168,7 +170,8 @@ public class JDBCPLeyDAO implements IPLeyDAO{
     	            temp.setVotos(result.getInt("Votos"));
     	            temp.setActiva(result.getBoolean("Activa"));
     	            temp.setVisitas(result.getInt("Visitas"));
-    	            temp.setPosicionLista(result.getInt("Posicion"));
+    	            temp.setMaxPosicionLista(result.getInt("posicionMax"));
+    	            temp.setMinPosicionLista(result.getInt("posicionMin"));
         			temp.setTags(tags);
         			if (!lista.contains(temp)) {
         				lista.add(temp);
@@ -224,7 +227,8 @@ public class JDBCPLeyDAO implements IPLeyDAO{
         			temp.setVotos(result.getInt("Votos"));
     	            temp.setActiva(result.getBoolean("Activa"));
     	            temp.setVisitas(result.getInt("Visitas"));
-    	            temp.setPosicionLista(result.getInt("Posicion"));
+    	            temp.setMaxPosicionLista(result.getInt("posicionMax"));
+    	            temp.setMinPosicionLista(result.getInt("posicionMin"));
         			temp.setTags(tags);
         			if (!lista.contains(temp)) {
         				lista.add(temp);
@@ -280,7 +284,8 @@ public class JDBCPLeyDAO implements IPLeyDAO{
         			temp.setVotos(result.getInt("Votos"));
     	            temp.setActiva(result.getBoolean("Activa"));
     	            temp.setVisitas(result.getInt("Visitas"));
-    	            temp.setPosicionLista(result.getInt("Posicion"));
+    	            temp.setMaxPosicionLista(result.getInt("posicionMax"));
+    	            temp.setMinPosicionLista(result.getInt("posicionMin"));
         			temp.setTags(tags);
         			if (!lista.contains(temp)) {
         				lista.add(temp);
@@ -335,7 +340,8 @@ public class JDBCPLeyDAO implements IPLeyDAO{
 			pley.setVotos(result.getInt("Votos"));
             pley.setActiva(result.getBoolean("Activa"));
             pley.setVisitas(result.getInt("Visitas"));
-            pley.setPosicionLista(result.getInt("Posicion"));
+            pley.setMaxPosicionLista(result.getInt("posicionMax"));
+            pley.setMinPosicionLista(result.getInt("posicionMin"));
             String[] campos = result.getString("tags").split(";");
 	        List<Tag> tags = new ArrayList<Tag>();
 	        for (String s : campos) {
@@ -408,37 +414,6 @@ public class JDBCPLeyDAO implements IPLeyDAO{
 	}
 
 	@Override
-	public boolean insertPositionList(String idPley, int posicionLista) {
-		PreparedStatement stmt = null;
-		String sql = "UPDATE pleyes SET posicion = ? WHERE id = ?";
-		boolean res=false;
-		try {
-			stmt = (PreparedStatement) con.prepareStatement(sql);
-			
-			
-			stmt.setInt(1,posicionLista);
-			stmt.setString(2,idPley);
-
-			int resultado = stmt.executeUpdate();
-			if (resultado != 0){
-				res = true;
-			}
-		} catch (SQLException e) {
-			System.out.println("Message: " + e.getMessage());
-			System.out.println("SQLState: " + e.getSQLState());
-			System.out.println("ErrorCode: " + e.getErrorCode());
-		} finally {
-			try {
-				if (stmt != null) {
-					stmt.close();
-				}
-			} catch (SQLException e) {
-			}
-		}
-		return res;
-	}
-
-	@Override
 	public List<PLey> selectPLeyesActivas() {
 		Connection con = ConnectionManager.getInstance().checkOut();
 		String sql = "SELECT * FROM pleyes WHERE (Activa = true)";
@@ -459,7 +434,8 @@ public class JDBCPLeyDAO implements IPLeyDAO{
 	            temp.setVotos(result.getInt("Votos"));
 	            temp.setActiva(result.getBoolean("Activa"));
 	            temp.setVisitas(result.getInt("Visitas"));
-	            temp.setPosicionLista(result.getInt("Posicion"));
+	            temp.setMaxPosicionLista(result.getInt("posicionMax"));
+	            temp.setMinPosicionLista(result.getInt("posicionMin"));
 	            String[] campos = result.getString("tags").split(";");
 	            List<Tag> tags = new ArrayList<Tag>();
 	            for (String s : campos) {
@@ -500,6 +476,68 @@ public class JDBCPLeyDAO implements IPLeyDAO{
 			stmt = (PreparedStatement) con.prepareStatement(sql);
 			
 			stmt.setString(1, idPLey);
+			int resultado = stmt.executeUpdate();
+			if (resultado != 0){
+				res = true;
+			}
+		} catch (SQLException e) {
+			System.out.println("Message: " + e.getMessage());
+			System.out.println("SQLState: " + e.getSQLState());
+			System.out.println("ErrorCode: " + e.getErrorCode());
+		} finally {
+			try {
+				if (stmt != null) {
+					stmt.close();
+				}
+			} catch (SQLException e) {
+			}
+		}
+		return res;
+	}
+
+	@Override
+	public boolean insertMaxPositionList(String idPley, int posicionLista) {
+		PreparedStatement stmt = null;
+		String sql = "UPDATE pleyes SET posicionMax = ? WHERE id = ?";
+		boolean res=false;
+		try {
+			stmt = (PreparedStatement) con.prepareStatement(sql);
+			
+			
+			stmt.setInt(1,posicionLista);
+			stmt.setString(2,idPley);
+
+			int resultado = stmt.executeUpdate();
+			if (resultado != 0){
+				res = true;
+			}
+		} catch (SQLException e) {
+			System.out.println("Message: " + e.getMessage());
+			System.out.println("SQLState: " + e.getSQLState());
+			System.out.println("ErrorCode: " + e.getErrorCode());
+		} finally {
+			try {
+				if (stmt != null) {
+					stmt.close();
+				}
+			} catch (SQLException e) {
+			}
+		}
+		return res;
+	}
+
+	@Override
+	public boolean insertMinPositionList(String idPley, int posicionLista) {
+		PreparedStatement stmt = null;
+		String sql = "UPDATE pleyes SET posicionMin = ? WHERE id = ?";
+		boolean res=false;
+		try {
+			stmt = (PreparedStatement) con.prepareStatement(sql);
+			
+			
+			stmt.setInt(1,posicionLista);
+			stmt.setString(2,idPley);
+
 			int resultado = stmt.executeUpdate();
 			if (resultado != 0){
 				res = true;
