@@ -2,15 +2,7 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 
 import data.IPLeyDAO;
 import data.ITagDAO;
@@ -27,32 +19,6 @@ public class ProcessorUserTags implements IProcessorUserTags{
 	IUsuarioDAO usuarioDAO = new JDBCUsuarioDAO();
 	IUserTagsDAO userTagsDAO = new JDBCUserTagsDAO();
 	
-	private class Tag2 implements Comparable<Tag2>{
-		
-		Integer id;
-		Integer apariciones=0;
-		public Tag2(Integer id){
-			this.id=id;
-		}
-		public Integer getId() {
-			return id;
-		}
-		public void setId(Integer id) {
-			this.id = id;
-		}
-		public void aumentaApariciones(){
-			this.apariciones++;
-		}
-		public Integer getApariciones(){
-			return this.apariciones;
-		}
-		@Override
-		public int compareTo(Tag2 o) {
-			//Se ordenan de mayor a menor
-			return o.getApariciones() - this.getApariciones() ;
-		}
-		
-	}
 	
 	@Override
 	public List<Tag> obtenerTop10() {
@@ -94,6 +60,11 @@ public class ProcessorUserTags implements IProcessorUserTags{
 	}
 
 	@Override
+	public Tag obtenerTagPorId(String id) {
+		return tagDAO.select(id);
+	}
+	
+	@Override
 	public List<Tag> obtenerTagsActualesDeUsuario(Usuario u) {
 		Usuario user = usuarioDAO.select(u.getId());
 		return user.getUserTags();
@@ -108,5 +79,43 @@ public class ProcessorUserTags implements IProcessorUserTags{
 	public boolean eliminaUserTag(Tag t, Usuario u) {
 		return userTagsDAO.eliminaTagDeUsuario(t.getId(), u.getId());
 	}
+	
+	@Override
+	public List<PLey> obtenerLeyesConTagDeUsuario(Usuario u) {
+		List<PLey> lp = new ArrayList<PLey>();
+		for(PLey p : pleyDAO.selectAll()){
+			for(Tag tagdepley : p.getTags()){
+				for(Tag tagdeusuario : usuarioDAO.select(u.getId()).getUserTags()){
+					if(tagdepley.getId().compareTo(tagdeusuario.getId())==0 && lp.contains(p)==false)
+						lp.add(p);
+				}	
+			}
+		}
+		return lp;
+	}
 
+private class Tag2 implements Comparable<Tag2>{
+		
+		Integer id;
+		Integer apariciones=0;
+		public Tag2(Integer id){
+			this.id=id;
+		}
+		public Integer getId() {
+			return id;
+		}
+		
+		public void aumentaApariciones(){
+			this.apariciones++;
+		}
+		public Integer getApariciones(){
+			return this.apariciones;
+		}
+		@Override
+		public int compareTo(Tag2 o) {
+			//Se ordenan de mayor a menor
+			return o.getApariciones() - this.getApariciones() ;
+		}
+		
+	}
 }
