@@ -67,6 +67,7 @@ font-family:Calibri;
 #leyenda{
 background-color: #808080;
 width: 900px;
+color:#FFFFFF;
 }
 
 -->
