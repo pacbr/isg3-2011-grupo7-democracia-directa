@@ -135,7 +135,7 @@
 			%>
 				<table class="one-column-emphasis">
 				<tr>
-				<td width="50%">PLey</td>
+				<td width="50%">Propuesta de Ley</td>
 				<td width="50%">% Coincidencia Tags</td>
 				</tr>
 				<%
@@ -143,7 +143,7 @@
 				%>
 					<tr>
 					<td width="80%" class="oce-first">
-						<a href="FrontController?res=muestraPLey.jsp?idPLey=<% out.println(l.getId()); %>">
+						<a target="_blank" href="FrontController?res=muestraPLey.jsp?idPLey=<% out.println(l.getId()); %>">
 						<% out.println(l.getNombre()); %>
 						</a>
 					</td>
