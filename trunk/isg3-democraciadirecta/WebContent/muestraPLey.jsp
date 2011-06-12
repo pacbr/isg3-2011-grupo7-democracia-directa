@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Pley</title>
+<title>Propuesta de ley</title>
 <style type="text/css">
 <!--
 	#all{
@@ -72,30 +72,42 @@
 			</td>
 		</tr>
 			<%
-			if( !up.pleyVotada(usuario, sessionPley)){
+			if(!sessionPley.isActiva()){
 				%>
 				
 				<tr valign ="middle" align="left" id="votar">
 					<td colspan="3" align="left">
-						<form action="FrontController?res=muestraPLey.jsp?votar=ok" method="post"><input type="submit" value="VOTAR">
-				
-						</form>
+				<%	
+				out.println("ESTA LEY ESTÁ INACTIVA. YA NO SE PUEDE VOTAR");
+				%>
 					</td>
 				</tr>
+				
 				<%
 			}else{
-				%>
-				<tr valign ="middle" align="left" id="novotar">
-				<td colspan="3" align="left">
-				<%
-				out.println("YA HAS VOTADO ESTA LEY");
-				%>
-				</td>
-				</tr>
-				<tr colspan="3" align="left">
-					<td><a href="FrontController?res=index.jsp">Volver al inicio</a></td>
-				</tr>
-				<%
+				if( !up.pleyVotada(usuario, sessionPley)){
+					%>
+					
+					<tr valign ="middle" align="left" id="votar">
+						<td colspan="3" align="left">
+							<form action="FrontController?res=muestraPLey.jsp?votar=ok" method="post"><input type="submit" value="VOTAR">
+					
+							</form>
+						</td>
+					</tr>
+					<%
+				}else{
+					%>
+					<tr valign ="middle" align="left" id="novotar">
+					<td colspan="3" align="left">
+					<%
+					out.println("YA HAS VOTADO ESTA LEY");
+					%>
+					</td>
+					</tr>
+					
+					<%
+				}
 			}
 		}else{
 			
@@ -116,9 +128,7 @@
 				%>
 				</td>
 				</tr>
-				<tr colspan="3" align="left">
-					<td><a href="FrontController?res=index.jsp">Volver al inicio</a></td>
-				</tr>
+				
 				<%
 			} else {
 				%>
@@ -129,15 +139,16 @@
 				%>
 				</td>
 				</tr>
-				<tr colspan="3" align="left">
-					<td><a href="FrontController?res=index.jsp">Volver al inicio</a></td>
-				</tr>
+				
 				<%
 			}
 			
 		}
 			
 		%>
+		<tr colspan="3" align="left">
+			<td><a href="FrontController?res=index.jsp">Volver al inicio</a></td>
+		</tr>
 		
 		</table>
 	</fieldset>
