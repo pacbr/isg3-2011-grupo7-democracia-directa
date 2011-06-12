@@ -26,5 +26,7 @@ public interface IUsuarioDAO {
 	Tag deleteTag(Tag t);
 
 	boolean insertVoto(String idPLey, String idUsuario);
+
+	boolean updatePleyesVotadas(Usuario u);
 	
 }

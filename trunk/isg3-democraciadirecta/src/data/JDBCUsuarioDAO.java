@@ -300,5 +300,41 @@ public class JDBCUsuarioDAO implements IUsuarioDAO{
         }
 		return res;
 	}
+
+	@Override
+	public boolean updatePleyesVotadas(Usuario u) {
+		boolean res = false;
+		Connection con = ConnectionManager.getInstance().checkOut();
+        PreparedStatement stmt = null;
+        String sql = "UPDATE usuarios SET leyesvotadas = ? WHERE id = ?";
+        List<String> pleyesVotadas = u.getPleyesVotadas();
+        String cadenaDeVotos = "";
+        try {
+            stmt = (PreparedStatement) con.prepareStatement(sql);
+            for(String s:pleyesVotadas){
+            	cadenaDeVotos=cadenaDeVotos+s+";";
+            }
+            
+            stmt.setString(1, cadenaDeVotos);
+            stmt.setString(2, u.getId());
+            int resultado = stmt.executeUpdate();
+			if (resultado != 0){
+				res = true;
+			}
+
+        } catch (SQLException e) {
+            System.out.println("Message: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("ErrorCode: " + e.getErrorCode());
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException e) {
+            }
+        }
+		return res;
+	}
 	
 }

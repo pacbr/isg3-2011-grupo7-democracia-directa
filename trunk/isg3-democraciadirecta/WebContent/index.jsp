@@ -177,6 +177,7 @@ contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 			<div id="cierra">
 				Usuario: <% out.println(u.getNombre()); %> <a href="FrontController?res=logOut.jsp">Cerrar Sesion</a>
 				<br>
+				<a href="FrontController?res=usuario.jsp">Ver perfil</a>
 			</div>
 			<div id="seleccionaTodas">
 				<%if(todas != null && todas.compareTo("yes")==0){%>
