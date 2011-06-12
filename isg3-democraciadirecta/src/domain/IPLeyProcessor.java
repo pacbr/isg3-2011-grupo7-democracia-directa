@@ -11,4 +11,8 @@ public interface IPLeyProcessor {
 	PLey obtenerPLeyPorId(String id);
 	public List<PLey> obtenerTodasPleyes();
 	boolean nuevaVisita(PLey pley);
+	List<PLey> getPLeyesPorUsuario(Usuario u);
+	List<PLey> getPLeyesVotadasPorUsuario(Usuario u);
+	boolean borrarPLey(PLey p);
+	boolean editarPLey(PLey p);
 }
