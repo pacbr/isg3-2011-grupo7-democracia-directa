@@ -25,6 +25,18 @@ background-color: #FFFFFF;
 
 }
 
+#perfil{
+border:#000000 3px solid;
+background-color: #F0F0F0;
+border-color: #996600;
+}
+
+#foto{
+float: right;
+margin-right: 17px;
+margin-top: 13px;
+}
+
 #table{
 width: 400px;
 border:#000000 1px solid;
@@ -84,16 +96,27 @@ text-align: right;
 	<%
 	Usuario usuario = (Usuario) session.getAttribute("dd.usuario");
 	IPLeyProcessor pp = new PLeyProcessor();
+	List<PLey> pleyesCreadas = pp.getPLeyesPorUsuario(usuario);
+	List<PLey> pleyesVotadas = pp.getPLeyesVotadasPorUsuario(usuario);
 	%>
 	<div id="contenedor">
 		<div id="lateralIzd">
-			<p><u><b>Nombre:</b></u> <%=usuario.getNombre()%></p>
-			<p><u><b>Nick:</b></u> <%=usuario.getNick()%></p>
-			<p><u><b>Email:</b></u> <%=usuario.getEmail()%></p>
-			
+			<div id="perfil">
+			<div id="foto">
+					<img src='img/foto.gif'>
+					</div>
+				<ul>	
+					<li><u><b>Nombre:</b></u> <%=usuario.getNombre()%></li>
+					<li><u><b>Nick:</b></u> <%=usuario.getNick()%></li>
+					<li><u><b>Email:</b></u> <%=usuario.getEmail()%></li>
+					
+				</ul>
+				
+			</div>
+			<br>
 			<table id="table">
 				<tr id="encabezado">
-					<th>Propuestas que has creado</th>
+					<th>Propuestas que has creado (<%=pleyesCreadas.size() %>)</th>
 				</tr>
 			</table>
 			<table id="table">
@@ -105,7 +128,7 @@ text-align: right;
 				<%
 				int contador = 1;
 				String posicion = "impar";
-				for(PLey p:pp.getPLeyesPorUsuario(usuario)){
+				for(PLey p:pleyesCreadas){
 					if(contador%2==0){
 						posicion="par";
 					}else{
@@ -159,7 +182,7 @@ text-align: right;
 			<br><br>
 			<table id="table2">
 				<tr id="encabezado">
-					<th>Propuestas que has votado</th>
+					<th>Propuestas que has votado (<%=pleyesVotadas.size() %>)</th>
 				</tr>
 			</table>
 			<table id="table2">
@@ -169,7 +192,7 @@ text-align: right;
 				</tr>
 			<%
 			contador=1;
-			for(PLey p:pp.getPLeyesVotadasPorUsuario(usuario)){
+			for(PLey p:pleyesVotadas){
 				if(contador%2==0){
 					posicion="par";
 				}else{
