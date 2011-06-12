@@ -16,6 +16,8 @@ IPLeyDAO pleyDAO = new JDBCPLeyDAO();
 		boolean res = false;
 		if (!usuarioDAO.select(u.getId()).getPleyesVotadas().contains(p.getId())){
 			res = usuarioDAO.insertVoto(p.getId(), u.getId()) && pleyDAO.insertVoto(p.getId());
+			u.getPleyesVotadas().add(p.getId());
+			p.setVotos(p.getVotos()+1);
 		}
 		return res;
 	}
