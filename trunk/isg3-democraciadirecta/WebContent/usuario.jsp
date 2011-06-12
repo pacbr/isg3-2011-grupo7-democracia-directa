@@ -143,6 +143,7 @@ text-align: right;
 					<th>Votos</th>
 				</tr>
 			<%
+			contador=1;
 			for(PLey p:pp.getPLeyesVotadasPorUsuario(usuario)){
 				if(contador%2==0){
 					posicion="par";

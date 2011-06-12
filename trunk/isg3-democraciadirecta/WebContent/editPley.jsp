@@ -54,18 +54,35 @@ text-align: center;
 			if(request.getParameter("accion").equals("edit")){
 				if(request.getParameter("confirmar").equals("yes")){
 					if(pp.editarPLey(sessionPley)){
+						out.println("Todavía no se ha editado, falta crear metodos");
 						out.println("Editada correctamente.");
 					}else{
+						out.println("Todavía no se ha editado, falta crear metodos");
 						out.println("Hubo un error al editarla.");
 					}
-				}
-			}else{
+				}else{
 				%><div id="advertencia"><b>
 				¿VAS A EDITAR LA PLEY: "
 				<u><%=sessionPley.getNombre()%></u>"?
-				<br>
-				<a href="FrontController?res=editPley.jsp?idPLey=<%=sessionPley.getId()%>&accion=edit&confirmar=yes">Continuar</a>
-				</b></div><%
+				</b></div>
+				<div>
+				<form action="FrontController?res=addpropuestaley.jsp" method="post">
+						<label for="nombre">Nombre</label>
+						<br>
+						<input type="text" id="nombre" name="nombre" size=40 value="<%=sessionPley.getNombre()%>">
+						<br> 
+						<label for="descripcion">Descripción</label>
+						<br>
+						<textarea id="descripcion" name="descripcion" rows="5" cols="40"><%=sessionPley.getDescripcion()%>
+						</textarea>
+						<br>
+						<input type="button" value="Continuar" onclick="window.location='FrontController?res=editPley.jsp?idPLey=<%=sessionPley.getId()%>&accion=edit&confirmar=yes'">
+						<input type="button" value="Cancelar" onclick="window.location='FrontController?res=usuario.jsp'">
+				</form>
+ 				</div>
+				
+				<%
+				}
 			}
 		}
 	}
