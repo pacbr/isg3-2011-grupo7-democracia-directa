@@ -585,6 +585,41 @@ public class JDBCPLeyDAO implements IPLeyDAO{
 		return res;
 	}
 
+	@Override
+	public boolean deletePley(String idPley) {
+		boolean res = false;
+		PreparedStatement stmt = null;
+		String sql = "DELETE FROM pleyes WHERE id = ?";
+		
+		try {
+			stmt = con.prepareStatement(sql);
+			stmt.setString(1, idPley);
+			int resultado = stmt.executeUpdate();
+			if (resultado != 0){
+				res = true;
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Message: " + e.getMessage());
+			System.out.println("SQLState: " + e.getSQLState());
+			System.out.println("ErrorCode: " + e.getErrorCode());
+		} finally {
+			try {
+				if (stmt != null) {
+					stmt.close();
+				}
+			} catch (SQLException e) {
+			}
+		}
+		return res;
+	}
+
+	@Override
+	public boolean updatePley(PLey p) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	
 	
 }
