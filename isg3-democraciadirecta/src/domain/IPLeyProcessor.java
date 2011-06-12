@@ -15,4 +15,5 @@ public interface IPLeyProcessor {
 	List<PLey> getPLeyesVotadasPorUsuario(Usuario u);
 	boolean borrarPLey(PLey p);
 	boolean editarPLey(PLey p);
+	boolean validaForm(String nombre, List<Tag> tags, String descripcion,Usuario usuario);
 }

@@ -616,8 +616,41 @@ public class JDBCPLeyDAO implements IPLeyDAO{
 
 	@Override
 	public boolean updatePley(PLey p) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean res = false;
+		PreparedStatement stmt = null;
+		String sql = "UPDATE pleyes SET nombre = ?, tags = ?, descripcion = ? WHERE id = ?";
+		
+		try {
+			
+			stmt = con.prepareStatement(sql);
+			
+			stmt.setString(1, p.getNombre());
+			String tags = "";
+			for (Tag t : p.getTags()) {
+				tags = tags.concat(t.getId()+";");
+			}
+			stmt.setString(2, tags);
+			stmt.setString(3, p.getDescripcion());
+			stmt.setString(4, p.getId());
+			
+			int resultado = stmt.executeUpdate();
+			if (resultado != 0){
+				res = true;
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Message: " + e.getMessage());
+			System.out.println("SQLState: " + e.getSQLState());
+			System.out.println("ErrorCode: " + e.getErrorCode());
+		} finally {
+			try {
+				if (stmt != null) {
+					stmt.close();
+				}
+			} catch (SQLException e) {
+			}
+		}
+		return res;
 	}
 
 	

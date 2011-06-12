@@ -107,4 +107,22 @@ public class PLeyProcessor implements IPLeyProcessor{
 	public boolean editarPLey(PLey p) {
 		return pleyDAO.updatePley(p);
 	}
+
+	@Override
+	public boolean validaForm(String nombre, List<Tag> tags, String descripcion, Usuario usuario) {
+		boolean valida = true;
+		if (nombre == null || nombre.equals("")) {
+			valida = false;
+		}
+		if (tags.size() == 0) {
+			valida = false;
+		}
+		if (descripcion == null || descripcion.equals("")) {
+			valida = false;
+		}
+		if (usuario == null) {
+			valida = false;
+		}
+		return valida;
+	}
 }
