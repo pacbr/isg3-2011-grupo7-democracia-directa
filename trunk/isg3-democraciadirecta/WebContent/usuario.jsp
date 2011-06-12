@@ -22,15 +22,17 @@ float:left; /*Aqui determinas de lado quieres quede esta "columna" */
 #principal{
 margin-left:450px; /*Este margen hace que no se encime el contenido en tu menúlateral, es importante que pongas un pocos pixeles más que el ancho  de tu columna lateral*/
 background-color: #FFFFFF;
-border:#000000 1px solid; /*ponemos un dorde para que se vea bonito*/
+
 }
 
 #table{
 width: 400px;
+border:#000000 1px solid;
 }
 
 #table2{
 width: 550px;
+border:#000000 1px solid;
 }
 
 #encabezado{
@@ -70,6 +72,9 @@ width: 90px;
 text-align: right;
 }
 
+#vueltaInicio{
+text-align: right;
+}
 
 -->
 </style>
@@ -94,8 +99,8 @@ text-align: right;
 			<table id="table">
 				<tr id="titulos">
 					<th>Nombre</th>
-					<th>Editar</th>
 					<th>Borrar(*)</th>
+					<th>Editar(**)</th>
 				</tr>
 				<%
 				int contador = 1;
@@ -115,8 +120,21 @@ text-align: right;
 						<%
 						if(p.isActiva()&&(p.getVotos()<11)){
 							%>
-							<th id="imagen"><a href="FrontController?res=editPley.jsp?idPLey=<%=p.getId()%>&accion=edit&confirmar=no""><img src='img/editar.png'></a></th>
 							<th id="imagen"><a href="FrontController?res=editPley.jsp?idPLey=<%=p.getId()%>&accion=delete&confirmar=no""><img src='img/borrar.png'></a></th>
+							<%
+							if(p.isActiva()&&(p.getVotos()==0)){
+								%>
+								<th id="imagen"><a href="FrontController?res=editPley.jsp?idPLey=<%=p.getId()%>&accion=edit&confirmar=no""><img src='img/editar.png'></a></th>
+								<%
+							}else{
+								%>
+								<th></th>
+								<%
+							}
+						}else{
+							%>
+							<th></th>
+							<th></th>
 							<%
 						}
 					contador++;
@@ -125,13 +143,20 @@ text-align: right;
 				
 			</table>
 			<br>
-			<div id="comentario">(*)Sólo podrás eliminar aquellas propuestas que no tengan más de 10 votos</div>
+			<div id="comentario">(*)Sólo podrás eliminar aquellas propuestas que no tengan más de 10 votos.
+			<br>(**)Sólo podrás editar aquellas propuestas que no tengan ningún voto.
+			</div>
 			
 		</div>
 	
 	
 	
 			<div id="principal">
+			<br>
+			<div id="vueltaInicio">
+				<a href="FrontController?res=index.jsp">Volver al inicio</a>
+			</div>
+			<br><br>
 			<table id="table2">
 				<tr id="encabezado">
 					<th>Propuestas que has votado</th>

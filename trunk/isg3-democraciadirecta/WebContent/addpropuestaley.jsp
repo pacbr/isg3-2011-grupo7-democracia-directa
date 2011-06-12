@@ -166,9 +166,9 @@
 	} else if (request.getParameter("continuar") != null && request.getParameter("continuar").equals("ok")) {
 		sessionPLey = (PLey)session.getAttribute("session.PLey");
 		if (pp.insertaPLey(sessionPLey)) {
-			out.println("<p class='exito'>PLey insertada con éxito.</p>");
+			out.println("<p class='exito'>Propuesta de ley insertada con éxito.</p>");
 		} else {
-			out.println("<p class='error'>Error al insertar la PLey.</p>");
+			out.println("<p class='error'>Error al insertar la propuesta de ley.</p>");
 		}
 	} else {
 	%>

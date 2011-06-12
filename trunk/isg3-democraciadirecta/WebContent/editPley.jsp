@@ -51,38 +51,79 @@ text-align: center;
 				}
 			}
 		else{
-			if(request.getParameter("accion").equals("edit")){
-				if(request.getParameter("confirmar").equals("yes")){
-					if(pp.editarPLey(sessionPley)){
-						out.println("Todavía no se ha editado, falta crear metodos");
-						out.println("Editada correctamente.");
+			if(sessionPley.getVotos()==0){
+				if(request.getParameter("accion").equals("edit")){
+					if(request.getParameter("confirmar").equals("yes")){
+						String nombre = request.getParameter("edit.nombre");
+						String[] idTags = request.getParameterValues("edit.tags");
+						String descripcion = request.getParameter("edit.descripcion");
+						List<Tag> tags = new ArrayList<Tag>();
+						if (idTags != null) {
+							for (String s : idTags) {
+								tags.add(pp.obtenerTagPorId(s));
+							}
+						}
+						
+						if(pp.validaForm(nombre,tags,descripcion,usuario)){
+							sessionPley.setNombre(nombre);
+					 		sessionPley.setTags(tags);
+					 		sessionPley.setDescripcion(descripcion);
+					 		session.setAttribute("edit.PLey", sessionPley);
+					 		if(pp.editarPLey(sessionPley)){
+								out.println("Editada correctamente.");
+							}else{
+								out.println("Hubo un error al editarla.");
+							}
+						}else{
+							out.println("Hay algún campo que no está correctamente rellenado. Por favor vuelve atrás y corrígelo.");
+							%><br><a href="#" onclick="history.back(); return false">Atrás</a> <%
+						}
 					}else{
-						out.println("Todavía no se ha editado, falta crear metodos");
-						out.println("Hubo un error al editarla.");
+					%><div id="advertencia"><b>
+					VAS A EDITAR LA PROPUESTA DE LEY: "
+					<u><%=sessionPley.getNombre()%></u>"
+					</b></div>
+					<div>
+					<form action="FrontController?res=editPley.jsp?idPLey=<%=sessionPley.getId()%>&accion=edit&confirmar=yes" method="post">
+							<label for="nombre">Nombre</label>
+							<br>
+							<input type="text" id="edit.nombre" name="edit.nombre" size=40 value="<%=sessionPley.getNombre()%>">
+							<br> 
+							<br> 
+							<label for="edit.tags">Tags</label>
+							<br>
+							<select multiple name="edit.tags" size="5" >
+								<%
+								for (Tag t : pp.obtenerTags()) {
+								%>
+									<option value="<% out.println(t.getId()); %>"
+									<%
+									if(sessionPley.getTags().contains(t)){
+										%> selected<%
+									}
+									%>>
+									<% out.println(t.getNombre()); %>
+									</option>
+								<%
+								}
+								%>
+							</select> 
+							<br>
+							<label for="descripcion">Descripción</label>
+							<br>
+							<textarea id="edit.descripcion" name="edit.descripcion" rows="5" cols="40"><%=sessionPley.getDescripcion()%>
+							</textarea>
+							<br>
+							<input type="submit" value="Continuar" onclick="window.location='FrontController?res=editPley.jsp?idPLey=<%=sessionPley.getId()%>&accion=edit&confirmar=yes'">
+							<input type="button" value="Cancelar" onclick="window.location='FrontController?res=usuario.jsp'">
+					</form>
+	 				</div>
+					
+					<%
 					}
-				}else{
-				%><div id="advertencia"><b>
-				¿VAS A EDITAR LA PLEY: "
-				<u><%=sessionPley.getNombre()%></u>"?
-				</b></div>
-				<div>
-				<form action="FrontController?res=addpropuestaley.jsp" method="post">
-						<label for="nombre">Nombre</label>
-						<br>
-						<input type="text" id="nombre" name="nombre" size=40 value="<%=sessionPley.getNombre()%>">
-						<br> 
-						<label for="descripcion">Descripción</label>
-						<br>
-						<textarea id="descripcion" name="descripcion" rows="5" cols="40"><%=sessionPley.getDescripcion()%>
-						</textarea>
-						<br>
-						<input type="button" value="Continuar" onclick="window.location='FrontController?res=editPley.jsp?idPLey=<%=sessionPley.getId()%>&accion=edit&confirmar=yes'">
-						<input type="button" value="Cancelar" onclick="window.location='FrontController?res=usuario.jsp'">
-				</form>
- 				</div>
-				
-				<%
 				}
+			}else{
+				out.println("Esta ley ha sido votada. No puedes editarla ya.");
 			}
 		}
 	}
