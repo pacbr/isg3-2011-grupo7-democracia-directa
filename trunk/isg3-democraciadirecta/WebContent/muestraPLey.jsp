@@ -37,10 +37,10 @@
 		
 	if (!(request.getParameter("votar") != null && request.getParameter("votar").equals("ok"))) {
 		sessionPley = pp.obtenerPLeyPorId(request.getParameter("idPLey"));
-		session.setAttribute("session.PLey", sessionPley);
+		session.setAttribute("muestra.PLey", sessionPley);
 		pp.nuevaVisita(sessionPley);
 	}else{
-		sessionPley = (PLey)session.getAttribute("session.PLey");
+		sessionPley = (PLey)session.getAttribute("muestra.PLey");
 	}
 	%>
 	<div id="all">
