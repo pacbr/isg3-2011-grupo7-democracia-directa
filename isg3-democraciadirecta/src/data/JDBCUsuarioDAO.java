@@ -99,6 +99,16 @@ public class JDBCUsuarioDAO implements IUsuarioDAO{
 	            	}
 	            }
 	            temp.setUserTags(tags);
+
+	            String[] camposVotadas = result.getString("leyesvotadas").split(";");
+	            List<String> votos = new ArrayList<String>();
+	            for (String s : camposVotadas) {
+	            	if (s != "") {
+	            		
+	            		votos.add(s);
+	            	}
+	            }
+	            temp.setPleyesVotadas(votos);
 	            lista.add(temp);
             }
         } catch (SQLException e) {
@@ -186,6 +196,16 @@ public class JDBCUsuarioDAO implements IUsuarioDAO{
             	}
             }
             u.setUserTags(tags);
+
+            String[] camposVotadas = result.getString("leyesvotadas").split(";");
+            List<String> votos = new ArrayList<String>();
+            for (String s : camposVotadas) {
+            	if (s != "") {
+            		
+            		votos.add(s);
+            	}
+            }
+            u.setPleyesVotadas(votos);
         } catch (SQLException e) {
             System.out.println("Message: " + e.getMessage());
             System.out.println("SQLState: " + e.getSQLState());
