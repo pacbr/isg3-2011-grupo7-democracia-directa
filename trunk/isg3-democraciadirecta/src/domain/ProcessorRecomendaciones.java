@@ -62,9 +62,7 @@ public class ProcessorRecomendaciones implements IProcessorRecomendaciones
 	{
 		//Voy a almacenar en un mapa <Integer numeroApariciones, List<TAGs> conEseNumeroDeApariciones>
 		SortedMap<Integer,List<Tag>> mapaNumeroApariciones = new TreeMap<Integer, List<Tag>>(); 
-		
 		mapaNumeroApariciones.putAll(mapaDeAparicionesDeTags());
-		
 		//En base al numero de diferentes apariciones calculo el porcentaje de TAGs que se encuentran dentro
 		Integer principioMapa = 0;
 		Integer finMapa = mapaNumeroApariciones.size();
