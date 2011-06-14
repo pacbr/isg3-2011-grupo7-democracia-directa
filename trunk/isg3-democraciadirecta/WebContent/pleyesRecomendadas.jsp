@@ -9,66 +9,25 @@
 <title>Pleyes Recomendadas</title>
 <style type="text/css">
 <!--
-	#contenedor{
+
+#contenedor{
 text-align: left;
-width: 1000px;
-margin: auto;}
-
-#lateralIzd{
-width: 900px;  /*Este será el ancho que tendrá tu columna*/
-background-color: ;  /*Aquí pon el color del fondo que quieras para este lateral*/
-float:left; /*Aqui determinas de lado quieres quede esta "columna" */
+width: 1200;
+margin: auto;
 }
 
-#puntuacion{
-color: #0000FF;
-text-align:right;
-font-size: 12px;
-}
-
-#muestraPley{
-background-color: #FFA2A2;
-}
-
-#votos{
-text-align:right;
-}
-
-#posicion{
-text-align:center;
-}
-
-#usuario{
-text-align:right;
-}
-
-#prestigio{
-text-align:right;
-}
-
-#par{
-
-}
-
-#impar{
-background-color: #E0E0E0;
+#principal{
+margin-left:200px; 
+margin-right:200px;
+background-color: #FFFFFF;
+border:#000000 2px solid;
 }
 
 #titulos{
-background-color: #996600;
+background-color: #CCCCCC;
 text-align:center;
 color:#FFFFFF;
 font-family:Helvetica;
-}
-
-#pley{
-font-family:Calibri;
-}
-
-#leyenda{
-background-color: #808080;
-width: 900px;
-color:#FFFFFF;
 }
 
 #imagecenter {
@@ -80,14 +39,25 @@ margin: 0 auto 0 auto;
 background-image: url("img/votado.gif");
 }
 
+#default2{
+
+}
+
+#default{
+background-color: #f7f9aa;
+}
+
 -->
 </style>
 </head>
 <body>
+	<div align="center">
+		<a href="FrontController?res=index.jsp">Volver al inicio</a>
+	</div>
+
 	<div id="contenedor">
-		<div id="lateralIzd">
+		<div id="principal">
 			<div align="center">
-			<a href="FrontController?res=index.jsp">Volver al inicio</a>
 			</div>
 			<div>	
 				<% 
@@ -99,7 +69,7 @@ background-image: url("img/votado.gif");
 					Integer p1 = new Integer(request.getParameter("porcentaje1")); 
 					Integer p2 = new Integer(request.getParameter("porcentaje2"));
 					boolean favoritos ;
-					String posicion = "impar";
+					String posicion = "default";
 					if(request.getParameter("favoritos") == null)
 					{
 						favoritos = false;			
@@ -114,13 +84,13 @@ background-image: url("img/votado.gif");
 						<tr>
 				            <th id="titulos">   </th>
 		
-		                	<th id="titulos">TÍTULO</th>
+		                	<th id="titulos">Proyectos de Ley</th>
 		                	
-		                	<th id="titulos" style="width:20px">VOTADA</th>
+		                	<th id="titulos">Tags</th>
+		                	
+		                	<th id="titulos" style="width:20px">Votada</th>
 		            		
-		            		<th id="titulos">TAGs</th>
-		                	
-		                	<th id="titulos" style="width:100px">VOTOS</th>
+		            		
 						
 						</tr>
 						<%
@@ -131,9 +101,9 @@ background-image: url("img/votado.gif");
 							int cont = 1;
 							for (PLey p : auxPrint){
 								if(cont%2==0){
-									posicion="par";
+									posicion="default2";
 								}else{
-									posicion="impar";
+									posicion="default";
 								}
 						%>
 						<tr id="<%=posicion%>">
@@ -144,7 +114,7 @@ background-image: url("img/votado.gif");
 											%>
 										</B>
 									</td>
-									<td id="pley" style="width:480px">	
+									<td>	
 										<b>
 											<a href="FrontController?res=muestraPLey.jsp?idPLey=<%=	p.getId()%>">
 											<%
@@ -152,11 +122,14 @@ background-image: url("img/votado.gif");
 											%>
 											</a>
 										</b>
-										<br>
-											<B>Autor: </B>
-											<%
-												out.println(p.getUsuario().getNick());
-											%>
+									</td>
+									<td>
+										<%	
+											List<Tag> aux = p.getTags();
+											for(Tag t : aux){
+												out.println(t.getNombre()+"  ");					
+											}
+										%>
 									</td>
 									<td>
 										<%
@@ -167,21 +140,6 @@ background-image: url("img/votado.gif");
 											<%
 										}
 										%>
-									</td>
-									<td>
-										<%	
-											List<Tag> aux = p.getTags();
-											for(Tag t : aux){
-												out.println(t.getNombre()+"  ");					
-											}
-										%>
-									</td>
-									<td id=votos><b>
-										<%
-										session.setAttribute("id",p.getId());
-										out.println(p.getVotos());
-										%>
-										</b>
 									</td>
 								</tr>
 							<%
