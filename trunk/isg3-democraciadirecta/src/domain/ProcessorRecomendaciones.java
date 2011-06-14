@@ -22,11 +22,8 @@ public class ProcessorRecomendaciones implements IProcessorRecomendaciones
 	@Override
 	public List<PLey> recomienda(boolean b, String idUsuario, Integer i, Integer j) 
 	{
-		//Obtengo el nick del Usuario
 		Usuario usuario = usuarioDAO.select(idUsuario);		
-		//Creo la lista de Pleyes que devuelve el metodo
 		List<PLey> res = new ArrayList<PLey>();
-		//Diferencio entre el porcentaje maximo y el minimo que ha pedido el Usuario
 		Integer min, max;
 		if((max=i)<=(min=j))
 		{
@@ -48,7 +45,7 @@ public class ProcessorRecomendaciones implements IProcessorRecomendaciones
 				}
 			}
 		}
-		//Obtengo la List<PLey> de los Tags elegidos por porcentaje y devuelvo el resultado
+		//Obtengo la List<PLey> de los Tags elegidos por porcentaje y devuelvo el resultado del método
 		List<PLey> listpleyfiltradas = pleyDAO.getPLeyesByTags(resTags);
 		for(PLey e : listpleyfiltradas)
 		{
@@ -63,7 +60,7 @@ public class ProcessorRecomendaciones implements IProcessorRecomendaciones
 		//Voy a almacenar en un mapa <Integer numeroApariciones, List<TAGs> conEseNumeroDeApariciones>
 		SortedMap<Integer,List<Tag>> mapaNumeroApariciones = new TreeMap<Integer, List<Tag>>(); 
 		mapaNumeroApariciones.putAll(mapaDeAparicionesDeTags());
-		//En base al numero de diferentes apariciones calculo el porcentaje de TAGs que se encuentran dentro
+		//En base al numero de diferentes apariciones deseo calcular el porcentaje de TAGs que se encuentran dentro
 		Integer principioMapa = 0;
 		Integer finMapa = mapaNumeroApariciones.size();
 		Integer porcentajeMinimo = (min*finMapa)/100;
