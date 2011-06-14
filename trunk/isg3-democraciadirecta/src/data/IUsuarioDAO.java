@@ -15,16 +15,6 @@ public interface IUsuarioDAO {
 
 	Usuario select(String nick, String passwd);
 	
-	boolean add(Usuario u);
-	
-	Usuario delete(Usuario u);
-
-	List<Tag> selectTags(Usuario user);
-	
-	boolean addTag(Tag t);
-	
-	Tag deleteTag(Tag t);
-
 	boolean insertVoto(String idPLey, String idUsuario);
 
 	boolean updatePleyesVotadas(Usuario u);

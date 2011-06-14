@@ -225,35 +225,6 @@ public class JDBCUsuarioDAO implements IUsuarioDAO{
         return u;
 	}
 
-	@Override
-	public boolean add(Usuario u) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Usuario delete(Usuario u) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Tag> selectTags(Usuario user) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean addTag(Tag t) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Tag deleteTag(Tag t) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public boolean insertVoto(String idPLey, String idUsuario) {

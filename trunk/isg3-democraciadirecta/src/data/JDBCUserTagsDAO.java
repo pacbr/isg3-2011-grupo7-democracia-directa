@@ -25,7 +25,7 @@ public class JDBCUserTagsDAO implements IUserTagsDAO{
 
 	@Override
 	public List<Tag> getUserTags(String idUsuario) {
-		return usuarioDAO.selectTags(usuarioDAO.select(idUsuario));
+		return usuarioDAO.select(idUsuario).getUserTags();
 	}
 	
 	@Override
@@ -102,43 +102,5 @@ public class JDBCUserTagsDAO implements IUserTagsDAO{
         }
 		return false;
     }
-//		Usuario usuario = usuarioDAO.select(idUsuario);
-//		List<Tag> tagsDeUsuarioActuales = usuario.getUserTags();
-//		String cadenaDeTags=null;
-//		
-//		for(Tag tag:tagsDeUsuarioActuales)
-//			cadenaDeTags=cadenaDeTags.concat(tag.getId()+";");
-//		
-//		PreparedStatement stmt = null;
-//        String sql = "UPDATE usuarios SET tagsfav=" + cadenaDeTags + "WHERE id=" + idUsuario;
-//        try {
-//            stmt = (PreparedStatement) conn.prepareStatement(sql);
-
-//            stmt.setString(1, oido);
-//            stmt.setString(2, oida);
-//            stmt.setString(3, oidc);
-//            stmt.setString(4, o.getOrderID());
-//            stmt.setLong(5, o.getTimeplaced().getTime());
-//            stmt.setString(6, o.getPlacedbyCustomer());
-//
-//            stmt.executeUpdate();
-//
-//            //insert details
-//            ddao.insert(conn, o.getDetails(), oido);
-//
-//        } catch (SQLException e) {
-//            System.out.println("Message: " + e.getMessage());
-//            System.out.println("SQLState: " + e.getSQLState());
-//            System.out.println("ErrorCode: " + e.getErrorCode());
-//        } finally {
-//            try {
-//                if (stmt != null) {
-//                    stmt.close();
-//                }
-//            } catch (SQLException e) {
-//            }
-//        }
-//		return false;
-//    }
 
 }
