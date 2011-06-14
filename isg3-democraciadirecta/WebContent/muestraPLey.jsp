@@ -146,8 +146,8 @@
 		}
 			
 		%>
-		<tr colspan="3" align="left">
-			<td><a href="FrontController?res=index.jsp">Volver al inicio</a></td>
+		<tr align="left">
+			<td colspan="3"><a href="FrontController?res=index.jsp">Volver al inicio</a></td>
 		</tr>
 		
 		</table>
