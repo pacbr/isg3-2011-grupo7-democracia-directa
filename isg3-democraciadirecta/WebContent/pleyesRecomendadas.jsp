@@ -23,7 +23,7 @@ background-color: #FFFFFF;
 border:#000000 2px solid;
 }
 
-#titulos{
+#columnas{
 background-color: #CCCCCC;
 text-align:center;
 color:#FFFFFF;
@@ -82,13 +82,13 @@ background-color: #f7f9aa;
 					<br>
 					<table>
 						<tr>
-				            <th id="titulos">   </th>
+				            <th id="columnas" style="width:30px"></th>
 		
-		                	<th id="titulos">Proyectos de Ley</th>
+		                	<th id="columnas" align="center">Proyectos de Ley</th>
 		                	
-		                	<th id="titulos">Tags</th>
+		                	<th id="columnas" align="left">Tags</th>
 		                	
-		                	<th id="titulos" style="width:20px">Votada</th>
+		                	<th id="columnas">Votada</th>
 		            		
 		            		
 						
