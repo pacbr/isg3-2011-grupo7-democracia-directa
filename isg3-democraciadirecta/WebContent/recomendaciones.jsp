@@ -7,6 +7,72 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Recomendaciones</title>
+<style type="text/css">
+<!--
+	
+	body{
+		width:700px;
+		font-family: Arial;
+		margin:auto;
+	}
+	h1{
+		text-align:center;
+	}
+	h5{
+		text-align:center;
+
+	}
+	h5 a{
+		color: #039;
+	}
+	.exito {
+		color: #33ff00;
+		font-size: 20px;
+		text-align: center;
+	}
+	.error {
+		color: red;
+		font-size: 20px;
+		text-align: center;
+	}
+	.one-column-emphasis{
+		font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+		font-size: 12px;
+		margin: 10px;
+		width: 680px;
+		text-align: left;
+		border-collapse: collapse;
+	}
+	.one-column-emphasis th{
+		text-align:center;
+		font-size: 14px;
+		font-weight: normal;
+		padding: 12px 15px;
+		color: #039;
+	}
+	.one-column-emphasis td{
+		text-align:center;
+		padding: 10px 15px;
+		color: #669;
+		border-top: 1px solid #e8edff;
+	}
+	.oce-first{
+		background: #d0dafd;
+		border-right: 10px solid transparent;
+		border-left: 10px solid transparent;
+	}
+	.oce-top{
+		background: #dddddd;
+		border-right: 10px solid transparent;
+		border-left: 10px solid transparent;
+	}
+	.one-column-emphasis tr:hover td{
+		color: #339;
+		background: #eff2ff;
+	}
+	
+-->
+</style>
 </head>
 
 <body>
@@ -17,27 +83,19 @@
 		IProcessorRecomendaciones pr = new ProcessorRecomendaciones();
 	%>
 	<div>
-		<label for="sugerencias">RECOMENDACIONES</label>
+		<h1>RECOMENDACIONES</h1>
+		<h5><a href="FrontController?res=index.jsp">Volver a la página principal</a></h5>
 		<p> 
-		<label for="">
-		Te vamos a mostrar una serie de leyes, las leyes que te mostremos dependerán de los temas sobre los que tratan.
+		<h5>¡Recuerda marcar la casilla de <a href="FrontController?res=userTags.jsp">Temas Favoritos</a> si deseas que también usemos tus temas favoritos!
 		<BR>
-		Puedes hacer que tus <a href="FrontController?res=userTags.jsp">Temas Favoritos</a> también aparezcan entre estas leyes,
-		si asi lo deseas, marca la Casilla de <I><B>Temas Favoritos</B></I>.<BR>
-		Existen temas más frecuentes y temas menos frecuentes, elegirás los temas de las leyes dependiendo de su 
-		<BR> 
-		frecuencia de uso, cuanto más frecuentes sean, mayor porcentaje tendrán. 
-		<BR>
-		(90-99% Temas Muy Frecuentes, 1-20% Temas Poco Frecuentes)
-		<BR>
-		¿Sobre qué temas quieres votar?
-		<BR>
-		
-		</label>
+		Elige un porcentaje de aparición de Temas en la página y... Dale al botón ¡Recomiéndame!</h5>
+		<h6>(Si eliges 90-99% saldrán leyes sobre temas muy frecuentes, si eliges 1-20% será sobre temas poco frecuentes)</h6>
+
 		<p>
 		<form action="FrontController?res=pleyesRecomendadas.jsp" method="post">
 		<select name="porcentaje1">
-		<option value="1"> 1
+		<option value="1"> 1		
+		<option value="5"> 5
 		<option value="10"> 10
 		<option value="15"> 15
 		<option value="20"> 20
@@ -61,6 +119,7 @@
 		
 		<select name="porcentaje2">
 		<option value="1"> 1
+		<option value="5"> 5
 		<option value="10"> 10
 		<option value="15"> 15
 		<option value="20"> 20
