@@ -77,25 +77,6 @@
 		<h1>AÑADIR PROPUESTA DE LEY</h1>
 		<h5><a href="FrontController?res=index.jsp">Volver a la página principal</a></h5>
 	</div>
- 	<%!
-	private boolean validaForm(String nombre, List<Tag> tags, String descripcion,
-			Usuario usuario){
-		boolean valida = true;
-		if (nombre == null || nombre.equals("")) {
-			valida = false;
-		}
-		if (tags.size() == 0) {
-			valida = false;
-		}
-		if (descripcion == null || descripcion.equals("")) {
-			valida = false;
-		}
-		if (usuario == null) {
-			valida = false;
-		}
-		return valida;
-	}
-	%>
 	<%
 	IPLeyProcessor pp = new PLeyProcessor();
 	String nombre = request.getParameter("nombre");
@@ -109,7 +90,7 @@
 	}
 	Usuario usuario = (Usuario)session.getAttribute("dd.usuario");
 	PLey sessionPLey = null;
-	if (validaForm(nombre, tags, descripcion, usuario)) {
+	if (pp.validaForm(nombre, tags, descripcion, usuario)) {
 	%>
 		<div>
 	 		<%
