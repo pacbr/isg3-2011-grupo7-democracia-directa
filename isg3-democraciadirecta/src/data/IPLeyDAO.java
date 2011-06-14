@@ -12,7 +12,7 @@ public interface IPLeyDAO {
 	List<PLey> selectPLeyesByUser(Usuario user);
 	List<PLey> selectPLeyesActivasByUser(Usuario user);
 	List<PLey> selectPLeyesNoActivasByUser(Usuario user);
-	boolean voto(PLey e);
+	
 	List<PLey> selectAll();
 	PLey select(String idPley);
 	boolean insert(PLey p);

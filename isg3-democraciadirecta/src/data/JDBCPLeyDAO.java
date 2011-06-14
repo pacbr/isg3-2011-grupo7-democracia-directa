@@ -311,11 +311,6 @@ public class JDBCPLeyDAO implements IPLeyDAO{
         return lista;
 	}
 	
-	@Override
-	public boolean voto(PLey e) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	@Override
 	public PLey select(String idPley) {
