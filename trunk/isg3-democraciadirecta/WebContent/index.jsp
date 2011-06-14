@@ -108,7 +108,10 @@ contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 		<div class=leyes>
 			<table>
 				<thead>
-					<td>Votos</td><td>Leyes</td>
+					<tr>
+						<td>Votos</td>
+						<td>Leyes</td>
+					</tr>
 				</thead>
 				<tbody>
 					<%for(PLey p:pd.obtenerTodasPleyes()){%>
@@ -154,7 +157,10 @@ contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 		<%IProcessorUserTags proUserTags = new ProcessorUserTags();%>
 			<table>
 				<thead>
-					<td>Votos</td><td>Leyes</td>
+					<tr>
+						<td>Votos</td>
+						<td>Leyes</td>
+					</tr>
 				</thead>
 				<tbody>
 					<% 
