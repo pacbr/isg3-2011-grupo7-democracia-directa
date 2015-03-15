@@ -1,0 +1,1 @@
+Aplicación web que permite la implantación de la democracia directa en España.
